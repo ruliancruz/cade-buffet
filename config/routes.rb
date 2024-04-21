@@ -3,3 +3,4 @@ Rails.application.routes.draw do
   root to: "home#index"
   devise_for :buffet_owners, path: 'buffet_owners'
 end
+h
