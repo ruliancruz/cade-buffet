@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      buffet_owner: 'Dono de Buffet'
+    attributes:
+      buffet_owner:
+        email: 'E-mail'
+        password: 'Senha'
