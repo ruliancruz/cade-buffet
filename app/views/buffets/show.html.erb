@@ -1,12 +1,31 @@
 <h1>Meu Buffet</h1>
 <h2><%= @buffet.brand_name %></h2>
-<% unless @buffet.description.blank? %>
-  <p><%= @buffet.description %></p>
-<% end %>
-<ul>
-  <li>Razão Social: <%= @buffet.corporate_name %></li>
-  <li>CNPJ: <%= @buffet.formatted_cnpj %></li>
-  <li>Telefone: <%= @buffet.formatted_phone %></li>
-  <li>Endereço: <%= @buffet.full_address %></li>
+<section>
+  <% unless @buffet.description.blank? %>
+    <p><%= @buffet.description %></p>
+  <% end %>
+  <ul>
+    <li>Razão Social: <%= @buffet.corporate_name %></li>
+    <li>CNPJ: <%= @buffet.formatted_cnpj %></li>
+    <li>Telefone: <%= @buffet.formatted_phone %></li>
+    <li>Endereço: <%= @buffet.full_address %></li>
+  </ul>
+</section>
+<h3>Meios de Pagamento Aceitos</h3>
+<section>
+  <% if @buffet.payment_options.any? %>
+    <dl>
+      <% @buffet.payment_options.each do |payment_option| %>
+        <dt>
+          <%= link_to payment_option.name, edit_payment_option_path %>
+          <%= button_to 'Remover', payment_option_path, method: :delete %>
+        </dt>
+        <dd><%= payment_option.long_installment_limit %></dd>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Seu buffet não possui meios de pagamento cadastrados.</p>
+  <% end %>
+  <%= link_to 'Adicionar Meio de Pagamento', new_payment_option_path %>
   <%= link_to 'Alterar Dados', edit_buffet_path %>
-</ul>
+</section>

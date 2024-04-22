@@ -350,6 +350,37 @@ RSpec.describe Buffet, type: :model do
     it "false when cnpj isn't unique" do
       user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
+      another_user = BuffetOwner.create! email: 'another.user@example.com',
+                                         password: 'anotherpassword'
+
+      Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                     brand_name: 'Sabor & Arte Buffet',
+                     cnpj: '12345678000190',
+                     phone: '7531274464',
+                     address: 'Rua dos Sabores, 123',
+                     district: 'Centro',
+                     city: 'Culinária City',
+                     state: 'BA',
+                     cep: '12345678',
+                     buffet_owner: user
+
+      buffet = Buffet.new corporate_name: 'Sabores Deliciosos Ltda.',
+                          brand_name: 'Chef & Cia Buffet',
+                          cnpj: '12345678000190',
+                          phone: '9887654321',
+                          address: 'Avenida das Delícias, 456',
+                          district: 'Bairro Gourmet',
+                          city: 'Saborville',
+                          state: 'SP',
+                          cep: '87654321',
+                          buffet_owner: another_user
+
+      expect(buffet).not_to be_valid
+    end
+
+    it "false when buffet owner isn't unique" do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
       Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                      brand_name: 'Sabor & Arte Buffet',
                      cnpj: '12345678000190',

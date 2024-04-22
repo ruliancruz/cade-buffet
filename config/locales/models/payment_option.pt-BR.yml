@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      payment_option: 'Meio de Pagamento'
+    attributes:
+      payment_option:
+        name: 'Nome'
+        installment_limit: 'Limite de Parcelas'

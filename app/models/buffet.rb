@@ -1,5 +1,6 @@
 class Buffet < ApplicationRecord
   belongs_to :buffet_owner
+  has_many :payment_options
 
   validates :corporate_name,
             :brand_name,
@@ -20,6 +21,7 @@ class Buffet < ApplicationRecord
   validates :phone, numericality: { only_integer: true }
   validates :cep, numericality: { only_integer: true }
   validates :cnpj, uniqueness: true
+  validates :buffet_owner, uniqueness: true
 
   def full_address
     "#{address} - #{district}, #{city} - #{state}, #{cep.insert(5, '-')}"

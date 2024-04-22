@@ -38,6 +38,8 @@ describe 'User edits the buffet' do
       expect(page).to have_field 'CEP', with: '12345678'
       expect(page).to have_field 'Descrição', with: 'Oferecemos uma ' \
         'experiência gastronômica única.'
+
+      expect(page).to have_button 'Atualizar Buffet'
     end
   end
 

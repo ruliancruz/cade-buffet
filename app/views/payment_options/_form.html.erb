@@ -1,0 +1,13 @@
+<%= form_with model: @payment_option do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :installment_limit %>
+    <%= form.number_field :installment_limit, min: 0, step: 1 %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
