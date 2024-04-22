@@ -1,0 +1,45 @@
+<%= form_with model: @buffet do |form| %>
+  <div>
+    <%= form.label :corporate_name %>
+    <%= form.text_field :corporate_name %>
+  </div>
+  <div>
+    <%= form.label :brand_name %>
+    <%= form.text_field :brand_name %>
+  </div>
+  <div>
+    <%= form.label :cnpj %>
+    <%= form.number_field :cnpj, size: 14 %>
+  </div>
+  <div>
+    <%= form.label :phone %>
+    <%= form.telephone_field :phone, size: 11 %>
+  </div>
+  <div>
+    <%= form.label :cep %>
+    <%= form.number_field :cep, size: 8 %>
+  </div>
+  <div>
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+  <div>
+    <%= form.label :state %>
+    <%= form.text_field :state, size: 2 %>
+  </div>
+  <div>
+    <%= form.label :district %>
+    <%= form.text_field :district %>
+  </div>
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

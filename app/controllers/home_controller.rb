@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
-  def index
-  end
+  before_action :validate_buffet_creation, only: [:index]
+
+  def index; end
 end

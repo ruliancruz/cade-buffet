@@ -1,0 +1,12 @@
+<h1>Meu Buffet</h1>
+<h2><%= @buffet.brand_name %></h2>
+<% unless @buffet.description.blank? %>
+  <p><%= @buffet.description %></p>
+<% end %>
+<ul>
+  <li>Razão Social: <%= @buffet.corporate_name %></li>
+  <li>CNPJ: <%= @buffet.formatted_cnpj %></li>
+  <li>Telefone: <%= @buffet.formatted_phone %></li>
+  <li>Endereço: <%= @buffet.full_address %></li>
+  <%= link_to 'Alterar Dados', edit_buffet_path %>
+</ul>
