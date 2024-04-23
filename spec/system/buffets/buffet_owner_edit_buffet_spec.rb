@@ -188,7 +188,7 @@ describe 'User edits the buffet' do
                   buffet_owner: another_user
 
     login_as user
-    visit edit_buffet_path 1
+    visit edit_buffet_path 2
 
     within all("form")[1] do
       expect(page).to have_field 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
@@ -203,5 +203,17 @@ describe 'User edits the buffet' do
       expect(page).to have_field 'Descrição', with: 'Oferecemos uma ' \
         'experiência gastronômica única.'
     end
+  end
+
+  it "and is redirected to the buffet registration page if he is a buffet " \
+     "owner and hasn't registered his buffet yet." do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    login_as user
+    visit edit_buffet_path 1
+
+    expect(current_path).to eq new_buffet_path
+    expect(page).to have_content 'Você precisa cadastrar seu buffet antes ' \
+                                 'de acessar outras páginas'
   end
 end

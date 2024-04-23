@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User edits the payment option' do
-  it 'from the payment option page' do
+describe 'Buffet owner edits a payment option' do
+  it 'from the buffet page' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
@@ -105,6 +105,50 @@ describe 'User edits the payment option' do
     expect(page).to have_content 'Limite de Parcelas não é um número'
   end
 
+  it 'returning to his own buffet page if he tries to access another one ' \
+     'payment option edition page' do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    another_user = BuffetOwner.create! email: 'another.user@example.com',
+                                       password: 'another-password'
+
+    buffet = Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
+                            brand_name: 'Chef & Cia Buffet',
+                            cnpj: '08599251000146',
+                            phone: '9887654321',
+                            address: 'Avenida das Delícias, 456',
+                            district: 'Gourmet',
+                            city: 'Saborville',
+                            state: 'SP',
+                            cep: '87654321',
+                            buffet_owner: user
+
+    another_buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                                    brand_name: 'Sabor & Arte Buffet',
+                                    cnpj: '12345678000190',
+                                    phone: '7531274464',
+                                    address: 'Rua dos Sabores, 123',
+                                    district: 'Centro',
+                                    city: 'Culinária City',
+                                    state: 'BA',
+                                    cep: '12345678',
+                                    buffet_owner: another_user
+
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
+
+    PaymentOption.create! name: 'Pix',
+                          installment_limit: 1,
+                          buffet: another_buffet
+
+    login_as user
+    visit edit_payment_option_path 2
+
+    expect(current_path).to eq buffet_path 1
+    expect(page).to have_content 'Sabores Deliciosos Ltda.'
+  end
+
   it "returning to sign in page if he isn't signed in" do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
@@ -126,5 +170,17 @@ describe 'User edits the payment option' do
     visit edit_payment_option_path 1
 
     expect(current_path).to eq new_buffet_owner_session_path
+  end
+
+  it "and is redirected to the buffet registration page if he is a buffet " \
+     "owner and hasn't registered his buffet yet." do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    login_as user
+    visit edit_payment_option_path 1
+
+    expect(current_path).to eq new_buffet_path
+    expect(page).to have_content 'Você precisa cadastrar seu buffet antes ' \
+                                 'de acessar outras páginas'
   end
 end

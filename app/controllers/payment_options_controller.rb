@@ -16,6 +16,7 @@ class PaymentOptionsController < ApplicationController
 
     flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
                          'cadastrar o meio de pagamento.'
+
     render :new
   end
 
@@ -43,9 +44,12 @@ class PaymentOptionsController < ApplicationController
   end
 
   def set_payment_option
-    @payment_option = current_buffet_owner.buffet.payment_options.find params[:id]
+    selected_payment_option = PaymentOption.find params[:id]
 
-    return redirect_to current_buffet_owner.buffet, notice: 'Meio de ' \
-      'pagamento cadastrado com sucesso!' if @payment_option.nil?
+    return redirect_to current_buffet_owner.buffet if
+      selected_payment_option.nil? ||
+      selected_payment_option.buffet != current_buffet_owner.buffet
+
+    @payment_option = selected_payment_option
   end
 end

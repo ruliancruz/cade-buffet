@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_22_072029) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_032208) do
   create_table "buffet_owners", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -40,6 +40,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_072029) do
     t.index ["buffet_owner_id"], name: "index_buffets_on_buffet_owner_id"
   end
 
+  create_table "event_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "minimum_attendees", null: false
+    t.integer "maximum_attendees", null: false
+    t.integer "duration", null: false
+    t.string "menu", null: false
+    t.integer "provides_alcohol_drinks", null: false
+    t.integer "provides_decoration", null: false
+    t.integer "provides_parking_service", null: false
+    t.integer "serves_external_address", null: false
+    t.integer "buffet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
+  end
+
   create_table "payment_options", force: :cascade do |t|
     t.string "name", null: false
     t.integer "installment_limit"
@@ -62,5 +79,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_072029) do
   end
 
   add_foreign_key "buffets", "buffet_owners"
+  add_foreign_key "event_types", "buffets"
   add_foreign_key "payment_options", "buffets"
 end

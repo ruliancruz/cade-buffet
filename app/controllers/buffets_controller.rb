@@ -1,9 +1,11 @@
 class BuffetsController < ApplicationController
-  before_action :validate_buffet_creation, only: [:show]
+  before_action :validate_buffet_creation, only: [:show, :edit, :update]
   before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_buffet, only: [:show, :edit, :update]
+  before_action :set_buffet, only: [:edit, :update]
 
-  def show; end
+  def show
+    @buffet = Buffet.find params[:id]
+  end
 
   def new
     return redirect_to root_path if current_buffet_owner.present? && current_buffet_owner.buffet.present?

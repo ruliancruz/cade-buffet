@@ -162,8 +162,6 @@ RSpec.describe Buffet, type: :model do
     end
 
     it 'false when buffet owner is missing' do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
       buffet = Buffet.new corporate_name: 'Delícias Gastronômicas Ltda.',
                           brand_name: 'Sabor & Arte Buffet',
                           cnpj: '12345678000190',

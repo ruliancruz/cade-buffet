@@ -1,0 +1,46 @@
+<%= form_with model: @event_type do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.label :minimum_attendees %>
+    <%= form.number_field :minimum_attendees, min: 0, step: 1 %>
+  </div>
+  <div>
+    <%= form.label :maximum_attendees %>
+    <%= form.number_field :maximum_attendees, min: 0, step: 1 %>
+  </div>
+  <div>
+    <%= form.label :duration %>
+    <%= form.number_field :duration, min: 0, step: 1 %>minutos
+  </div>
+  <div>
+    <%= form.label :menu %>
+    <%= form.text_area :menu %>
+  </div>
+  <h2>Opções Adicionais</h2>
+  <div>
+    <%= form.label :provides_alcohol_drinks %>
+    <%= form.check_box :provides_alcohol_drinks %>
+  </div>
+  <div>
+    <%= form.label :provides_decoration %>
+    <%= form.check_box :provides_decoration %>
+  </div>
+  <div>
+    <%= form.label :provides_parking_service %>
+    <%= form.check_box :provides_parking_service %>
+  </div>
+  <div>
+    <%= form.label :serves_external_address %>
+    <%= form.check_box :serves_external_address %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

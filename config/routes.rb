@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :buffets, only: [:show, :new, :create, :edit, :update]
   resources :payment_options, only: [:new, :create, :edit, :update, :destroy]
+  resources :event_types, only: [:show, :new, :create]
+
   devise_for :buffet_owners, path: 'buffet_owners',
     controllers: { registrations: 'buffet_owners/registrations' }
 end
