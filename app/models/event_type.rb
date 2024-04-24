@@ -17,4 +17,20 @@ class EventType < ApplicationRecord
   validates :minimum_attendees, numericality: { only_integer: true }
   validates :maximum_attendees, numericality: { only_integer: true }
   validates :duration, numericality: { only_integer: true }
+
+  def provides_alcohol_drinks_text
+    provides_alcohol_drinks? ? 'Sim' : 'Não'
+  end
+
+  def provides_decoration_text
+    provides_decoration? ? 'Sim' : 'Não'
+  end
+
+  def provides_parking_service_text
+    provides_parking_service? ? 'Sim' : 'Não'
+  end
+
+  def serves_external_address_text
+    serves_external_address? ? 'Sim' : 'Não'
+  end
 end

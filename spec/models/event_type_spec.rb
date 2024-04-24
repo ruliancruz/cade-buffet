@@ -1,6 +1,246 @@
 require 'rails_helper'
 
 RSpec.describe EventType, type: :model do
+  describe '#provides_alcohol_drinks_text' do
+    it 'returns Sim if provides alcohol drinks is true' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: true,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_alcohol_drinks_text).to eq 'Sim'
+    end
+
+    it 'returns Não if provides alcohol drinks is false' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_alcohol_drinks_text).to eq 'Não'
+    end
+  end
+
+  describe '#provides_decoration_text' do
+    it 'returns Sim if provides decoration text is true' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: true,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_decoration_text).to eq 'Sim'
+    end
+
+    it 'returns Não if provides decoration text is false' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_decoration_text).to eq 'Não'
+    end
+  end
+
+  describe '#provides_parking_service_text' do
+    it 'returns Sim if provides parking service is true' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: true,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_parking_service_text).to eq 'Sim'
+    end
+
+    it 'returns Não if provides parking service is false' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.provides_parking_service_text).to eq 'Não'
+    end
+  end
+
+  describe '#serves_external_address_text' do
+    it 'returns Sim if serves external address is true' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: true,
+                                 buffet: buffet
+
+      expect(event_type.serves_external_address_text).to eq 'Sim'
+    end
+
+    it 'returns Não if serves external address is false' do
+      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                              brand_name: 'Sabor & Arte Buffet',
+                              cnpj: '12345678000190',
+                              phone: '7531274464',
+                              address: 'Rua dos Sabores, 123',
+                              district: 'Centro',
+                              city: 'Culinária City',
+                              state: 'BA',
+                              cep: '12345678',
+                              buffet_owner: user
+
+      event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                 description: 'Um evento descontraído',
+                                 minimum_attendees: 20,
+                                 maximum_attendees: 50,
+                                 duration: 120,
+                                 menu: 'Seleção de queijos, frutas e vinhos',
+                                 provides_alcohol_drinks: false,
+                                 provides_decoration: false,
+                                 provides_parking_service: false,
+                                 serves_external_address: false,
+                                 buffet: buffet
+
+      expect(event_type.serves_external_address_text).to eq 'Não'
+    end
+  end
+
   describe '#valid?' do
     it 'false when name is blank' do
       user = BuffetOwner.create! email: 'user@example.com', password: 'password'

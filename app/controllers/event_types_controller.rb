@@ -1,6 +1,10 @@
 class EventTypesController < ApplicationController
-  before_action :validate_buffet_creation, only: [:new, :create]
+  before_action :validate_buffet_creation, only: [:show, :new, :create]
   before_action :authenticate_buffet_owner!, only: [:new, :create]
+
+  def show
+    @event_type = EventType.find params[:id]
+  end
 
   def new
     @event_type = EventType.new
