@@ -11,10 +11,11 @@
   <h2>Cardápio</h2>
   <p><%= @event_type.menu %></p>
   <h2>Opções Adicionais</h2>
-  <menu>
+  <ul>
     <li>Fornece Bebidas Alcoólicas: <%= @event_type.provides_alcohol_drinks_text %></li>
     <li>Fornece Decoração: <%= @event_type.provides_decoration_text %></li>
     <li>Fornece Serviço de Estacionamento: <%= @event_type.provides_parking_service_text %></li>
     <li>Atende a Endereço Indicado por Cliente: <%= @event_type.serves_external_address_text %></li>
-  </menu>
+  </ul>
+  <%= link_to 'Alterar Dados', edit_event_type_path %>
 </section>

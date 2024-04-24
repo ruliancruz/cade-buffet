@@ -55,8 +55,7 @@ describe 'Buffet owner edits a payment option' do
                           buffet: buffet
 
     login_as user
-    visit buffet_path 1
-    click_on 'Cartão de Crédito'
+    visit edit_payment_option_path 1
 
     within all("form")[1] do
       fill_in 'Nome', with: 'Cartão de Crédito'
@@ -88,8 +87,7 @@ describe 'Buffet owner edits a payment option' do
                           buffet: buffet
 
     login_as user
-    visit buffet_path 1
-    click_on 'Cartão de Crédito'
+    visit edit_payment_option_path 1
 
     within all("form")[1] do
       fill_in 'Nome', with: ''

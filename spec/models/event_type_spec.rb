@@ -17,7 +17,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -46,7 +46,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -77,7 +77,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -106,7 +106,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -137,7 +137,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -166,7 +166,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -197,7 +197,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -226,7 +226,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -257,7 +257,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: '',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -315,7 +315,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: '',
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -344,7 +344,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: '',
                                  duration: 120,
@@ -373,7 +373,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: '',
@@ -402,7 +402,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -431,7 +431,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -459,7 +459,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -487,7 +487,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -515,7 +515,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -530,7 +530,7 @@ RSpec.describe EventType, type: :model do
 
     it 'false when buffet is missing' do
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -558,7 +558,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 'twenty',
                                  maximum_attendees: 50,
                                  duration: 120,
@@ -587,7 +587,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 'fifty',
                                  duration: 120,
@@ -616,7 +616,7 @@ RSpec.describe EventType, type: :model do
                               buffet_owner: user
 
       event_type = EventType.new name: 'Coquetel de Networking Empresarial',
-                                 description: 'Um evento descontraído',
+                                 description: 'Um evento descontraído.',
                                  minimum_attendees: 20,
                                  maximum_attendees: 50,
                                  duration: 'one hundred twenty',

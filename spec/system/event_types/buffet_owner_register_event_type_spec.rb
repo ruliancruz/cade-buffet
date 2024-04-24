@@ -19,7 +19,9 @@ describe 'Buffet owner register event type' do
     visit buffet_path 1
     click_on 'Adicionar Tipo de Evento'
 
-    expect(page).to have_content 'Adicione o Tipo de Evento'
+    within 'h1' do
+      expect(page).to have_content 'Adicionar Tipo de Evento'
+    end
 
     within all("form")[1] do
       expect(page).to have_field 'Nome'
@@ -33,6 +35,7 @@ describe 'Buffet owner register event type' do
       expect(page).to have_field 'Fornece Decoração'
       expect(page).to have_field 'Fornece Serviço de Estacionamento'
       expect(page).to have_field 'Atende a Endereço Indicado por Cliente'
+      expect(page).to have_button 'Criar Tipo de Evento'
     end
   end
 

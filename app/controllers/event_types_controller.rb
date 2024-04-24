@@ -1,6 +1,7 @@
 class EventTypesController < ApplicationController
-  before_action :validate_buffet_creation, only: [:show, :new, :create]
-  before_action :authenticate_buffet_owner!, only: [:new, :create]
+  before_action :validate_buffet_creation, only: [:show, :new, :create, :edit, :update]
+  before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update]
+  before_action :set_event_type, only: [:edit, :update]
 
   def show
     @event_type = EventType.find params[:id]
@@ -23,6 +24,18 @@ class EventTypesController < ApplicationController
     render :new
   end
 
+  def edit; end
+
+  def update
+    return redirect_to @event_type, notice: 'Tipo de evento atualizado com sucesso!' if
+      @event_type.update event_type_params
+
+    flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
+      'atualizar o tipo de evento.'
+
+    render :edit
+  end
+
   def event_type_params
     params.require(:event_type).permit :name,
                                        :description,
@@ -34,5 +47,15 @@ class EventTypesController < ApplicationController
                                        :provides_decoration,
                                        :provides_parking_service,
                                        :serves_external_address
+  end
+
+  def set_event_type
+    selected_event_type = EventType.find params[:id]
+
+    return redirect_to current_buffet_owner.buffet if
+      selected_event_type.nil? ||
+      selected_event_type.buffet != current_buffet_owner.buffet
+
+    @event_type = selected_event_type
   end
 end
