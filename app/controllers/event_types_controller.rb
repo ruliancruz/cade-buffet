@@ -1,7 +1,7 @@
 class EventTypesController < ApplicationController
-  before_action :validate_buffet_creation, only: [:show, :new, :create, :edit, :update]
-  before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update]
-  before_action :set_event_type, only: [:edit, :update]
+  before_action :validate_buffet_creation, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_event_type, only: [:edit, :update, :destroy]
 
   def show
     @event_type = EventType.find params[:id]
@@ -34,6 +34,11 @@ class EventTypesController < ApplicationController
       'atualizar o tipo de evento.'
 
     render :edit
+  end
+
+  def destroy
+    redirect_to current_buffet_owner.buffet,
+      notice: 'Tipo de evento excluído com sucesso!' if @event_type.destroy
   end
 
   def event_type_params

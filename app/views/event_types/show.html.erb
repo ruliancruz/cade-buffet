@@ -18,4 +18,5 @@
     <li>Atende a Endereço Indicado por Cliente: <%= @event_type.serves_external_address_text %></li>
   </ul>
   <%= link_to 'Alterar Dados', edit_event_type_path %>
+  <%= button_to 'Excluir', event_type_path, method: :delete %>
 </section>

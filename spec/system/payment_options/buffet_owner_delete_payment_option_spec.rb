@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User deletes a payment option' do
+describe 'Buffet owner deletes a payment option' do
   it 'with success' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
