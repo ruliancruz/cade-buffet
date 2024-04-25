@@ -1,0 +1,21 @@
+<%= form_with model: [@base_price.event_type, @base_price] do |form| %>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <%= form.label :minimum %>
+    <%= form.number_field :minimum, min: 0, step: 0.01 %>
+  </div>
+  <div>
+    <%= form.label :additional_per_person %>
+    <%= form.number_field :additional_per_person, min: 0, step: 0.01 %>
+  </div>
+  <div>
+    <%= form.label :extra_hour_value %>
+    <%= form.number_field :extra_hour_value, min: 0, step: 0.01 %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

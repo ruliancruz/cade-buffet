@@ -1,5 +1,6 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
+  has_many :base_prices, dependent: :destroy
 
   validates :name,
             :description,
@@ -14,9 +15,9 @@ class EventType < ApplicationRecord
             :buffet_id,
             presence: true
 
-  validates :minimum_attendees, numericality: { only_integer: true }
-  validates :maximum_attendees, numericality: { only_integer: true }
-  validates :duration, numericality: { only_integer: true }
+  validates :minimum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :maximum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :duration, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def provides_alcohol_drinks_text
     provides_alcohol_drinks? ? 'Sim' : 'Não'

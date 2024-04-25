@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_032208) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_212620) do
+  create_table "base_prices", force: :cascade do |t|
+    t.string "description", null: false
+    t.float "minimum", null: false
+    t.float "additional_per_person", null: false
+    t.float "extra_hour_value"
+    t.integer "event_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_base_prices_on_event_type_id"
+  end
+
   create_table "buffet_owners", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -78,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_032208) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "base_prices", "event_types"
   add_foreign_key "buffets", "buffet_owners"
   add_foreign_key "event_types", "buffets"
   add_foreign_key "payment_options", "buffets"

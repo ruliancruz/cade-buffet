@@ -19,6 +19,8 @@ describe 'Buffet owner register payment option' do
     visit buffet_path 1
     click_on 'Adicionar Meio de Pagamento'
 
+    expect(page).to have_content 'Adicionar Meio de Pagamento'
+
     within all("form")[1] do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Limite de Parcelas'

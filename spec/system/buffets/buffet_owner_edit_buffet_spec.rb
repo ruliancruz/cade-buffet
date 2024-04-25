@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User edits the buffet' do
+describe 'Buffet owner edits the buffet' do
   it 'from the buffet page' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 

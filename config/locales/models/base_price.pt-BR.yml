@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      base_price: 'Preço-base'
+    attributes:
+      base_price:
+        description: 'Descrição'
+        minimum: 'Valor Mínimo'
+        additional_per_person: 'Adicional por Pessoa'
+        extra_hour_value: 'Valor por Hora Extra'
+        event_type: 'Tipo de Evento'

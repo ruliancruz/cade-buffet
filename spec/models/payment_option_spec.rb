@@ -70,16 +70,16 @@ RSpec.describe PaymentOption, type: :model do
     it 'false when buffet is missing' do
       user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                     brand_name: 'Sabor & Arte Buffet',
+                     cnpj: '12345678000190',
+                     phone: '7531274464',
+                     address: 'Rua dos Sabores, 123',
+                     district: 'Centro',
+                     city: 'Culinária City',
+                     state: 'BA',
+                     cep: '12345678',
+                     buffet_owner: user
 
       payment_option = PaymentOption.new name: 'Cartão de Crédito',
                                          installment_limit: 12
@@ -123,7 +123,7 @@ RSpec.describe PaymentOption, type: :model do
                               buffet_owner: user
 
       payment_option = PaymentOption.new name: 'Cartão de Crédito',
-                                         installment_limit: '0',
+                                         installment_limit: -1,
                                          buffet: buffet
 
       expect(payment_option).not_to be_valid

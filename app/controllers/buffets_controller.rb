@@ -8,7 +8,7 @@ class BuffetsController < ApplicationController
   end
 
   def new
-    return redirect_to root_path if current_buffet_owner.present? && current_buffet_owner.buffet.present?
+    return redirect_to root_path if current_buffet_owner&.buffet
 
     @buffet = Buffet.new
   end
