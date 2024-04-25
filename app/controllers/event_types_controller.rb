@@ -41,6 +41,8 @@ class EventTypesController < ApplicationController
       notice: 'Tipo de evento excluído com sucesso!' if @event_type.destroy
   end
 
+  private
+
   def event_type_params
     params.require(:event_type).permit :name,
                                        :description,
