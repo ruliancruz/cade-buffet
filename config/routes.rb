@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :buffets, only: [:show, :new, :create, :edit, :update]
   resources :payment_options, only: [:new, :create, :edit, :update, :destroy]
+  resources :base_prices, only: [:destroy]
 
   resources :event_types, only: [:show, :new, :create, :edit, :update, :destroy] do
     resources :base_prices, only: [:new, :create]

@@ -23,7 +23,8 @@ class PaymentOptionsController < ApplicationController
   def edit; end
 
   def update
-    return redirect_to current_buffet_owner.buffet, notice: 'Meio de pagamento atualizado com sucesso!' if
+    return redirect_to current_buffet_owner.buffet,
+      notice: 'Meio de pagamento atualizado com sucesso!' if
       @payment_option.update payment_option_params
 
     flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
