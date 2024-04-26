@@ -13,7 +13,7 @@ class EventTypesController < ApplicationController
 
   def create
     @event_type = EventType.new event_type_params
-    @event_type.buffet_id = current_buffet_owner.buffet.id
+    @event_type.buffet = current_buffet_owner.buffet
 
     return redirect_to current_buffet_owner.buffet, notice: 'Tipo de Evento ' \
       'cadastrado com sucesso!' if @event_type.save

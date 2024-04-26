@@ -15,7 +15,7 @@ class BuffetsController < ApplicationController
 
   def create
     @buffet = Buffet.new buffet_params
-    @buffet.buffet_owner_id = current_buffet_owner.id
+    @buffet.buffet_owner = current_buffet_owner
 
     return redirect_to @buffet, notice: 'Buffet cadastrado com sucesso!' if @buffet.save
 

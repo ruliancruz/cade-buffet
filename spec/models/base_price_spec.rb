@@ -3,249 +3,93 @@ require 'rails_helper'
 RSpec.describe BasePrice, type: :model do
   describe '#valid?' do
     it 'false when description is blank' do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new description: ''
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
-
-      base_price = BasePrice.new description: '',
-                                 minimum: 10_000,
-                                 additional_per_person: 250,
-                                 event_type: event_type
-
-      expect(base_price).not_to be_valid
+      expect(base_price.errors.full_messages
+        .include? 'Descrição não pode ficar em branco').to be true
     end
 
     it 'false when minimum is blank' do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new minimum: ''
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
-
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: '',
-                                 additional_per_person: 250,
-                                 event_type: event_type
-
-      expect(base_price).not_to be_valid
+      expect(base_price.errors.full_messages
+        .include? 'Valor Mínimo não pode ficar em branco').to be true
     end
 
     it 'false when additional per person is blank' do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new additional_per_person: ''
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
-
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: 10_000,
-                                 additional_per_person: '',
-                                 event_type: event_type
-
-      expect(base_price).not_to be_valid
+      expect(base_price.errors.full_messages
+        .include? 'Adicional por Pessoa não pode ficar em branco').to be true
     end
 
     it 'false when event type is missing' do
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: 10_000,
-                                 additional_per_person: 250
+      base_price = BasePrice.new
 
-      expect(base_price).not_to be_valid
+      base_price.valid?
+
+      expect(base_price.errors.full_messages
+        .include? 'Tipo de Evento é obrigatório(a)').to be true
     end
 
     it "false when minimum isn't a number" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new minimum: 'ten thousand'
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
-
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: 'ten thousand',
-                                 additional_per_person: 250,
-                                 event_type: event_type
-
-      expect(base_price).not_to be_valid
+      expect(base_price.errors.full_messages
+        .include? 'Valor Mínimo não é um número').to be true
     end
 
     it "false when additional per person isn't a number" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new additional_per_person: 'two hundred fifty'
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
-
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: 10_000,
-                                 additional_per_person: 'two hundred fifty',
-                                 event_type: event_type
-
-      expect(base_price).not_to be_valid
+      expect(base_price.errors.full_messages
+        .include? 'Adicional por Pessoa não é um número').to be true
     end
 
     it "false when minimum isn't a positive number" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new minimum: -1
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
+      expect(base_price.errors.full_messages
+        .include? 'Valor Mínimo deve ser maior ou igual a 0').to be true
+    end
 
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: -1,
-                                 additional_per_person: 250,
-                                 event_type: event_type
+    it 'true when minimum is a positive number' do
+      base_price = BasePrice.new minimum: 0
 
-      expect(base_price).not_to be_valid
+      base_price.valid?
+
+      expect(base_price.errors.full_messages
+        .include? 'Valor Mínimo deve ser maior ou igual a 0').to be false
     end
 
     it "false when additional per person isn't a positive number" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      base_price = BasePrice.new additional_per_person: -1
 
-      buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                              brand_name: 'Sabor & Arte Buffet',
-                              cnpj: '12345678000190',
-                              phone: '7531274464',
-                              address: 'Rua dos Sabores, 123',
-                              district: 'Centro',
-                              city: 'Culinária City',
-                              state: 'BA',
-                              cep: '12345678',
-                              buffet_owner: user
+      base_price.valid?
 
-      event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                     description: 'Um evento descontraído.',
-                                     minimum_attendees: 20,
-                                     maximum_attendees: 50,
-                                     duration: 120,
-                                     menu: 'Seleção de queijos, frutas e vinhos',
-                                     provides_alcohol_drinks: true,
-                                     provides_decoration: true,
-                                     provides_parking_service: false,
-                                     serves_external_address: false,
-                                     buffet: buffet
+      expect(base_price.errors.full_messages
+        .include? 'Adicional por Pessoa deve ser maior ou igual a 0').to be true
+    end
 
-      base_price = BasePrice.new description: 'Meio de Semana',
-                                 minimum: 10_000,
-                                 additional_per_person: -1,
-                                 event_type: event_type
+    it 'true when additional per person is a positive number' do
+      base_price = BasePrice.new additional_per_person: 0
 
-      expect(base_price).not_to be_valid
+      base_price.valid?
+
+      expect(base_price.errors.full_messages
+        .include? 'Adicional por Pessoa deve ser maior ou igual a 0').to be false
     end
   end
 end

@@ -126,8 +126,8 @@ describe 'Buffet owner register base-price' do
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'Adicional por Pessoa não pode ficar em branco'
     expect(page).to have_content 'Valor Mínimo não pode ficar em branco'
-    expect(page).to have_content 'Adicional por Pessoa não é um número'
     expect(page).to have_content 'Valor Mínimo não é um número'
+    expect(page).to have_content 'Adicional por Pessoa não é um número'
   end
 
   it "returning to sign in page if he isn't signed in" do
