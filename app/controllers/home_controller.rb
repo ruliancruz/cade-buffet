@@ -2,6 +2,6 @@ class HomeController < ApplicationController
   before_action :validate_buffet_creation, only: [:index]
 
   def index
-    @buffets = Buffet.order(:brand_name)
+    @buffets = Buffet.all
   end
 end

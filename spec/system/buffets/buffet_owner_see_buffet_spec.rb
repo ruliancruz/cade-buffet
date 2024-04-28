@@ -36,13 +36,12 @@ describe 'Buffet owner sees buffet page' do
 
     expect(current_path).to eq buffet_path 2
     expect(page).to have_content 'Sabores Deliciosos Ltda.'
+    expect(page).to have_content 'Oferecemos uma experiência única.'
     expect(page).to have_content 'Chef & Cia Buffet'
     expect(page).to have_content '08.599.251/0001-46'
     expect(page).to have_content '(98) 8765-4321'
     expect(page).to have_content 'Avenida das Delícias, 456 - Gourmet, ' \
                                  'Saborville - SP, 87654-321'
-
-    expect(page).to have_content 'Oferecemos uma experiência única.'
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \

@@ -4,7 +4,7 @@
   <% if @buffets.any? %>
     <dl>
       <% @buffets.each do |buffet| %>
-        <dt><%= buffet.brand_name %></dt>
+        <dt><%= link_to buffet.brand_name, buffet_path(buffet.id) %></dt>
         <dd>Cidade: <%= buffet.city %> - <%= buffet.state %></dd>
       <% end %>
     </dl>

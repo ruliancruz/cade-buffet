@@ -1,0 +1,37 @@
+<h1><%= @buffet.brand_name %></h1>
+<% unless @buffet.description.blank? %>
+  <p><%= @buffet.description %></p>
+<% end %>
+<ul>
+  <li>CNPJ: <%= @buffet.formatted_cnpj %></li>
+  <li>Telefone: <%= @buffet.formatted_phone %></li>
+  <li>Endereço: <%= @buffet.full_address %></li>
+</ul>
+<section>
+  <h2>Meios de Pagamento Aceitos</h2>
+  <% if @buffet.payment_options.any? %>
+    <dl>
+      <% @buffet.payment_options.each do |payment_option| %>
+        <dt>
+          <%= payment_option.name %>
+        </dt>
+        <dd><%= payment_option.long_installment_limit %></dd>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Este buffet não possui meios de pagamento cadastrados.</p>
+  <% end %>
+</section>
+<section>
+  <h2>Tipos de Evento Oferecidos</h2>
+  <% if @buffet.event_types.any? %>
+    <dl>
+      <% @buffet.event_types.each do |event_type| %>
+        <dt><%= link_to event_type.name %></dt>
+        <dd><%= event_type.description %></dd>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Este buffet não possui tipos de evento cadastrados.</p>
+  <% end %>
+</section>

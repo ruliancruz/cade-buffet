@@ -5,6 +5,8 @@ class BuffetsController < ApplicationController
 
   def show
     @buffet = Buffet.find params[:id]
+
+    render :visitors_show unless buffet_owner_signed_in?
   end
 
   def new
