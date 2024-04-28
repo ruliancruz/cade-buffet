@@ -1,1 +1,14 @@
 <h1>Cadê Buffet</h1>
+<section>
+  <h2>Catálogo de Buffets</h2>
+  <% if @buffets.any? %>
+    <dl>
+      <% @buffets.each do |buffet| %>
+        <dt><%= buffet.brand_name %></dt>
+        <dd>Cidade: <%= buffet.city %> - <%= buffet.state %></dd>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Ainda não existem buffets cadastrados.</p>
+  <% end %>
+</section>
