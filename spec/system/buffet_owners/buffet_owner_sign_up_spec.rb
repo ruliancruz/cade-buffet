@@ -7,7 +7,7 @@ describe 'Buffet owner sign up' do
     click_on 'Entrar'
     click_on 'Criar nova conta'
 
-    within 'form' do
+    within 'main form' do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Senha', with: 'password'
       fill_in 'Confirme sua senha', with: 'password'

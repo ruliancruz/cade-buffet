@@ -1,0 +1,21 @@
+<h1>Resultados da busca por: <%= @query %></h1>
+<% if @buffets.any? %>
+  <p><%= @buffets.count %> <%= @buffets.count > 1 ? "buffets encontrados" : "buffet encontrado" %></p>
+  <dl>
+    <% @buffets.each do |buffet| %>
+      <dt><%= link_to buffet.brand_name, buffet_path(buffet.id) %></dt>
+      <dd><%= buffet.city %> - <%= buffet.state %></dd>
+      <% if buffet.event_types.any? %>
+        <dd>Tipos de Evento Oferecidos
+          <ul>
+            <% buffet.event_types.each do |event_type| %>
+              <li><%= event_type.name %></li>
+            <% end %>
+          </ul>
+        </dd>
+      <% end %>
+    <% end %>
+  </dl>
+<% else %>
+  Nenhum buffet encontrado.
+<% end %>

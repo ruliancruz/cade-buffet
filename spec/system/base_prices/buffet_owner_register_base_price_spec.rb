@@ -33,7 +33,7 @@ describe 'Buffet owner register base-price' do
 
     expect(page).to have_content 'Adicionar Preço-base'
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Descrição'
       expect(page).to have_field 'Valor Mínimo'
       expect(page).to have_field 'Adicional por Pessoa'
@@ -70,7 +70,7 @@ describe 'Buffet owner register base-price' do
     login_as user
     visit new_event_type_base_price_path(event_type)
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Descrição', with: 'Meio de Semana'
       fill_in 'Valor Mínimo', with: 10_000
       fill_in 'Adicional por Pessoa', with: 250
@@ -115,7 +115,7 @@ describe 'Buffet owner register base-price' do
     login_as user
     visit new_event_type_base_price_path(event_type)
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Valor por Hora Extra', with: 1_000
       click_on 'Criar Preço-base'
     end

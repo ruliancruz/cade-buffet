@@ -26,7 +26,7 @@ describe 'Buffet owner edits the buffet' do
       expect(page).to have_content 'Atualize Seu Buffet'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       expect(page).to have_field 'Nome Fantasia', with: 'Sabor & Arte Buffet'
       expect(page).to have_field 'CNPJ', with: '12345678000190'
@@ -61,7 +61,7 @@ describe 'Buffet owner edits the buffet' do
     visit buffet_path 1
     click_on 'Alterar Dados'
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Razão Social', with: 'Delícias Gastronômicas'
       fill_in 'Nome Fantasia', with: 'Sabor e Arte Buffet'
       fill_in 'CNPJ', with: '12345678000191'
@@ -103,7 +103,7 @@ describe 'Buffet owner edits the buffet' do
     login_as user
     visit edit_buffet_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Razão Social', with: ''
       fill_in 'Nome Fantasia', with: ''
       fill_in 'CNPJ', with: ''
@@ -190,7 +190,7 @@ describe 'Buffet owner edits the buffet' do
     login_as user
     visit edit_buffet_path 2
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       expect(page).to have_field 'Nome Fantasia', with: 'Sabor & Arte Buffet'
       expect(page).to have_field 'CNPJ', with: '12345678000190'

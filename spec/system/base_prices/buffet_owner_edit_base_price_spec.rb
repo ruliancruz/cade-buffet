@@ -43,7 +43,7 @@ describe 'Buffet owner edits a base-price' do
       expect(page).to have_content 'Editar Preço-base'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Descrição'
       expect(page).to have_field 'Valor Mínimo'
       expect(page).to have_field 'Adicional por Pessoa'
@@ -87,7 +87,7 @@ describe 'Buffet owner edits a base-price' do
     login_as user
     visit edit_base_price_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Descrição', with: 'Meio de Semana'
       fill_in 'Valor Mínimo', with: 10_000
       fill_in 'Adicional por Pessoa', with: 250
@@ -137,7 +137,7 @@ describe 'Buffet owner edits a base-price' do
     login_as user
     visit edit_base_price_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Descrição', with: ''
       fill_in 'Valor Mínimo', with: ''
       fill_in 'Adicional por Pessoa', with: ''

@@ -12,6 +12,13 @@
       <nav>
         <menu>
           <li><%= link_to 'Página Inicial', root_path %></li>
+          <li>
+            <%= form_with url: search_buffets_path, method: :get do |form| %>
+              <%= form.label :query, 'Buscar Buffet' %>
+              <%= form.text_field :query %>
+              <%= form.submit 'Buscar' %>
+            <% end %>
+          </li>
           <% if buffet_owner_signed_in? %>
             <li><%= current_buffet_owner.email %></li>
             <li><%= button_to 'Sair', destroy_buffet_owner_session_path, method: :delete %></li>
@@ -23,6 +30,8 @@
     </header>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

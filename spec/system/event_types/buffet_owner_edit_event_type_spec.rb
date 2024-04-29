@@ -37,7 +37,7 @@ describe 'Buffet owner edits a event type' do
       expect(page).to have_content 'Editar Tipo de Evento'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Descrição'
       expect(page).to have_field 'Mínimo de Pessoas'
@@ -82,7 +82,7 @@ describe 'Buffet owner edits a event type' do
     login_as user
     visit edit_event_type_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: 'Coquetel de Networking Social'
       fill_in 'Descrição', with: 'Um evento descontraído e casual.'
       fill_in 'Mínimo de Pessoas', with: '30'
@@ -138,7 +138,7 @@ describe 'Buffet owner edits a event type' do
     login_as user
     visit edit_event_type_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: ''
       fill_in 'Descrição', with: ''
       fill_in 'Mínimo de Pessoas', with: ''

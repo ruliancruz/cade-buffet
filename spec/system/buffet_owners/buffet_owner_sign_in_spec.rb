@@ -18,7 +18,7 @@ describe 'Buffet owner sign in' do
     visit root_path
     click_on 'Entrar'
 
-    within 'form' do
+    within 'main form' do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Senha', with: 'password'
       click_on 'Entrar'
@@ -50,7 +50,7 @@ describe 'Buffet owner sign in' do
     visit root_path
     click_on 'Entrar'
 
-    within 'form' do
+    within 'main form' do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Senha', with: 'password'
       click_on 'Entrar'

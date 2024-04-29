@@ -38,7 +38,7 @@ describe 'User visits the homepage' do
     expect(page).to have_content 'Saborville - SP'
   end
 
-  it 'and see a message if there is no buffet registered ' do
+  it 'and see a message if there is no buffet registered' do
     visit root_path
 
     expect(page).to have_content 'Cadê Buffet'

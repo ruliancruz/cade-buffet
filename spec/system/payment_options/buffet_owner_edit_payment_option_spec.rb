@@ -29,7 +29,7 @@ describe 'Buffet owner edits a payment option' do
       expect(page).to have_content 'Editar Meio de Pagamento'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Nome', with: 'Cartão de Crédito'
       expect(page).to have_field 'Limite de Parcelas', with: '12'
       expect(page).to have_button 'Atualizar Meio de Pagamento'
@@ -57,7 +57,7 @@ describe 'Buffet owner edits a payment option' do
     login_as user
     visit edit_payment_option_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: 'Cartão de Crédito'
       fill_in 'Limite de Parcelas', with: '12'
       click_on 'Atualizar Meio de Pagamento'
@@ -89,7 +89,7 @@ describe 'Buffet owner edits a payment option' do
     login_as user
     visit edit_payment_option_path 1
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: ''
       fill_in 'Limite de Parcelas', with: ''
       click_on 'Atualizar Meio de Pagamento'

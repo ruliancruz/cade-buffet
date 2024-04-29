@@ -4,14 +4,14 @@ describe 'Buffet owner register buffet' do
   it 'after creating his account' do
     visit new_buffet_owner_registration_path
 
-    within 'form' do
+    within 'main form' do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Senha', with: 'password'
       fill_in 'Confirme sua senha', with: 'password'
       click_on 'Criar nova conta'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Razão Social'
       expect(page).to have_field 'Nome Fantasia'
       expect(page).to have_field 'CNPJ'
@@ -32,7 +32,7 @@ describe 'Buffet owner register buffet' do
     login_as user
     visit new_buffet_path
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       fill_in 'Nome Fantasia', with: 'Sabor & Arte Buffet'
       fill_in 'CNPJ', with: '12345678000190'
@@ -64,7 +64,7 @@ describe 'Buffet owner register buffet' do
     login_as user
     visit new_buffet_path
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Descrição', with: 'Oferecemos uma experiência gastronômica única.'
       click_on 'Criar Buffet'
     end

@@ -21,7 +21,7 @@ describe 'Buffet owner register payment option' do
 
     expect(page).to have_content 'Adicionar Meio de Pagamento'
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Limite de Parcelas'
     end
@@ -58,7 +58,7 @@ describe 'Buffet owner register payment option' do
     login_as user
     visit new_payment_option_path
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: 'Cartão de Crédito'
       fill_in 'Limite de Parcelas', with: '12'
       click_on 'Criar Meio de Pagamento'

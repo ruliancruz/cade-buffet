@@ -23,7 +23,7 @@ describe 'Buffet owner register event type' do
       expect(page).to have_content 'Adicionar Tipo de Evento'
     end
 
-    within all("form")[1] do
+    within 'main form' do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Descrição'
       expect(page).to have_field 'Mínimo de Pessoas'
@@ -70,7 +70,7 @@ describe 'Buffet owner register event type' do
     login_as user
     visit new_event_type_path
 
-    within all("form")[1] do
+    within 'main form' do
       fill_in 'Nome', with: 'Coquetel de Networking Empresarial'
       fill_in 'Descrição', with: 'Um evento descontraído e profissional.'
       fill_in 'Mínimo de Pessoas', with: '20'
