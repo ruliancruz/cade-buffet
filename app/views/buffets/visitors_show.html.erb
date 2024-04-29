@@ -27,7 +27,7 @@
   <% if @buffet.event_types.any? %>
     <dl>
       <% @buffet.event_types.each do |event_type| %>
-        <dt><%= link_to event_type.name %></dt>
+        <dt><%= link_to event_type.name, event_type %></dt>
         <dd><%= event_type.description %></dd>
       <% end %>
     </dl>

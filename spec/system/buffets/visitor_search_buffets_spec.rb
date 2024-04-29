@@ -302,7 +302,7 @@ describe 'Visitor search for buffets' do
                    cep: '87654300',
                    buffet_owner: third_user
 
-    visit search_buffets_path(query: '&')
+    visit search_buffets_path query: '&'
 
     within 'main dl dt:nth(1)' do
       expect(page).to have_content 'Doce & Cia Buffet'
@@ -426,5 +426,17 @@ describe 'Visitor search for buffets' do
     expect(page).not_to have_content 'Sabor & Arte Buffet'
     expect(page).not_to have_content 'Culinária City - BA'
     expect(page).not_to have_content 'Sabor & Cia Buffet'
+  end
+
+  it "and is redirected to the buffet registration page if he is a buffet " \
+     "owner and hasn't registered his buffet yet." do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    login_as user
+    visit search_buffets_path query: '&'
+
+    expect(current_path).to eq new_buffet_path
+    expect(page).to have_content 'Você precisa cadastrar seu buffet antes ' \
+                                 'de acessar outras páginas'
   end
 end

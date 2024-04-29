@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Visitor sees a buffet page' do
+describe 'Visitor sees buffet details' do
   it 'with success' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
@@ -69,6 +69,11 @@ describe 'Visitor sees a buffet page' do
     expect(page).to have_content 'Um evento descontraído.'
     expect(page).to have_content 'Coquetel de Aniversário'
     expect(page).to have_content 'Um evento de para comemorar.'
+
+    expect(page).not_to have_button 'Remover'
+    expect(page).not_to have_link 'Alterar Dados'
+    expect(page).not_to have_link 'Adicionar Meio de Pagamento'
+    expect(page).not_to have_link 'Adicionar Tipo de Evento'
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \

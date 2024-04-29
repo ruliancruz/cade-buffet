@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Buffet owner sees event type details' do
-  it 'from the buffet page' do
+  it 'with success' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',

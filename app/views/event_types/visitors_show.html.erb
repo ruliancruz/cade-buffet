@@ -1,0 +1,39 @@
+<h1><%= @event_type.name %></h1>
+<section>
+  <p><%= @event_type.description %></p>
+  <ul>
+    <li>Mínimo de Pessoas: <%= @event_type.minimum_attendees %></li>
+    <li>Máximo de Pessoas: <%= @event_type.maximum_attendees %></li>
+    <li>Duração: <%= @event_type.duration %> minutos</li>
+  </ul>
+</section>
+<section>
+  <h2>Cardápio</h2>
+  <p><%= @event_type.menu %></p>
+  <h2>Opções Adicionais</h2>
+  <ul>
+    <li>Fornece Bebidas Alcoólicas: <%= @event_type.provides_alcohol_drinks_text %></li>
+    <li>Fornece Decoração: <%= @event_type.provides_decoration_text %></li>
+    <li>Fornece Serviço de Estacionamento: <%= @event_type.provides_parking_service_text %></li>
+    <li>Atende a Endereço Indicado por Cliente: <%= @event_type.serves_external_address_text %></li>
+  </ul>
+</section>
+<section>
+  <h2>Preços-base</h2>
+  <% if @event_type.base_prices.any? %>
+    <dl>
+      <% @event_type.base_prices.each do |base_price| %>
+        <dt>
+          <%= base_price.description %>
+        </dt>
+        <dd>Valor Mínimo: <%= (number_to_currency base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
+        <dd>Adicional por Pessoa: <%= (number_to_currency base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
+        <% unless base_price.extra_hour_value.blank? %>
+          <dd>Valor por Hora Extra: <%= (number_to_currency base_price.extra_hour_value, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Este tipo de evento não possui preços-base cadastrados.</p>
+  <% end %>
+</section>
