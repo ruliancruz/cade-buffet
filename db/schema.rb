@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_212620) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_29_083754) do
   create_table "base_prices", force: :cascade do |t|
     t.string "description", null: false
     t.float "minimum", null: false
@@ -49,6 +49,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_212620) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["buffet_owner_id"], name: "index_buffets_on_buffet_owner_id"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "cpf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
   create_table "event_types", force: :cascade do |t|

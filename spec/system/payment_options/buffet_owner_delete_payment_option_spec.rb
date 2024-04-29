@@ -19,7 +19,7 @@ describe 'Buffet owner deletes a payment option' do
                           installment_limit: 12,
                           buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 1
     click_on 'Remover'
 

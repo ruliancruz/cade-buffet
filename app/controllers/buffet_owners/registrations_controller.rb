@@ -5,9 +5,10 @@ class BuffetOwners::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    return redirect_to root_path if client_signed_in? || buffet_owner_signed_in?
+    super
+  end
 
   # POST /resource
   # def create

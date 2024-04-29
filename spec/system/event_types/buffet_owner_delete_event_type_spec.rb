@@ -27,7 +27,7 @@ describe 'Buffet owner deletes a event type' do
                       serves_external_address: false,
                       buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit event_type_path 1
     click_on 'Excluir'
 

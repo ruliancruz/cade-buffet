@@ -16,7 +16,7 @@ describe 'Buffet owner edits the buffet' do
                    description: 'Oferecemos uma experiência gastronômica única.',
                    buffet_owner: user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 1
     click_on 'Alterar Dados'
 
@@ -57,7 +57,7 @@ describe 'Buffet owner edits the buffet' do
                    cep: '12345678',
                    buffet_owner: user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 1
     click_on 'Alterar Dados'
 
@@ -100,7 +100,7 @@ describe 'Buffet owner edits the buffet' do
                    cep: '12345678',
                    buffet_owner: user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_buffet_path 1
 
     within 'main form' do
@@ -138,7 +138,7 @@ describe 'Buffet owner edits the buffet' do
     expect(page).to have_content 'CEP não é um número'
   end
 
-  it "returning to sign in page if he isn't signed in" do
+  it "returning to buffet owner sign in page if he isn't signed in" do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
@@ -155,6 +155,31 @@ describe 'Buffet owner edits the buffet' do
     visit edit_buffet_path 1
 
     expect(current_path).to eq new_buffet_owner_session_path
+  end
+
+  it "returning to home page if he is a client" do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'User',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                   brand_name: 'Sabor & Arte Buffet',
+                   cnpj: '12345678000190',
+                   phone: '7531274464',
+                   address: 'Rua dos Sabores, 123',
+                   district: 'Centro',
+                   city: 'Culinária City',
+                   state: 'BA',
+                   cep: '12345678',
+                   buffet_owner: user
+
+    login_as client, scope: :client
+    visit edit_buffet_path 1
+
+    expect(current_path).to eq root_path
   end
 
   it "returning to his own buffet page if he tries to edit another one buffet" do
@@ -187,7 +212,7 @@ describe 'Buffet owner edits the buffet' do
                   description: 'Oferecemos uma experiência única.',
                   buffet_owner: another_user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_buffet_path 2
 
     within 'main form' do
@@ -209,7 +234,7 @@ describe 'Buffet owner edits the buffet' do
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_buffet_path 1
 
     expect(current_path).to eq new_buffet_path

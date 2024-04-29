@@ -76,7 +76,7 @@ describe 'Visitor sees event type details' do
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit event_type_path 1
 
     expect(current_path).to eq new_buffet_path

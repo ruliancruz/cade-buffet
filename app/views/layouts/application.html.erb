@@ -19,11 +19,14 @@
               <%= form.submit 'Buscar' %>
             <% end %>
           </li>
-          <% if buffet_owner_signed_in? %>
+          <% if client_signed_in? %>
+            <li><%= current_client.email %></li>
+            <li><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
+          <% elsif buffet_owner_signed_in? %>
             <li><%= current_buffet_owner.email %></li>
             <li><%= button_to 'Sair', destroy_buffet_owner_session_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to 'Entrar', new_buffet_owner_session_path %></li>
+            <li><%= link_to 'Entrar', new_client_session_path %></li>
           <% end %>
         </menu>
       </nav>

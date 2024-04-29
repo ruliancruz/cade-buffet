@@ -1,4 +1,4 @@
-<h2>Criar Nova Conta</h2>
+<h2>Criar Nova Conta Como Dono de Buffet</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -22,8 +22,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Criar nova conta" %>
+    <%= f.submit "Criar Nova Conta" %>
   </div>
 <% end %>
-
+<%= link_to 'Criar Conta Como Cliente', new_client_registration_path %><br/>
 <%= render "devise/shared/links" %>

@@ -33,7 +33,7 @@ describe 'Buffet owner edits a base-price' do
                       extra_hour_value: 1_000,
                       event_type: event_type
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit event_type_path 1
     click_on 'Meio de Semana'
 
@@ -84,7 +84,7 @@ describe 'Buffet owner edits a base-price' do
                       extra_hour_value: 1_000,
                       event_type: event_type
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_base_price_path 1
 
     within 'main form' do
@@ -134,7 +134,7 @@ describe 'Buffet owner edits a base-price' do
                       extra_hour_value: 1_000,
                       event_type: event_type
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_base_price_path 1
 
     within 'main form' do
@@ -220,14 +220,14 @@ describe 'Buffet owner edits a base-price' do
                       extra_hour_value: 1_500,
                       event_type: another_event_type
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_base_price_path 2
 
     expect(current_path).to eq buffet_path 1
     expect(page).to have_content 'Sabores Deliciosos Ltda.'
   end
 
-  it "returning to sign in page if he isn't signed in" do
+  it "returning to buffet owner sign in if he isn't signed in" do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
@@ -264,11 +264,54 @@ describe 'Buffet owner edits a base-price' do
     expect(current_path).to eq new_buffet_owner_session_path
   end
 
+  it "returning to home page if he is a client" do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'User',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '12345678000190',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: user
+
+    event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
+                                   description: 'Um evento descontraído.',
+                                   minimum_attendees: 20,
+                                   maximum_attendees: 50,
+                                   duration: 120,
+                                   menu: 'Seleção de queijos, frutas e vinhos',
+                                   provides_alcohol_drinks: true,
+                                   provides_decoration: false,
+                                   provides_parking_service: false,
+                                   serves_external_address: false,
+                                   buffet: buffet
+
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: event_type
+
+    login_as client, scope: :client
+    visit edit_base_price_path 1
+
+    expect(current_path).to eq root_path
+  end
+
   it "and is redirected to the buffet registration page if he is a buffet " \
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_base_price_path 1
 
     expect(current_path).to eq new_buffet_path

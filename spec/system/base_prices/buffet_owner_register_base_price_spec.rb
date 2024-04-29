@@ -27,7 +27,7 @@ describe 'Buffet owner register base-price' do
                       serves_external_address: false,
                       buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit event_type_path 1
     click_on 'Adicionar Preço-base'
 
@@ -67,7 +67,7 @@ describe 'Buffet owner register base-price' do
                                    serves_external_address: false,
                                    buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_event_type_base_price_path(event_type)
 
     within 'main form' do
@@ -112,7 +112,7 @@ describe 'Buffet owner register base-price' do
                                    serves_external_address: false,
                                    buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_event_type_base_price_path(event_type)
 
     within 'main form' do
@@ -130,17 +130,29 @@ describe 'Buffet owner register base-price' do
     expect(page).to have_content 'Adicional por Pessoa não é um número'
   end
 
-  it "returning to sign in page if he isn't signed in" do
+  it "returning to buffet owner sign in page if he isn't signed in" do
     visit new_event_type_base_price_path 1
 
     expect(current_path).to eq new_buffet_owner_session_path
+  end
+
+  it "returning to home page if he is a client" do
+    user = Client.create! name: 'User',
+                          cpf: '11480076015',
+                          email: 'user@example.com',
+                          password: 'password'
+
+    login_as user, scope: :client
+    visit new_event_type_base_price_path 1
+
+    expect(current_path).to eq root_path
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_event_type_base_price_path 1
 
     expect(current_path).to eq new_buffet_path

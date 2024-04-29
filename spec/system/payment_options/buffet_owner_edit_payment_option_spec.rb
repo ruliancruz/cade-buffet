@@ -19,7 +19,7 @@ describe 'Buffet owner edits a payment option' do
                           installment_limit: 12,
                           buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 1
     click_on 'Cartão de Crédito'
 
@@ -54,7 +54,7 @@ describe 'Buffet owner edits a payment option' do
                           installment_limit: 12,
                           buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_payment_option_path 1
 
     within 'main form' do
@@ -86,7 +86,7 @@ describe 'Buffet owner edits a payment option' do
                           installment_limit: 12,
                           buffet: buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_payment_option_path 1
 
     within 'main form' do
@@ -140,14 +140,14 @@ describe 'Buffet owner edits a payment option' do
                           installment_limit: 1,
                           buffet: another_buffet
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_payment_option_path 2
 
     expect(current_path).to eq buffet_path 1
     expect(page).to have_content 'Sabores Deliciosos Ltda.'
   end
 
-  it "returning to sign in page if he isn't signed in" do
+  it "returning to buffet owner sign in page if he isn't signed in" do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
@@ -170,11 +170,40 @@ describe 'Buffet owner edits a payment option' do
     expect(current_path).to eq new_buffet_owner_session_path
   end
 
+  it "returning to home page if he is a client" do
+    user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'User',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '12345678000190',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: user
+
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
+
+    login_as client, scope: :client
+    visit edit_payment_option_path 1
+
+    expect(current_path).to eq root_path
+  end
+
   it "and is redirected to the buffet registration page if he is a buffet " \
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit edit_payment_option_path 1
 
     expect(current_path).to eq new_buffet_path

@@ -31,7 +31,7 @@ describe 'Buffet owner sees buffet page' do
                    description: 'Oferecemos uma experiência única.',
                    buffet_owner: another_user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 2
 
     expect(current_path).to eq buffet_path 2
@@ -48,7 +48,7 @@ describe 'Buffet owner sees buffet page' do
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit buffet_path 1
 
     expect(current_path).to eq new_buffet_path

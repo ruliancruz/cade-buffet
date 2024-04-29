@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     resources :base_prices, only: [:new, :create]
   end
 
-  devise_for :buffet_owners, path: 'buffet_owners',
-    controllers: { registrations: 'buffet_owners/registrations' }
+  devise_for :buffet_owners,
+    path: 'buffet_owners',
+    controllers: { registrations: 'buffet_owners/registrations',
+                   sessions: 'buffet_owners/sessions' }
+
+  devise_for :clients,
+    path: 'clients',
+    controllers: { registrations: 'clients/registrations',
+                   sessions: 'clients/sessions' }
 end

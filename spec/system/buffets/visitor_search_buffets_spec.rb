@@ -432,7 +432,7 @@ describe 'Visitor search for buffets' do
      "owner and hasn't registered his buffet yet." do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit search_buffets_path query: '&'
 
     expect(current_path).to eq new_buffet_path

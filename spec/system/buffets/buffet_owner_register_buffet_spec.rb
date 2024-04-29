@@ -8,7 +8,7 @@ describe 'Buffet owner register buffet' do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Senha', with: 'password'
       fill_in 'Confirme sua senha', with: 'password'
-      click_on 'Criar nova conta'
+      click_on 'Criar Nova Conta'
     end
 
     within 'main form' do
@@ -29,7 +29,7 @@ describe 'Buffet owner register buffet' do
     BuffetOwner.create! email: 'another.user@example.com', password: 'another-password'
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_buffet_path
 
     within 'main form' do
@@ -61,7 +61,7 @@ describe 'Buffet owner register buffet' do
   it 'and see error messages when a field fails its validation' do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_buffet_path
 
     within 'main form' do
@@ -105,15 +105,27 @@ describe 'Buffet owner register buffet' do
                    cep: '12345678',
                    buffet_owner: user
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit new_buffet_path
 
     expect(current_path).to eq root_path
   end
 
-  it "returning to sign in page if he isn't signed in" do
+  it "returning to buffet owner sign in page if he isn't signed in" do
     visit new_buffet_path
 
     expect(current_path).to eq new_buffet_owner_session_path
+  end
+
+  it "returning to home page if he is a client" do
+    user = Client.create! name: 'User',
+                          cpf: '11480076015',
+                          email: 'user@example.com',
+                          password: 'password'
+
+    login_as user, scope: :client
+    visit new_buffet_path
+
+    expect(current_path).to eq root_path
   end
 end

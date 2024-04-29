@@ -33,7 +33,7 @@ describe 'Buffet owner deletes a base-price' do
                       extra_hour_value: 1_000,
                       event_type: event_type
 
-    login_as user
+    login_as user, scope: :buffet_owner
     visit event_type_path 1
     click_on 'Remover'
 
