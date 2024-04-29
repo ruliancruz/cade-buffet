@@ -59,5 +59,13 @@ RSpec.describe Client, type: :model do
 
       expect(client.errors.full_messages.include? 'CPF já está em uso').to be true
     end
+
+    it "false when cpf isn't valid" do
+      client = Client.new cpf: '11480076014'
+
+      client.valid?
+
+      expect(client.errors.full_messages.include? 'CPF precisa ser válido').to be true
+    end
   end
 end

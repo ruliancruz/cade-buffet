@@ -105,7 +105,7 @@ describe 'Buffet owner register payment option' do
 
   it "returning to home page if he is a client" do
     user = Client.create! name: 'User',
-                          cpf: '11480076015',
+                          cpf: '46986327064',
                           email: 'user@example.com',
                           password: 'password'
 
