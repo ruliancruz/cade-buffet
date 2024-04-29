@@ -22,7 +22,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -33,7 +33,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Sabor & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -44,7 +44,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                    brand_name: 'Doce & Cia Buffet',
-                   cnpj: '01239251000432',
+                   cnpj: '88673550000112',
                    phone: '9877654123',
                    address: 'Caminho dos Doces, 456',
                    district: 'Bairro do Mel',
@@ -81,7 +81,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -92,7 +92,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Sabor & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -103,7 +103,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                    brand_name: 'Doce & Cia Buffet',
-                   cnpj: '01239251000432',
+                   cnpj: '88673550000112',
                    phone: '9877654123',
                    address: 'Caminho dos Doces, 456',
                    district: 'Bairro do Mel',
@@ -140,7 +140,7 @@ describe 'Visitor search for buffets' do
 
     first_buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                                   brand_name: 'Sabor & Arte Buffet',
-                                  cnpj: '12345678000190',
+                                  cnpj: '34340299000145',
                                   phone: '7531274464',
                                   address: 'Rua dos Sabores, 123',
                                   district: 'Centro',
@@ -151,7 +151,7 @@ describe 'Visitor search for buffets' do
 
     second_buffet = Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                                    brand_name: 'Sabor & Cia Buffet',
-                                   cnpj: '08599251000146',
+                                   cnpj: '96577377000187',
                                    phone: '9887654321',
                                    address: 'Avenida das Delícias, 456',
                                    district: 'Bairro Gourmet',
@@ -162,7 +162,7 @@ describe 'Visitor search for buffets' do
 
     third_buffet = Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                                   brand_name: 'Doce & Cia Buffet',
-                                  cnpj: '01239251000432',
+                                  cnpj: '88673550000112',
                                   phone: '9877654123',
                                   address: 'Caminho dos Doces, 456',
                                   district: 'Bairro do Mel',
@@ -271,7 +271,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -282,7 +282,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Sabor & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -293,7 +293,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                    brand_name: 'Doce & Cia Buffet',
-                   cnpj: '01239251000432',
+                   cnpj: '88673550000112',
                    phone: '9877654123',
                    address: 'Caminho dos Doces, 456',
                    district: 'Bairro do Mel',
@@ -329,7 +329,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -340,7 +340,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Sabor & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -351,7 +351,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                    brand_name: 'Doce & Cia Buffet',
-                   cnpj: '01239251000432',
+                   cnpj: '88673550000112',
                    phone: '9877654123',
                    address: 'Caminho dos Doces, 456',
                    district: 'Bairro do Mel',
@@ -365,7 +365,8 @@ describe 'Visitor search for buffets' do
 
     expect(current_path).to eq buffet_path 2
     expect(page).to have_content 'Sabor & Cia Buffet'
-    expect(page).to have_content '08.599.251/0001-46'
+    96577377000187
+    expect(page).to have_content '96.577.377/0001-87'
     expect(page).not_to have_content 'Sabores Deliciosos Ltda.'
   end
 
@@ -381,7 +382,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -392,7 +393,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Sabor & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -403,7 +404,7 @@ describe 'Visitor search for buffets' do
 
     Buffet.create! corporate_name: 'Doces Açucarados Ltda.',
                    brand_name: 'Doce & Cia Buffet',
-                   cnpj: '01239251000432',
+                   cnpj: '88673550000112',
                    phone: '9877654123',
                    address: 'Caminho dos Doces, 456',
                    district: 'Bairro do Mel',

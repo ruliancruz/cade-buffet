@@ -6,7 +6,7 @@ describe 'Buffet owner register payment option' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -35,7 +35,7 @@ describe 'Buffet owner register payment option' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -46,7 +46,7 @@ describe 'Buffet owner register payment option' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Chef & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Bairro Gourmet',
@@ -75,7 +75,7 @@ describe 'Buffet owner register payment option' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',

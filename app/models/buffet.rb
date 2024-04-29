@@ -23,6 +23,7 @@ class Buffet < ApplicationRecord
   validates :cep, numericality: { only_integer: true }
   validates :cnpj, uniqueness: true
   validates :buffet_owner, uniqueness: true
+  validates :cnpj, cnpj: { message: 'precisa ser válido' }
 
   def full_address
     "#{address} - #{district}, #{city} - #{state}, #{cep.insert(5, '-')}"

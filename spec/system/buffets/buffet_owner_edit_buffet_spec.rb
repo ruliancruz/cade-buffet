@@ -6,7 +6,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -29,7 +29,7 @@ describe 'Buffet owner edits the buffet' do
     within 'main form' do
       expect(page).to have_field 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       expect(page).to have_field 'Nome Fantasia', with: 'Sabor & Arte Buffet'
-      expect(page).to have_field 'CNPJ', with: '12345678000190'
+      expect(page).to have_field 'CNPJ', with: '34340299000145'
       expect(page).to have_field 'Telefone', with: '7531274464'
       expect(page).to have_field 'Endereço', with: 'Rua dos Sabores, 123'
       expect(page).to have_field 'Bairro', with: 'Centro'
@@ -48,7 +48,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -64,7 +64,7 @@ describe 'Buffet owner edits the buffet' do
     within 'main form' do
       fill_in 'Razão Social', with: 'Delícias Gastronômicas'
       fill_in 'Nome Fantasia', with: 'Sabor e Arte Buffet'
-      fill_in 'CNPJ', with: '12345678000191'
+      fill_in 'CNPJ', with: '34340299000145'
       fill_in 'Telefone', with: '7531274465'
       fill_in 'Endereço', with: 'Rua do Sabor, 125'
       fill_in 'Bairro', with: 'Batata'
@@ -78,7 +78,8 @@ describe 'Buffet owner edits the buffet' do
     expect(current_path).to eq buffet_path 1
     expect(page).to have_content 'Delícias Gastronômicas'
     expect(page).to have_content 'Sabor e Arte Buffet'
-    expect(page).to have_content '12.345.678/0001-91'
+    34340299000145
+    expect(page).to have_content '34.340.299/0001-45'
     expect(page).to have_content '(75) 3127-4465'
     expect(page).to have_content 'Rua do Sabor, 125 - Batata, ' \
                                  'Culinarilandia - PI, 12345-679'
@@ -91,7 +92,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -143,7 +144,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -167,7 +168,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -190,7 +191,7 @@ describe 'Buffet owner edits the buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -202,7 +203,7 @@ describe 'Buffet owner edits the buffet' do
 
    Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                   brand_name: 'Chef & Cia Buffet',
-                  cnpj: '08599251000146',
+                  cnpj: '96577377000187',
                   phone: '9887654321',
                   address: 'Avenida das Delícias, 456',
                   district: 'Bairro Gourmet',
@@ -218,7 +219,7 @@ describe 'Buffet owner edits the buffet' do
     within 'main form' do
       expect(page).to have_field 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       expect(page).to have_field 'Nome Fantasia', with: 'Sabor & Arte Buffet'
-      expect(page).to have_field 'CNPJ', with: '12345678000190'
+      expect(page).to have_field 'CNPJ', with: '34340299000145'
       expect(page).to have_field 'Telefone', with: '7531274464'
       expect(page).to have_field 'Endereço', with: 'Rua dos Sabores, 123'
       expect(page).to have_field 'Bairro', with: 'Centro'

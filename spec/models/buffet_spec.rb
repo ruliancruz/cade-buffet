@@ -30,9 +30,9 @@ RSpec.describe Buffet, type: :model do
 
   describe '#formatted_cnpj' do
     it 'returns formatted cnpj when phone is 10 characters long' do
-      buffet = Buffet.new cnpj: '12345678000190'
+      buffet = Buffet.new cnpj: '34340299000145'
 
-      expect(buffet.formatted_cnpj).to eq '12.345.678/0001-90'
+      expect(buffet.formatted_cnpj).to eq '34.340.299/0001-45'
     end
   end
 
@@ -128,7 +128,7 @@ RSpec.describe Buffet, type: :model do
     end
 
     it 'false when cnpj have less than 14 characters' do
-      buffet = Buffet.new cnpj: '1234567890123'
+      buffet = Buffet.new cnpj: '343402990001456'
 
       buffet.valid?
 
@@ -137,7 +137,7 @@ RSpec.describe Buffet, type: :model do
     end
 
     it 'false when cnpj have more than 14 characters' do
-      buffet = Buffet.new cnpj: '123456789012345'
+      buffet = Buffet.new cnpj: '343402990001456'
 
       buffet.valid?
 
@@ -208,7 +208,7 @@ RSpec.describe Buffet, type: :model do
     end
 
     it "false when phone isn't a number" do
-      buffet = Buffet.new cnpj: '1234567890'
+      buffet = Buffet.new phone: 'qwertyuiop'
 
       buffet.valid?
 
@@ -220,7 +220,7 @@ RSpec.describe Buffet, type: :model do
 
       Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                      brand_name: 'Sabor & Arte Buffet',
-                     cnpj: '12345678000190',
+                     cnpj: '34340299000145',
                      phone: '7531274464',
                      address: 'Rua dos Sabores, 123',
                      district: 'Centro',
@@ -229,7 +229,7 @@ RSpec.describe Buffet, type: :model do
                      cep: '12345678',
                      buffet_owner: user
 
-      buffet = Buffet.new cnpj: '12345678000190'
+      buffet = Buffet.new cnpj: '34340299000145'
 
       buffet.valid?
 
@@ -241,7 +241,7 @@ RSpec.describe Buffet, type: :model do
 
       Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                      brand_name: 'Sabor & Arte Buffet',
-                     cnpj: '12345678000190',
+                     cnpj: '34340299000145',
                      phone: '7531274464',
                      address: 'Rua dos Sabores, 123',
                      district: 'Centro',
@@ -255,6 +255,14 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages.include? 'Usuário já está em uso').to be true
+    end
+
+    it "false when cnpj isn't valid" do
+      buffet = Buffet.new cnpj: '34340299000144'
+
+      buffet.valid?
+
+      expect(buffet.errors.full_messages.include? 'CNPJ precisa ser válido').to be true
     end
   end
 end

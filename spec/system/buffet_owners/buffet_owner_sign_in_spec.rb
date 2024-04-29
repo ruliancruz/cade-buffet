@@ -6,7 +6,7 @@ describe 'Buffet owner sign in' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -33,7 +33,7 @@ describe 'Buffet owner sign in' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -64,7 +64,7 @@ describe 'Buffet owner sign in' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -103,7 +103,7 @@ describe 'Buffet owner sign in' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',

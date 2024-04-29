@@ -9,7 +9,7 @@ describe 'Buffet owner sees buffet page' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',
@@ -21,7 +21,7 @@ describe 'Buffet owner sees buffet page' do
 
     Buffet.create! corporate_name: 'Sabores Deliciosos Ltda.',
                    brand_name: 'Chef & Cia Buffet',
-                   cnpj: '08599251000146',
+                   cnpj: '96577377000187',
                    phone: '9887654321',
                    address: 'Avenida das Delícias, 456',
                    district: 'Gourmet',
@@ -38,7 +38,7 @@ describe 'Buffet owner sees buffet page' do
     expect(page).to have_content 'Sabores Deliciosos Ltda.'
     expect(page).to have_content 'Oferecemos uma experiência única.'
     expect(page).to have_content 'Chef & Cia Buffet'
-    expect(page).to have_content '08.599.251/0001-46'
+    expect(page).to have_content '96.577.377/0001-87'
     expect(page).to have_content '(98) 8765-4321'
     expect(page).to have_content 'Avenida das Delícias, 456 - Gourmet, ' \
                                  'Saborville - SP, 87654-321'

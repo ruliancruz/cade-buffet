@@ -35,7 +35,7 @@ describe 'Buffet owner register buffet' do
     within 'main form' do
       fill_in 'Razão Social', with: 'Delícias Gastronômicas Ltda.'
       fill_in 'Nome Fantasia', with: 'Sabor & Arte Buffet'
-      fill_in 'CNPJ', with: '12345678000190'
+      fill_in 'CNPJ', with: '34340299000145'
       fill_in 'Telefone', with: '7531274464'
       fill_in 'Endereço', with: 'Rua dos Sabores, 123'
       fill_in 'Bairro', with: 'Centro'
@@ -49,7 +49,7 @@ describe 'Buffet owner register buffet' do
     expect(current_path).to eq buffet_path 1
     expect(page).to have_content 'Delícias Gastronômicas Ltda.'
     expect(page).to have_content 'Sabor & Arte Buffet'
-    expect(page).to have_content '12.345.678/0001-90'
+    expect(page).to have_content '34.340.299/0001-45'
     expect(page).to have_content '(75) 3127-4464'
     expect(page).to have_content 'Rua dos Sabores, 123 - Centro, ' \
                                  'Culinária City - BA, 12345-678'
@@ -96,7 +96,7 @@ describe 'Buffet owner register buffet' do
 
     Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                    brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '12345678000190',
+                   cnpj: '34340299000145',
                    phone: '7531274464',
                    address: 'Rua dos Sabores, 123',
                    district: 'Centro',

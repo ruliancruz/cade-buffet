@@ -6,7 +6,7 @@ describe 'Visitor sees buffet details' do
 
     buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
                             brand_name: 'Sabor & Arte Buffet',
-                            cnpj: '12345678000190',
+                            cnpj: '34340299000145',
                             phone: '7531274464',
                             address: 'Rua dos Sabores, 123',
                             district: 'Centro',
@@ -55,7 +55,7 @@ describe 'Visitor sees buffet details' do
     expect(page).not_to have_content 'Delícias Gastronômicas Ltda.'
     expect(page).to have_content 'Sabor & Arte Buffet'
     expect(page).to have_content 'Oferecemos uma experiência gastronômica única.'
-    expect(page).to have_content '12.345.678/0001-90'
+    expect(page).to have_content '34.340.299/0001-45'
     expect(page).to have_content '(75) 3127-4464'
     expect(page).to have_content 'Rua dos Sabores, 123 - Centro, ' \
                                  'Culinária City - BA, 12345-678'
