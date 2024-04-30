@@ -1,5 +1,8 @@
 <h1><%= @event_type.name %></h1>
 <section>
+  <% if @event_type.resized_photo %>
+    <%= image_tag @event_type.resized_photo %>
+  <% end %>
   <p><%= @event_type.description %></p>
   <ul>
     <li>Mínimo de Pessoas: <%= @event_type.minimum_attendees %></li>

@@ -52,6 +52,7 @@ class EventTypesController < ApplicationController
                                        :maximum_attendees,
                                        :duration,
                                        :menu,
+                                       :photo,
                                        :provides_alcohol_drinks,
                                        :provides_decoration,
                                        :provides_parking_service,

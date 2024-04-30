@@ -1,6 +1,7 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
   has_many :base_prices, dependent: :destroy
+  has_one_attached :photo
 
   validates :name,
             :description,
@@ -18,6 +19,10 @@ class EventType < ApplicationRecord
   validates :minimum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :maximum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :duration, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  def resized_photo
+    self.photo.variant(resize_to_limit: [800, 800])
+  end
 
   def provides_alcohol_drinks_text
     provides_alcohol_drinks? ? 'Sim' : 'Não'

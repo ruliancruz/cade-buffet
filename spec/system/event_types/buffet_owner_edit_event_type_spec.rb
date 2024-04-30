@@ -67,17 +67,20 @@ describe 'Buffet owner edits a event type' do
                             cep: '12345678',
                             buffet_owner: user
 
-    EventType.create! name: 'Coquetel de Networking Empresarial',
-                      description: 'Um evento descontraído.',
-                      minimum_attendees: 20,
-                      maximum_attendees: 50,
-                      duration: 120,
-                      menu: 'Seleção de queijos, frutas e vinhos',
-                      provides_alcohol_drinks: true,
-                      provides_decoration: false,
-                      provides_parking_service: false,
-                      serves_external_address: false,
-                      buffet: buffet
+    event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                               description: 'Um evento descontraído.',
+                               minimum_attendees: 20,
+                               maximum_attendees: 50,
+                               duration: 120,
+                               menu: 'Seleção de queijos, frutas e vinhos',
+                               provides_alcohol_drinks: true,
+                               provides_decoration: false,
+                               provides_parking_service: false,
+                               serves_external_address: false,
+                               buffet: buffet
+
+    event_type.photo.attach(io: File.open('spec/support/table.jpg'), filename: 'table.jpg', content_type: 'image/jpeg')
+    event_type.save!
 
     login_as user, scope: :buffet_owner
     visit edit_event_type_path 1
@@ -89,6 +92,7 @@ describe 'Buffet owner edits a event type' do
       fill_in 'Máximo de Pessoas', with: '100'
       fill_in 'Duração', with: '180'
       fill_in 'Cardápio', with: 'Seleção de queijos, frutas, sucos e refrigerantes'
+      attach_file 'Foto', 'spec/support/anniversary.jpg'
       uncheck 'Fornece Bebidas Alcoólicas'
       uncheck 'Fornece Decoração'
       check 'Fornece Serviço de Estacionamento'
@@ -98,6 +102,8 @@ describe 'Buffet owner edits a event type' do
 
     expect(current_path).to eq event_type_path 1
     expect(page).to have_content 'Coquetel de Networking Social'
+    expect(page).to have_css('img[src*="anniversary.jpg"]')
+    expect(page).not_to have_css('img[src*="table.jpg"]')
     expect(page).to have_content 'Um evento descontraído e casual.'
     expect(page).to have_content 'Mínimo de Pessoas: 30'
     expect(page).to have_content 'Máximo de Pessoas: 100'

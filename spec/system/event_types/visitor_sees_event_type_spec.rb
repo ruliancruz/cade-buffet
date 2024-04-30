@@ -15,17 +15,20 @@ describe 'Visitor sees event type details' do
                             cep: '12345678',
                             buffet_owner: user
 
-    event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                   description: 'Um evento descontraído.',
-                                   minimum_attendees: 20,
-                                   maximum_attendees: 50,
-                                   duration: 120,
-                                   menu: 'Seleção de queijos, frutas e vinhos',
-                                   provides_alcohol_drinks: true,
-                                   provides_decoration: true,
-                                   provides_parking_service: false,
-                                   serves_external_address: false,
-                                   buffet: buffet
+    event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                               description: 'Um evento descontraído.',
+                               minimum_attendees: 20,
+                               maximum_attendees: 50,
+                               duration: 120,
+                               menu: 'Seleção de queijos, frutas e vinhos',
+                               provides_alcohol_drinks: true,
+                               provides_decoration: true,
+                               provides_parking_service: false,
+                               serves_external_address: false,
+                               buffet: buffet
+
+    event_type.photo.attach(io: File.open('spec/support/table.jpg'), filename: 'table.jpg', content_type: 'image/jpeg')
+    event_type.save!
 
     BasePrice.create! description: 'Meio de Semana',
                       minimum: 10_000,
@@ -44,6 +47,7 @@ describe 'Visitor sees event type details' do
 
     expect(current_path).to eq event_type_path 1
     expect(page).to have_content 'Coquetel de Networking Empresarial'
+    expect(page).to have_css('img[src*="table.jpg"]')
     expect(page).to have_content 'Um evento descontraído'
     expect(page).to have_content 'Mínimo de Pessoas: 20'
     expect(page).to have_content 'Máximo de Pessoas: 50'

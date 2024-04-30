@@ -16,29 +16,35 @@ describe 'Visitor sees buffet details' do
                             description: 'Oferecemos uma experiência gastronômica única.',
                             buffet_owner: user
 
-    EventType.create! name: 'Coquetel de Networking Empresarial',
-                      description: 'Um evento descontraído.',
-                      minimum_attendees: 20,
-                      maximum_attendees: 50,
-                      duration: 120,
-                      menu: 'Seleção de queijos, frutas e vinhos',
-                      provides_alcohol_drinks: true,
-                      provides_decoration: false,
-                      provides_parking_service: false,
-                      serves_external_address: false,
-                      buffet: buffet
+    first_event_type = EventType.new name: 'Coquetel de Networking Empresarial',
+                                      description: 'Um evento descontraído.',
+                                      minimum_attendees: 20,
+                                      maximum_attendees: 50,
+                                      duration: 120,
+                                      menu: 'Seleção de queijos, frutas e vinhos',
+                                      provides_alcohol_drinks: true,
+                                      provides_decoration: false,
+                                      provides_parking_service: false,
+                                      serves_external_address: false,
+                                      buffet: buffet
 
-    EventType.create! name: 'Coquetel de Aniversário',
-                      description: 'Um evento de para comemorar.',
-                      minimum_attendees: 10,
-                      maximum_attendees: 40,
-                      duration: 100,
-                      menu: 'Seleção de queijos, carnes, vinhos e hidromel',
-                      provides_alcohol_drinks: true,
-                      provides_decoration: false,
-                      provides_parking_service: false,
-                      serves_external_address: true,
-                      buffet: buffet
+    first_event_type.photo.attach(io: File.open('spec/support/table.jpg'), filename: 'table.jpg', content_type: 'image/jpeg')
+    first_event_type.save!
+
+    second_event_type = EventType.new name: 'Coquetel de Aniversário',
+                                          description: 'Um evento de para comemorar.',
+                                          minimum_attendees: 10,
+                                          maximum_attendees: 40,
+                                          duration: 100,
+                                          menu: 'Seleção de queijos, carnes, vinhos e hidromel',
+                                          provides_alcohol_drinks: true,
+                                          provides_decoration: false,
+                                          provides_parking_service: false,
+                                          serves_external_address: true,
+                                          buffet: buffet
+
+    second_event_type.photo.attach(io: File.open('spec/support/anniversary.jpg'), filename: 'anniversary.jpg', content_type: 'image/jpeg')
+    second_event_type.save!
 
     PaymentOption.create! name: 'Cartão de Crédito',
                           installment_limit: 12,
@@ -66,8 +72,10 @@ describe 'Visitor sees buffet details' do
     expect(page).to have_content 'À vista'
 
     expect(page).to have_content 'Coquetel de Networking Empresarial'
+    expect(page).to have_css('img[src*="table.jpg"]')
     expect(page).to have_content 'Um evento descontraído.'
     expect(page).to have_content 'Coquetel de Aniversário'
+    expect(page).to have_css('img[src*="anniversary.jpg"]')
     expect(page).to have_content 'Um evento de para comemorar.'
 
     expect(page).not_to have_button 'Remover'

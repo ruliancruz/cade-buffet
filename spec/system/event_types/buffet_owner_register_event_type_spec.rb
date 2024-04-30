@@ -35,6 +35,7 @@ describe 'Buffet owner register event type' do
       expect(page).to have_field 'Fornece Decoração'
       expect(page).to have_field 'Fornece Serviço de Estacionamento'
       expect(page).to have_field 'Atende a Endereço Indicado por Cliente'
+      expect(page).to have_field 'Foto'
       expect(page).to have_button 'Criar Tipo de Evento'
     end
   end
@@ -77,6 +78,7 @@ describe 'Buffet owner register event type' do
       fill_in 'Máximo de Pessoas', with: '50'
       fill_in 'Duração', with: '120'
       fill_in 'Cardápio', with: 'Seleção de queijos, frutas, vinhos e cupcakes'
+      attach_file 'Foto', 'spec/support/table.jpg'
       check 'Fornece Bebidas Alcoólicas'
       check 'Fornece Decoração'
       uncheck 'Fornece Serviço de Estacionamento'
@@ -86,6 +88,7 @@ describe 'Buffet owner register event type' do
 
     expect(current_path).to eq buffet_path 1
     expect(page).to have_content 'Coquetel de Networking Empresarial'
+    expect(page).to have_css('img[src*="table.jpg"]')
     expect(page).to have_content 'Um evento descontraído e profissional.'
     expect(EventType.last.buffet.brand_name).to eq 'Sabor & Arte Buffet'
   end
