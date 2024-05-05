@@ -1,4 +1,5 @@
 pt-BR:
+  waiting_for_evaluation: 'Aguardando avaliação do buffet'
   activerecord:
     attributes:
       buffet_owner:

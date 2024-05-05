@@ -1,6 +1,7 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
   has_many :base_prices, dependent: :destroy
+  has_many :orders
   has_one_attached :photo
 
   validates :name,

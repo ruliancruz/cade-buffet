@@ -23,18 +23,5 @@
   <% end %>
 </section>
 <section>
-  <h2>Tipos de Evento Oferecidos</h2>
-  <% if @buffet.event_types.any? %>
-    <dl>
-      <% @buffet.event_types.each do |event_type| %>
-        <dt><%= link_to event_type.name, event_type %></dt>
-        <% if event_type.resized_photo %>
-          <dd><%= image_tag event_type.resized_photo %></dd>
-        <% end %>
-        <dd><%= event_type.description %></dd>
-      <% end %>
-    </dl>
-  <% else %>
-    <p>Este buffet não possui tipos de evento cadastrados.</p>
-  <% end %>
+  <%= render partial: 'event_types', locals: { buffet: @buffet } %>
 </section>

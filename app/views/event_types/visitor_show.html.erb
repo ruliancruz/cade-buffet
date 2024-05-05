@@ -1,14 +1,11 @@
 <%= render partial: 'event_type', locals: { event_type: @event_type } %>
-<%= link_to 'Alterar Dados', edit_event_type_path %>
-<%= button_to 'Excluir', event_type_path, method: :delete %>
 <section>
   <h2>Preços-base</h2>
   <% if @event_type.base_prices.any? %>
     <dl>
       <% @event_type.base_prices.each do |base_price| %>
         <dt>
-          <%= link_to base_price.description, edit_base_price_path %>
-          <%= button_to 'Remover', base_price_path, method: :delete %>
+          <%= base_price.description %>
         </dt>
         <dd>Valor Mínimo: <%= (number_to_currency base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
         <dd>Adicional por Pessoa: <%= (number_to_currency base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
@@ -20,5 +17,4 @@
   <% else %>
     <p>Este tipo de evento não possui preços-base cadastrados.</p>
   <% end %>
-  <%= link_to 'Adicionar Preço-base', new_event_type_base_price_path(@event_type) %>
 </section>

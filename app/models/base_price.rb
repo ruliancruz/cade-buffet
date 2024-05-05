@@ -1,5 +1,6 @@
 class BasePrice < ApplicationRecord
   belongs_to :event_type
+  has_many :orders
 
   validates :description,
             :minimum,

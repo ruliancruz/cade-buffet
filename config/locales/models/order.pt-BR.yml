@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      order: 'Pedido'
+    attributes:
+      order:
+        date: 'Data do Evento'
+        attendees: 'Quantidade Estimada de Convidados'
+        details: 'Detalhes Adicionais'
+        code: 'Código'
+        address: 'Endereço Desejado'
+        expiration_date: 'Data de Expiração do Preço'
+        price_adjustment: 'Ajuste de Preço'
+        price_adjustment_description: 'Justificativa do Ajuste de Preço'
+        client: 'Cliente'
+        event_type: 'Tipo de Evento'
+        payment_option: 'Meio de Pagamento'
+        payment_option_id: 'Meio de Pagamento'

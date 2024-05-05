@@ -1,0 +1,29 @@
+class Order < ApplicationRecord
+  belongs_to :client
+  belongs_to :event_type
+  belongs_to :payment_option, optional: true
+  belongs_to :base_price, optional: true
+
+  enum status: { waiting_for_evaluation: 2 }
+
+  def generate_code
+    self.code = SecureRandom.alphanumeric 8
+  end
+
+  def final_price
+    return self.base_price.minimum + total_additional_per_person +
+      self.price_adjustment unless self.waiting_for_evaluation?
+
+    self.status
+  end
+
+  private
+
+  def total_additional_per_person
+    return self.base_price.additional_per_person *
+      (self.attendees - self.event_type.minimum_attendees) if
+      self.attendees > self.event_type.minimum_attendees
+
+    0
+  end
+end

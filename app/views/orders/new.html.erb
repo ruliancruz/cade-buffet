@@ -1,0 +1,3 @@
+<%= render partial: 'layouts/error_messages', locals: { model: @order } %>
+<h1>Fazer Pedido</h1>
+<%= render partial: 'form', locals: { order: [@order.event_type, @order] } %>

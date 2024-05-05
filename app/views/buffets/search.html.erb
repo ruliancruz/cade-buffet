@@ -3,8 +3,7 @@
   <p><%= @buffets.count %> <%= @buffets.count > 1 ? "buffets encontrados" : "buffet encontrado" %></p>
   <dl>
     <% @buffets.each do |buffet| %>
-      <dt><%= link_to buffet.brand_name, buffet_path(buffet.id) %></dt>
-      <dd><%= buffet.city %> - <%= buffet.state %></dd>
+      <%= render buffet %>
       <% if buffet.event_types.any? %>
         <dd>Tipos de Evento Oferecidos
           <ul>

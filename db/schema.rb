@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_30_040924) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_075230) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -110,6 +110,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_040924) do
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "attendees", null: false
+    t.string "details", null: false
+    t.string "code", null: false
+    t.string "address"
+    t.integer "status", null: false
+    t.date "expiration_date"
+    t.float "price_adjustment"
+    t.string "price_adjustment_description"
+    t.integer "client_id", null: false
+    t.integer "event_type_id", null: false
+    t.integer "payment_option_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "base_price_id"
+    t.index ["base_price_id"], name: "index_orders_on_base_price_id"
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["event_type_id"], name: "index_orders_on_event_type_id"
+    t.index ["payment_option_id"], name: "index_orders_on_payment_option_id"
+  end
+
   create_table "payment_options", force: :cascade do |t|
     t.string "name", null: false
     t.integer "installment_limit"
@@ -136,5 +158,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_040924) do
   add_foreign_key "base_prices", "event_types"
   add_foreign_key "buffets", "buffet_owners"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "orders", "base_prices"
+  add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "event_types"
+  add_foreign_key "orders", "payment_options"
   add_foreign_key "payment_options", "buffets"
 end

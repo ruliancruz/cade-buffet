@@ -6,7 +6,8 @@ class EventTypesController < ApplicationController
   def show
     @event_type = EventType.find params[:id]
 
-    render :visitors_show unless buffet_owner_signed_in?
+    return render :client_show if client_signed_in?
+    render :visitor_show unless buffet_owner_signed_in?
   end
 
   def new
