@@ -35,6 +35,9 @@ describe 'Buffet owner sees event type details' do
     click_on 'Coquetel de Networking Empresarial'
 
     expect(current_path).to eq event_type_path 1
+    expect(page).to have_content 'Você precisa cadastrar um preço base para ' \
+                                 'receber pedidos de clientes'
+
     expect(page).to have_content 'Coquetel de Networking Empresarial'
     expect(page).to have_css('img[src*="table.jpg"]')
     expect(page).to have_content 'Um evento descontraído'

@@ -4,7 +4,22 @@ class Order < ApplicationRecord
   belongs_to :payment_option, optional: true
   belongs_to :base_price, optional: true
 
-  enum status: { waiting_for_evaluation: 2 }
+  enum status: { waiting_for_evaluation: 2,
+                 approved_by_buffet: 5,
+                 approved_by_client: 8,
+                 canceled: 11 }
+
+  validates :date,
+            :attendees,
+            :details,
+            :code,
+            :status,
+            :event_type,
+            :client,
+            presence: true
+
+  validates :attendees, numericality: { only_integer: true, greater_than: 0 }
+  validate :date_is_actual_or_future
 
   def generate_code
     self.code = SecureRandom.alphanumeric 8
@@ -25,5 +40,10 @@ class Order < ApplicationRecord
       self.attendees > self.event_type.minimum_attendees
 
     0
+  end
+
+  def date_is_actual_or_future
+    self.errors.add :date, 'precisa ser atual ou futura' unless
+      self.date && self.date >= Date.today
   end
 end
