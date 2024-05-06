@@ -20,6 +20,7 @@
             <% end %>
           </li>
           <% if client_signed_in? %>
+            <li><%= link_to 'Meus Pedidos', orders_path %></li>
             <li><%= current_client.email %></li>
             <li><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
           <% elsif buffet_owner_signed_in? %>

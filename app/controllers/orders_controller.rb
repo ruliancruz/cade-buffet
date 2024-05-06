@@ -1,5 +1,9 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_client!, only: [:show, :new, :create]
+  before_action :authenticate_client!, only: [:index, :show, :new, :create]
+
+  def index
+    @orders = Order.order :date
+  end
 
   def show
     @order = Order.find params[:id]
@@ -13,7 +17,8 @@ class OrdersController < ApplicationController
       event_type.base_prices.empty?
 
     @order = Order.new event_type_id: event_type.id,
-      address: event_type.buffet.full_address if event_type.serves_external_address
+                       address: event_type.buffet.full_address if
+                                event_type.serves_external_address
   end
 
   def create
@@ -22,12 +27,12 @@ class OrdersController < ApplicationController
       .merge! event_type_id: params.require(:event_type_id)
 
     @order.client = current_client
-    @order.generate_code
-    @order.status = :waiting_for_evaluation
     @order.address = @order.event_type.buffet.full_address if @order.address.nil?
+    @order.status = :waiting_for_evaluation
+    @order.generate_code
 
     return redirect_to @order,
-      notice: 'Pedido enviado com sucesso! Aguarde a avaliação do buffet' if @order.save
+      notice: 'Pedido enviado com sucesso! Aguarde a avaliação do buffet!' if @order.save
 
     flash.now[:notice] = 'Preencha todos os campos corretamente para fazer o pedido.'
     render :new

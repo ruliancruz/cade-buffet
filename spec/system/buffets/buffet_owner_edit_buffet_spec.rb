@@ -232,7 +232,7 @@ describe 'Buffet owner edits the buffet' do
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \
-     "owner and hasn't registered his buffet yet." do
+     "owner and hasn't registered his buffet yet" do
     user = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     login_as user, scope: :buffet_owner

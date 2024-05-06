@@ -359,7 +359,7 @@ describe 'Client register order' do
 
     expect(current_path).to eq order_path 1
     expect(page).to have_content 'Pedido enviado com sucesso! Aguarde a ' \
-                                 'avaliação do buffet'
+                                 'avaliação do buffet!'
 
     expect(Order.first.code).to eq 'S8baxMJn'
     expect(page).to have_content 'Aguardando avaliação do buffet'
@@ -538,7 +538,7 @@ describe 'Client register order' do
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \
-     "owner and hasn't registered his buffet yet." do
+     "owner and hasn't registered his buffet yet" do
     buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     login_as buffet_owner, scope: :buffet_owner

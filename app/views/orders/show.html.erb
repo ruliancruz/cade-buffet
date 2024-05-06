@@ -5,8 +5,8 @@
   <li>Quantidade Estimada de Convidados: <%= @order.attendees %></li>
   <li>Endereço: <%= @order.address %></li>
   <li>Meio de Pagamento: <%= @order.payment_option ? @order.payment_option.name : 'A combinar' %></li>
-  <li>Tipo de Evento: <%= link_to @order.event_type.name, event_type_path %></li>
-  <li>Buffet: <%= link_to @order.event_type.buffet.brand_name, buffet_path %></li>
+  <li>Tipo de Evento: <%= link_to @order.event_type.name %></li>
+  <li>Buffet: <%= link_to @order.event_type.buffet.brand_name %></li>
   <li>Detalhes Adicionais: <%= @order.details %></li>
   <li>Preço Final: <%= @order.final_price %></li>
   <% if @order.price_adjustment && @order.price_adjustment != 0 %>
