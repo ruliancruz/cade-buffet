@@ -16,3 +16,7 @@ pt-BR:
         event_type: 'Tipo de Evento'
         payment_option: 'Meio de Pagamento'
         payment_option_id: 'Meio de Pagamento'
+        waiting_for_evaluation: 'Aguardando Avaliação'
+        approved_by_buffet: 'Pedido Aprovado Pelo Buffet'
+        confirmed: 'Pedido Confirmado'
+        canceled: 'Pedido Cancelado'

@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 
   enum status: { waiting_for_evaluation: 2,
                  approved_by_buffet: 5,
-                 approved_by_client: 8,
+                 confirmed: 8,
                  canceled: 11 }
 
   validates :date,
@@ -29,7 +29,7 @@ class Order < ApplicationRecord
     return self.base_price.minimum + total_additional_per_person +
       self.price_adjustment unless self.waiting_for_evaluation?
 
-    self.status
+    I18n.translate self.status
   end
 
   private

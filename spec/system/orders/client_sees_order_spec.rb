@@ -4,7 +4,7 @@ describe 'client sees an order' do
   it 'from the orders page' do
     buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
-    client = Client.create! name: 'Client',
+    client = Client.create! name: 'Clientine',
                             cpf: '11480076015',
                             email: 'client@example.com',
                             password: 'client-password'
@@ -83,43 +83,28 @@ describe 'client sees an order' do
     click_on first_order.code
 
     expect(current_path).to eq order_path first_order
-    expect(page).to have_content first_order.code
-    expect(page).to have_content 'Aguardando avaliação do buffet'
-    expect(page).to have_content I18n.l(Date.current + 2.week)
-    expect(page).to have_content '40'
-    expect(page).to have_content 'Rua dos Sabores, 123 - Centro, Culinária City - BA'
-    expect(page).to have_content 'A combinar'
-    expect(page).to have_link 'Coquetel de Networking Empresarial'
-    expect(page).to have_link 'Sabor & Arte Buffet'
-    expect(page).not_to have_content second_order.code
-    expect(page).not_to have_content I18n.l(Date.current + 3.week)
-    expect(page).not_to have_link 'Festa de Aniversário infantil'
+
+    within 'main' do
+      expect(page).to have_content first_order.code
+      expect(page).to have_content 'Aguardando avaliação do buffet'
+      expect(page).to have_link 'Clientine'
+      expect(page).to have_content 'client@example.com'
+      expect(page).to have_link 'Sabor & Arte Buffet'
+      expect(page).to have_content I18n.l(Date.current + 2.week)
+      expect(page).to have_content '40'
+      expect(page).to have_content 'Rua dos Sabores, 123 - Centro, Culinária City - BA'
+      expect(page).to have_content 'A combinar'
+      expect(page).to have_link 'Coquetel de Networking Empresarial'
+      expect(page).not_to have_content second_order.code
+      expect(page).not_to have_content I18n.l(Date.current + 3.week)
+      expect(page).not_to have_link 'Festa de Aniversário infantil'
+    end
   end
 
   it "and returns to client sign in page if he isn't signed in" do
     visit order_path 1
 
     expect(current_path).to eq new_client_session_path
-  end
-
-  it "and returns to home page if he is a buffet owner" do
-    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
-    Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                   brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '34340299000145',
-                   phone: '7531274464',
-                   address: 'Rua dos Sabores, 123',
-                   district: 'Centro',
-                   city: 'Culinária City',
-                   state: 'BA',
-                   cep: '12345678',
-                   buffet_owner: buffet_owner
-
-    login_as buffet_owner, scope: :buffet_owner
-    visit order_path 1
-
-    expect(current_path).to eq root_path
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \

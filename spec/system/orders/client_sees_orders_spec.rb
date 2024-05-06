@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'client sees orders' do
-  it 'from the home page' do
+  it 'from the home page, ordered by date' do
     buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     client = Client.create! name: 'Client',
@@ -131,30 +131,22 @@ describe 'client sees orders' do
     end
   end
 
+  it "and see a message if he hasn't any order" do
+    client = Client.create! name: 'Client',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    login_as client, scope: :client
+    visit orders_path
+
+    expect(page).to have_content 'Você ainda não fez pedido algum, faça o primeiro!'
+  end
+
   it "and returns to client sign in page if he isn't signed in" do
     visit orders_path
 
     expect(current_path).to eq new_client_session_path
-  end
-
-  it "and returns to home page if he is a buffet owner" do
-    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
-    Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                   brand_name: 'Sabor & Arte Buffet',
-                   cnpj: '34340299000145',
-                   phone: '7531274464',
-                   address: 'Rua dos Sabores, 123',
-                   district: 'Centro',
-                   city: 'Culinária City',
-                   state: 'BA',
-                   cep: '12345678',
-                   buffet_owner: buffet_owner
-
-    login_as buffet_owner, scope: :buffet_owner
-    visit orders_path
-
-    expect(current_path).to eq root_path
   end
 
   it "and is redirected to the buffet registration page if he is a buffet " \

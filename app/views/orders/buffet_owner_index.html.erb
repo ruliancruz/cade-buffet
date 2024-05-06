@@ -1,0 +1,53 @@
+<h1>Pedidos</h1>
+<% if @orders.any? %>
+  <section>
+    <h2>Pedidos Aguardando Avaliação</h2>
+      <% if @orders.waiting_for_evaluation.any? %>
+        <dl>
+          <% @orders.waiting_for_evaluation.each do |order| %>
+            <%= render order %>
+          <% end %>
+        </dl>
+      <% else %>
+        <p>Você não tem pedidos aguardando avaliação.</p>
+      <% end %>
+  </section>
+  <section>
+    <h2>Pedidos Aguardando Confirmação do Cliente</h2>
+    <% if @orders.approved_by_buffet.any? %>
+      <dl>
+        <% @orders.approved_by_buffet.each do |order| %>
+          <%= render order %>
+        <% end %>
+      </dl>
+    <% else %>
+      <p>Você não tem pedidos aguardando confirmação do cliente.</p>
+    <% end %>
+  </section>
+  <section>
+    <h2>Pedidos Confirmados</h2>
+    <% if @orders.confirmed.any? %>
+      <dl>
+        <% @orders.confirmed.each do |order| %>
+          <%= render order %>
+        <% end %>
+      </dl>
+    <% else %>
+      <p>Você não tem pedidos confirmados.</p>
+    <% end %>
+  </section>
+  <section>
+    <h2>Pedidos Cancelados</h2>
+    <% if @orders.canceled.any? %>
+      <dl>
+        <% @orders.canceled.each do |order| %>
+          <%= render order %>
+        <% end %>
+      </dl>
+    <% else %>
+      <p>Você não tem pedidos cancelados.</p>
+    <% end %>
+  </section>
+<% else %>
+  <p>Você ainda não tem pedidos.</p>
+<% end %>

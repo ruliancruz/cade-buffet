@@ -1,12 +1,31 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_client!, only: [:index, :show, :new, :create]
+  before_action :validate_buffet_creation, only: [:index, :show, :new, :create]
+  before_action :authenticate_client!, only: [:new, :create]
 
   def index
-    @orders = Order.order :date
+    return @orders = Order.order(:date) if client_signed_in?
+
+    if buffet_owner_signed_in?
+      @orders = Order.left_joins(:event_type)
+        .where(event_type: { buffet_id: current_buffet_owner.buffet.id })
+        .order :date
+
+      return render :buffet_owner_index
+    end
+
+    redirect_to new_client_session_path
   end
 
   def show
-    @order = Order.find params[:id]
+    return @order = Order.find(params[:id]) if client_signed_in?
+
+    if buffet_owner_signed_in?
+      @order = Order.find params[:id]
+
+      return render :buffet_owner_show
+    end
+
+    redirect_to new_client_session_path
   end
 
   def new

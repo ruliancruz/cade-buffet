@@ -1,3 +1,4 @@
+<%= 'Atenção! Existem pedidos marcados para o mesmo dia para este pedido.' if Order.find_by 'date = ? AND id != ?', @order.date, @order.id %>
 <h1>Pedido <%= @order.code %></h1>
 <ul>
   <li>Status: <%= I18n.translate @order.status %></li>

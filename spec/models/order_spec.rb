@@ -55,7 +55,7 @@ RSpec.describe Order, type: :model do
        'evaluation' do
       order = Order.new status: :waiting_for_evaluation
 
-      expect(order.final_price).to eq :waiting_for_evaluation.to_s
+      expect(order.final_price).to eq I18n.translate :waiting_for_evaluation
     end
   end
 
