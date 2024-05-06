@@ -98,180 +98,178 @@ describe 'buffet owner sees an order' do
       expect(page).not_to have_content second_order.code
       expect(page).not_to have_content I18n.l(Date.current + 3.week)
       expect(page).not_to have_link 'Festa de Aniversário infantil'
+    end
+  end
+
+  it 'and see a message if he has another order registered at the same date' do
+    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'Clientine',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '34340299000145',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: buffet_owner
+
+    first_event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
+                                         description: 'Um evento descontraído.',
+                                         minimum_attendees: 20,
+                                         maximum_attendees: 50,
+                                         duration: 120,
+                                         menu: 'Seleção de queijos, frutas e vinhos',
+                                         provides_alcohol_drinks: true,
+                                         provides_decoration: false,
+                                         provides_parking_service: false,
+                                         serves_external_address: true,
+                                         buffet: buffet
+
+    second_event_type = EventType.create! name: 'Festa de Aniversário infantil',
+                                          description: 'Um evento muito legal.',
+                                          minimum_attendees: 10,
+                                          maximum_attendees: 40,
+                                          duration: 80,
+                                          menu: 'Bolos, salgados, sucos e refrigerantes',
+                                          provides_alcohol_drinks: false,
+                                          provides_decoration: true,
+                                          provides_parking_service: false,
+                                          serves_external_address: true,
+                                          buffet: buffet
+
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: first_event_type
+
+    BasePrice.create! description: 'Final de Semana',
+                      minimum: 14_000,
+                      additional_per_person: 300,
+                      extra_hour_value: 1_500,
+                      event_type: second_event_type
+
+    first_order = Order.new date: I18n.localize(Date.current + 2.week),
+                            attendees: 40,
+                            details: 'Quero que inclua queijo suíço e vinho tinto.',
+                            address: buffet.full_address,
+                            status: :waiting_for_evaluation,
+                            event_type: first_event_type,
+                            client: client
+
+    first_order.generate_code
+    first_order.save!
+
+    second_order = Order.new date: I18n.localize(Date.current + 2.week),
+                             attendees: 30,
+                             details: 'Quero que inclua coxinhas e pasteis.',
+                             address: buffet.full_address,
+                             status: :waiting_for_evaluation,
+                             event_type: second_event_type,
+                             client: client
+
+    second_order.generate_code
+    second_order.save!
+
+    login_as buffet_owner, scope: :buffet_owner
+    visit order_path first_order
+
+    within 'main' do
+      expect(page).to have_content 'Atenção! Existem pedidos marcados para ' \
+                                   'o mesmo dia que este pedido.'
+    end
+  end
+
+  it "and see a message if he hasn't another order registered at the same date" do
+    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'Clientine',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '34340299000145',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: buffet_owner
+
+    first_event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
+                                         description: 'Um evento descontraído.',
+                                         minimum_attendees: 20,
+                                         maximum_attendees: 50,
+                                         duration: 120,
+                                         menu: 'Seleção de queijos, frutas e vinhos',
+                                         provides_alcohol_drinks: true,
+                                         provides_decoration: false,
+                                         provides_parking_service: false,
+                                         serves_external_address: true,
+                                         buffet: buffet
+
+    second_event_type = EventType.create! name: 'Festa de Aniversário infantil',
+                                          description: 'Um evento muito legal.',
+                                          minimum_attendees: 10,
+                                          maximum_attendees: 40,
+                                          duration: 80,
+                                          menu: 'Bolos, salgados, sucos e refrigerantes',
+                                          provides_alcohol_drinks: false,
+                                          provides_decoration: true,
+                                          provides_parking_service: false,
+                                          serves_external_address: true,
+                                          buffet: buffet
+
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: first_event_type
+
+    BasePrice.create! description: 'Final de Semana',
+                      minimum: 14_000,
+                      additional_per_person: 300,
+                      extra_hour_value: 1_500,
+                      event_type: second_event_type
+
+    first_order = Order.new date: I18n.localize(Date.current + 2.week),
+                            attendees: 40,
+                            details: 'Quero que inclua queijo suíço e vinho tinto.',
+                            address: buffet.full_address,
+                            status: :waiting_for_evaluation,
+                            event_type: first_event_type,
+                            client: client
+
+    first_order.generate_code
+    first_order.save!
+
+    second_order = Order.new date: I18n.localize(Date.current + 3.week),
+                             attendees: 30,
+                             details: 'Quero que inclua coxinhas e pasteis.',
+                             address: buffet.full_address,
+                             status: :waiting_for_evaluation,
+                             event_type: second_event_type,
+                             client: client
+
+    second_order.generate_code
+    second_order.save!
+
+    login_as buffet_owner, scope: :buffet_owner
+    visit order_path first_order
+
+    within 'main' do
       expect(page).not_to have_content 'Atenção! Existem pedidos marcados ' \
                                        'para o mesmo dia para este pedido.'
-    end
-  end
-
-  it 'and see a message if he has more than one order registered at the same date' do
-    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
-    client = Client.create! name: 'Clientine',
-                            cpf: '11480076015',
-                            email: 'client@example.com',
-                            password: 'client-password'
-
-    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                            brand_name: 'Sabor & Arte Buffet',
-                            cnpj: '34340299000145',
-                            phone: '7531274464',
-                            address: 'Rua dos Sabores, 123',
-                            district: 'Centro',
-                            city: 'Culinária City',
-                            state: 'BA',
-                            cep: '12345678',
-                            buffet_owner: buffet_owner
-
-    first_event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                         description: 'Um evento descontraído.',
-                                         minimum_attendees: 20,
-                                         maximum_attendees: 50,
-                                         duration: 120,
-                                         menu: 'Seleção de queijos, frutas e vinhos',
-                                         provides_alcohol_drinks: true,
-                                         provides_decoration: false,
-                                         provides_parking_service: false,
-                                         serves_external_address: true,
-                                         buffet: buffet
-
-    second_event_type = EventType.create! name: 'Festa de Aniversário infantil',
-                                          description: 'Um evento muito legal.',
-                                          minimum_attendees: 10,
-                                          maximum_attendees: 40,
-                                          duration: 80,
-                                          menu: 'Bolos, salgados, sucos e refrigerantes',
-                                          provides_alcohol_drinks: false,
-                                          provides_decoration: true,
-                                          provides_parking_service: false,
-                                          serves_external_address: true,
-                                          buffet: buffet
-
-    BasePrice.create! description: 'Meio de Semana',
-                      minimum: 10_000,
-                      additional_per_person: 250,
-                      extra_hour_value: 1_000,
-                      event_type: first_event_type
-
-    BasePrice.create! description: 'Final de Semana',
-                      minimum: 14_000,
-                      additional_per_person: 300,
-                      extra_hour_value: 1_500,
-                      event_type: second_event_type
-
-    first_order = Order.new date: I18n.localize(Date.current + 2.week),
-                            attendees: 40,
-                            details: 'Quero que inclua queijo suíço e vinho tinto.',
-                            address: buffet.full_address,
-                            status: :waiting_for_evaluation,
-                            event_type: first_event_type,
-                            client: client
-
-    first_order.generate_code
-    first_order.save!
-
-    second_order = Order.new date: I18n.localize(Date.current + 2.week),
-                             attendees: 30,
-                             details: 'Quero que inclua coxinhas e pasteis.',
-                             address: buffet.full_address,
-                             status: :waiting_for_evaluation,
-                             event_type: second_event_type,
-                             client: client
-
-    second_order.generate_code
-    second_order.save!
-
-    login_as buffet_owner, scope: :buffet_owner
-    visit order_path first_order
-
-    within 'main' do
-      expect(page).to have_content 'Atenção! Existem pedidos marcados para ' \
-                                   'o mesmo dia para este pedido.'
-    end
-  end
-
-  it 'and see a message if there is 2 or more orders registered with the same date' do
-    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
-    client = Client.create! name: 'Clientine',
-                            cpf: '11480076015',
-                            email: 'client@example.com',
-                            password: 'client-password'
-
-    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                            brand_name: 'Sabor & Arte Buffet',
-                            cnpj: '34340299000145',
-                            phone: '7531274464',
-                            address: 'Rua dos Sabores, 123',
-                            district: 'Centro',
-                            city: 'Culinária City',
-                            state: 'BA',
-                            cep: '12345678',
-                            buffet_owner: buffet_owner
-
-    first_event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                         description: 'Um evento descontraído.',
-                                         minimum_attendees: 20,
-                                         maximum_attendees: 50,
-                                         duration: 120,
-                                         menu: 'Seleção de queijos, frutas e vinhos',
-                                         provides_alcohol_drinks: true,
-                                         provides_decoration: false,
-                                         provides_parking_service: false,
-                                         serves_external_address: true,
-                                         buffet: buffet
-
-    second_event_type = EventType.create! name: 'Festa de Aniversário infantil',
-                                          description: 'Um evento muito legal.',
-                                          minimum_attendees: 10,
-                                          maximum_attendees: 40,
-                                          duration: 80,
-                                          menu: 'Bolos, salgados, sucos e refrigerantes',
-                                          provides_alcohol_drinks: false,
-                                          provides_decoration: true,
-                                          provides_parking_service: false,
-                                          serves_external_address: true,
-                                          buffet: buffet
-
-    BasePrice.create! description: 'Meio de Semana',
-                      minimum: 10_000,
-                      additional_per_person: 250,
-                      extra_hour_value: 1_000,
-                      event_type: first_event_type
-
-    BasePrice.create! description: 'Final de Semana',
-                      minimum: 14_000,
-                      additional_per_person: 300,
-                      extra_hour_value: 1_500,
-                      event_type: second_event_type
-
-    first_order = Order.new date: I18n.localize(Date.current + 2.week),
-                            attendees: 40,
-                            details: 'Quero que inclua queijo suíço e vinho tinto.',
-                            address: buffet.full_address,
-                            status: :waiting_for_evaluation,
-                            event_type: first_event_type,
-                            client: client
-
-    first_order.generate_code
-    first_order.save!
-
-    second_order = Order.new date: I18n.localize(Date.current + 2.week),
-                             attendees: 30,
-                             details: 'Quero que inclua coxinhas e pasteis.',
-                             address: buffet.full_address,
-                             status: :waiting_for_evaluation,
-                             event_type: second_event_type,
-                             client: client
-
-    second_order.generate_code
-    second_order.save!
-
-    login_as buffet_owner, scope: :buffet_owner
-    visit order_path first_order
-
-    within 'main' do
-      expect(page).to have_content 'Atenção! Existem pedidos marcados para ' \
-                                     'o mesmo dia para este pedido.'
     end
   end
 
