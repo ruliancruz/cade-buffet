@@ -1,0 +1,38 @@
+<%= render partial: 'layouts/error_messages', locals: { model: @order } %>
+<h1>Aprovar Pedido <%= @order.code %></h1>
+<%= form_with model: @order do |form| %>
+  <div>
+    <h2>Valor-padrão</h2>
+    <dl>
+      <% @order.event_type.base_prices.order(:description).each do |base_price| %>
+        <dt><%= base_price.description %></dt>
+        <dd><%= (number_to_currency @order.default_price(base_price), unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
+      <% end %>
+    </dl>
+  </div>
+  <div>
+    <%= form.label :base_price_id %>
+    <%= form.collection_select :base_price_id, @order.event_type.base_prices.order(:description), :id, :description %>
+  </div>
+  <div>
+    <%= form.label :price_adjustment %>
+    <%= form.number_field :price_adjustment, step: 0.01 %> insira um número negativo para conceder desconto
+  </div>
+  <div>
+    <%= form.label :price_adjustment_description %>
+    <%= form.text_area :price_adjustment_description %>
+  </div>
+  <div>
+    <%= form.label :expiration_date %>
+    <%= form.date_field :expiration_date, in: Date.today..@order.date, value: I18n.localize(@order.date) %>
+  </div>
+  <% if @order.event_type.buffet.payment_options.any? %>
+    <div>
+      <%= form.label :payment_option_id %>
+      <%= form.collection_select :payment_option_id, @order.event_type.buffet.payment_options.order(:name), :id, :name %>
+    </div>
+  <% end %>
+  <div>
+    <%= form.submit 'Aprovar Pedido' %>
+  </div>
+<% end %>

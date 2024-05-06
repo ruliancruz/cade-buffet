@@ -20,6 +20,7 @@
       <li>Justificativa do Desconto: <%= price_adjustment_description %></li>
     <% end %>
   <% end %>
+  <%= link_to 'Aprovar Pedido', edit_order_path %>
 </ul>
 <% if @order.base_price %>
   <section>

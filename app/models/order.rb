@@ -26,16 +26,20 @@ class Order < ApplicationRecord
   end
 
   def final_price
-    return self.base_price.minimum + total_additional_per_person +
-      self.price_adjustment unless self.waiting_for_evaluation?
+    return default_price(self.base_price) + self.price_adjustment unless
+      self.waiting_for_evaluation?
 
     I18n.translate self.status
   end
 
+  def default_price(base_price)
+    base_price.minimum + total_additional_per_person(base_price)
+  end
+
   private
 
-  def total_additional_per_person
-    return self.base_price.additional_per_person *
+  def total_additional_per_person(base_price)
+    return base_price.additional_per_person *
       (self.attendees - self.event_type.minimum_attendees) if
       self.attendees > self.event_type.minimum_attendees
 

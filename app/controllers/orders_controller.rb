@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :validate_buffet_creation, only: [:index, :show, :new, :create]
+  before_action :validate_buffet_creation, only: [:index, :show, :new, :create, :edit]
   before_action :authenticate_client!, only: [:new, :create]
 
   def index
@@ -55,5 +55,17 @@ class OrdersController < ApplicationController
 
     flash.now[:notice] = 'Preencha todos os campos corretamente para fazer o pedido.'
     render :new
+  end
+
+  def edit
+    return redirect_to @order = Order.find(params[:id]) if client_signed_in?
+
+    if buffet_owner_signed_in? && Order.find(params[:id]).waiting_for_evaluation?
+      @order = Order.find params[:id]
+
+      return render :approve
+    end
+
+    redirect_to root_path
   end
 end
