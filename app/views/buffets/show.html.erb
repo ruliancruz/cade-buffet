@@ -11,9 +11,9 @@
 <%= link_to 'Alterar Dados', edit_buffet_path %>
 <section>
   <h2>Meios de Pagamento Aceitos</h2>
-  <% if @buffet.payment_options.any? %>
+  <% if @buffet.payment_options.active.any? %>
     <dl>
-      <% @buffet.payment_options.each do |payment_option| %>
+      <% @buffet.payment_options.active.each do |payment_option| %>
         <dt>
           <%= link_to payment_option.name, edit_payment_option_path %>
           <%= button_to 'Remover', payment_option_path, method: :delete %>
@@ -28,9 +28,9 @@
 </section>
 <section>
   <h2>Tipos de Evento Oferecidos</h2>
-  <% if @buffet.event_types.any? %>
+  <% if @buffet.event_types.active.any? %>
     <dl>
-      <% @buffet.event_types.each do |event_type| %>
+      <% @buffet.event_types.active.each do |event_type| %>
         <dt><%= link_to event_type.name, event_type %></dt>
         <% if event_type.resized_photo %>
           <dd><%= image_tag event_type.resized_photo %></dd>

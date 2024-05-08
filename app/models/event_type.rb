@@ -4,6 +4,8 @@ class EventType < ApplicationRecord
   has_many :orders
   has_one_attached :photo
 
+  enum status: { active: 0, inactive: 1 }
+
   validates :name,
             :description,
             :minimum_attendees,
@@ -14,7 +16,8 @@ class EventType < ApplicationRecord
             :provides_decoration,
             :provides_parking_service,
             :serves_external_address,
-            :buffet_id,
+            :buffet,
+            :status,
             presence: true
 
   validates :minimum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }

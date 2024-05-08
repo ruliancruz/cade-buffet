@@ -18,6 +18,11 @@ class Order < ApplicationRecord
             :client,
             presence: true
 
+  validates :base_price,
+            :expiration_date,
+            presence: true,
+            on: :update
+
   validates :attendees, numericality: { only_integer: true, greater_than: 0 }
   validate :date_is_actual_or_future
 
@@ -26,7 +31,7 @@ class Order < ApplicationRecord
   end
 
   def final_price
-    return default_price(self.base_price) + self.price_adjustment unless
+    return default_price(self.base_price) + (self.price_adjustment || 0) unless
       self.waiting_for_evaluation?
 
     I18n.translate self.status

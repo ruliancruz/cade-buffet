@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
     end
 
     flash.now[:notice] = 'Preencha todos os campos corretamente para aprovar o pedido.'
-    render :edit
+    render :approve
   end
 
   private

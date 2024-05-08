@@ -40,7 +40,7 @@ class EventTypesController < ApplicationController
 
   def destroy
     redirect_to current_buffet_owner.buffet,
-      notice: 'Tipo de evento excluído com sucesso!' if @event_type.destroy
+      notice: 'Tipo de evento excluído com sucesso!' if @event_type.inactive!
   end
 
   private

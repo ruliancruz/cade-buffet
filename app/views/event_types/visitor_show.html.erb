@@ -23,9 +23,9 @@
 </section>
 <section>
   <h2>Preços-base</h2>
-  <% if @event_type.base_prices.any? %>
+  <% if @event_type.base_prices.active.any? %>
     <dl>
-      <% @event_type.base_prices.each do |base_price| %>
+      <% @event_type.base_prices.active.each do |base_price| %>
         <dt>
           <%= base_price.description %>
         </dt>

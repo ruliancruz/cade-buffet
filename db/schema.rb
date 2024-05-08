@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_05_075230) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_230827) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_075230) do
     t.integer "event_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["event_type_id"], name: "index_base_prices_on_event_type_id"
   end
 
@@ -107,6 +108,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_075230) do
     t.integer "buffet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
@@ -138,6 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_075230) do
     t.integer "buffet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["buffet_id"], name: "index_payment_options_on_buffet_id"
   end
 

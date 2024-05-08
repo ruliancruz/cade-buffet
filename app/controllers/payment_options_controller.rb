@@ -36,7 +36,7 @@ class PaymentOptionsController < ApplicationController
 
   def destroy
     redirect_to current_buffet_owner.buffet, notice: 'Meio de pagamento removido com sucesso!' if
-      @payment_option.destroy
+      @payment_option.inactive!
   end
 
   private

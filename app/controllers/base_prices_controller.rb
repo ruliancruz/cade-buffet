@@ -35,7 +35,7 @@ class BasePricesController < ApplicationController
 
   def destroy
     redirect_to @base_price.event_type, notice: 'Preço-base removido com sucesso!' if
-      @base_price.destroy
+      @base_price.inactive!
   end
 
   private

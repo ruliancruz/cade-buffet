@@ -9,9 +9,9 @@
 </ul>
 <section>
   <h2>Meios de Pagamento Aceitos</h2>
-  <% if @buffet.payment_options.any? %>
+  <% if @buffet.payment_options.active.any? %>
     <dl>
-      <% @buffet.payment_options.each do |payment_option| %>
+      <% @buffet.payment_options.active.each do |payment_option| %>
         <dt>
           <%= payment_option.name %>
         </dt>
