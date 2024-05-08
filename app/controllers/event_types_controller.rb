@@ -1,11 +1,10 @@
 class EventTypesController < ApplicationController
   before_action :validate_buffet_creation, only: [:show, :new, :create, :edit, :update, :destroy]
   before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_event_type, only: [:edit, :update, :destroy]
+  before_action :select_event_type, only: [:show, :edit, :update, :destroy]
+  before_action :validate_buffet_ownership, only: [:edit, :update, :destroy]
 
   def show
-    @event_type = EventType.find params[:id]
-
     return render :client_show if client_signed_in?
     render :visitor_show unless buffet_owner_signed_in?
   end
@@ -60,13 +59,12 @@ class EventTypesController < ApplicationController
                                        :serves_external_address
   end
 
-  def set_event_type
-    selected_event_type = EventType.find params[:id]
+  def select_event_type
+    @event_type = EventType.find params[:id]
+  end
 
-    return redirect_to current_buffet_owner.buffet if
-      selected_event_type.nil? ||
-      selected_event_type.buffet != current_buffet_owner.buffet
-
-    @event_type = selected_event_type
+  def validate_buffet_ownership
+    redirect_to current_buffet_owner.buffet if
+      @event_type.nil? || @event_type.buffet != current_buffet_owner.buffet
   end
 end

@@ -1,0 +1,39 @@
+<h1>Pedido <%= order.code %></h1>
+<section>
+  <ul>
+    <li>Status: <%= I18n.translate order.status %></li>
+    <li>Cliente: <%= link_to order.client.name %> (<%= order.client.email %>)</li>
+    <li>Buffet: <%= link_to order.event_type.buffet.brand_name %></li>
+    <li>Data do Evento: <%= I18n.localize order.date %></li>
+    <li>Quantidade Estimada de Convidados: <%= order.attendees %></li>
+    <li>Endereço: <%= order.address %></li>
+    <li>Meio de Pagamento: <%= order.payment_option ? order.payment_option.name : 'A combinar' %></li>
+    <li>Tipo de Evento: <%= link_to order.event_type.name %></li>
+    <li>Detalhes Adicionais: <%= order.details %></li>
+    <% unless order.waiting_for_evaluation? %>
+      <li>Preço Final: <%= (number_to_currency order.final_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+      <% if order.price_adjustment && order.price_adjustment != 0 %>
+        <% if order.price_adjustment > 0 %>
+          <li>Taxa Extra: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+          <li>Justificativa da Taxa Extra: <%= order.price_adjustment_description %></li>
+        <% else %>
+          <li>Desconto: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+          <li>Justificativa do Desconto: <%= order.price_adjustment_description %></li>
+        <% end %>
+      <% end %>
+      <li>Data de Validade do Preço: <%= I18n.localize order.expiration_date %></li>
+    <% end %>
+  </ul>
+</section>
+<% if order.base_price %>
+  <section>
+    <h2>Preço Base Utilizado: <%= order.base_price.description %></h2>
+    <ul>
+      <li>Valor Mínimo: <%= (number_to_currency order.base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+      <li>Adicional por Pessoa: <%= (number_to_currency order.base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+      <% unless order.base_price.extra_hour_value.blank? %>
+        <li>Valor por Hora Extra: <%= (number_to_currency  order.base_price.extra_hour_value, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

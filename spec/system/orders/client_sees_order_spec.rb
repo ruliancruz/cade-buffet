@@ -102,6 +102,53 @@ describe 'client sees an order' do
   end
 
   it "and returns to client sign in page if he isn't signed in" do
+    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'Clientine',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '34340299000145',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: buffet_owner
+
+    event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
+                                   description: 'Um evento descontraído.',
+                                   minimum_attendees: 20,
+                                   maximum_attendees: 50,
+                                   duration: 120,
+                                   menu: 'Seleção de queijos, frutas e vinhos',
+                                   provides_alcohol_drinks: true,
+                                   provides_decoration: false,
+                                   provides_parking_service: false,
+                                   serves_external_address: true,
+                                   buffet: buffet
+
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: event_type
+
+    order = Order.new date: I18n.localize(Date.current + 2.week),
+                      attendees: 40,
+                      details: 'Quero que inclua queijo suíço e vinho tinto.',
+                      address: buffet.full_address,
+                      status: :waiting_for_evaluation,
+                      event_type: event_type,
+                      client: client
+
+    order.generate_code
+    order.save!
+
     visit order_path 1
 
     expect(current_path).to eq new_client_session_path

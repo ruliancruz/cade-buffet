@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :validate_buffet_creation, only: [:index, :show, :new, :create, :edit]
   before_action :authenticate_client!, only: [:new, :create]
+  before_action :select_order, only: [:show, :edit, :update]
 
   def index
     return @orders = Order.order(:date) if client_signed_in?
@@ -17,13 +18,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    return @order = Order.find(params[:id]) if client_signed_in?
-
-    if buffet_owner_signed_in?
-      @order = Order.find params[:id]
-
-      return render :buffet_owner_show
-    end
+    return if client_signed_in?
+    return render :buffet_owner_show if buffet_owner_signed_in?
 
     redirect_to new_client_session_path
   end
@@ -58,14 +54,37 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    return redirect_to @order = Order.find(params[:id]) if client_signed_in?
+    return redirect_to @order if client_signed_in?
+    return redirect_to root_path unless buffet_owner_signed_in?
+    return redirect_to @order unless @order.waiting_for_evaluation?
 
-    if buffet_owner_signed_in? && Order.find(params[:id]).waiting_for_evaluation?
-      @order = Order.find params[:id]
+    render :approve
+  end
 
-      return render :approve
+  def update
+    order_params = params.require(:order).permit :date,
+                                                 :attendees,
+                                                 :details,
+                                                 :address,
+                                                 :price_adjustment,
+                                                 :price_adjustment_description,
+                                                 :expiration_date,
+                                                 :event_type_id,
+                                                 :payment_option_id,
+                                                 :base_price_id
+
+    if @order.update order_params
+      @order.approved_by_buffet!
+      return redirect_to @order, notice: 'Pedido aprovado com sucesso!'
     end
 
-    redirect_to root_path
+    flash.now[:notice] = 'Preencha todos os campos corretamente para aprovar o pedido.'
+    render :edit
+  end
+
+  private
+
+  def select_order
+    @order = Order.find params[:id]
   end
 end

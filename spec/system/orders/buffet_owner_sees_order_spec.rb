@@ -182,8 +182,8 @@ describe 'buffet owner sees an order' do
     visit order_path first_order
 
     within 'main' do
-      expect(page).to have_content 'Atenção! Existem pedidos marcados para ' \
-                                   'o mesmo dia que este pedido.'
+      expect(page).to have_content 'Atenção! Existe outro pedido marcado ' \
+                                   'para o mesmo dia que este.'
     end
   end
 

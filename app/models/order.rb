@@ -47,7 +47,7 @@ class Order < ApplicationRecord
   end
 
   def date_is_actual_or_future
-    self.errors.add :date, 'precisa ser atual ou futura' unless
-      self.date && self.date >= Date.today
+    return unless self.date
+    self.errors.add :date, 'precisa ser atual ou futura' if self.date < Date.current
   end
 end

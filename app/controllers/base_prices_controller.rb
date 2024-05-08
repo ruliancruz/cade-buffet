@@ -1,7 +1,8 @@
 class BasePricesController < ApplicationController
   before_action :validate_buffet_creation, only: [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_base_price, only: [:edit, :update, :destroy]
+  before_action :select_base_price, only: [:edit, :update, :destroy]
+  before_action :validate_buffet_ownership, only: [:edit, :update, :destroy]
 
   def new
     @base_price = BasePrice.new event_type_id: params[:event_type_id]
@@ -50,13 +51,12 @@ class BasePricesController < ApplicationController
     base_price_params.merge! event_type_id: params.require(:event_type_id)
   end
 
-  def set_base_price
-    selected_base_price = BasePrice.find params[:id]
+  def select_base_price
+    @base_price = BasePrice.find params[:id]
+  end
 
-    return redirect_to current_buffet_owner.buffet if
-      selected_base_price.nil? ||
-      selected_base_price.event_type.buffet != current_buffet_owner.buffet
-
-    @base_price = selected_base_price
+  def validate_buffet_ownership
+    redirect_to current_buffet_owner.buffet if
+      @base_price.nil? || @base_price.event_type.buffet != current_buffet_owner.buffet
   end
 end

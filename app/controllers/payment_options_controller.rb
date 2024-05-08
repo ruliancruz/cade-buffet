@@ -1,7 +1,8 @@
 class PaymentOptionsController < ApplicationController
   before_action :validate_buffet_creation, only: [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_payment_option, only: [:edit, :update, :destroy]
+  before_action :select_payment_option, only: [:edit, :update, :destroy]
+  before_action :validate_buffet_ownership, only: [:edit, :update, :destroy]
 
   def new
     @payment_option = PaymentOption.new
@@ -44,13 +45,13 @@ class PaymentOptionsController < ApplicationController
     params.require(:payment_option).permit :name, :installment_limit
   end
 
-  def set_payment_option
-    selected_payment_option = PaymentOption.find params[:id]
+  def select_payment_option
+    @payment_option = PaymentOption.find params[:id]
+  end
 
-    return redirect_to current_buffet_owner.buffet if
-      selected_payment_option.nil? ||
-      selected_payment_option.buffet != current_buffet_owner.buffet
-
-    @payment_option = selected_payment_option
+  def validate_buffet_ownership
+    redirect_to current_buffet_owner.buffet if
+      @payment_option.nil? ||
+      @payment_option.buffet != current_buffet_owner.buffet
   end
 end

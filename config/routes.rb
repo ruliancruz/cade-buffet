@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :payment_options, only: [:new, :create, :edit, :update, :destroy]
   resources :base_prices, only: [:edit, :update, :destroy]
-  resources :orders, only: [:index, :show, :edit]
+  resources :orders, only: [:index, :show, :edit, :update]
 
   resources :buffets, only: [:show, :new, :create, :edit, :update] do
     get 'search', on: :collection
