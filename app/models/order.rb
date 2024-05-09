@@ -49,6 +49,11 @@ class Order < ApplicationRecord
     base_price.minimum + total_additional_per_person(base_price)
   end
 
+  def expired?
+    return Date.current >= expiration_date if expiration_date
+    false
+  end
+
   private
 
   def total_additional_per_person(base_price)

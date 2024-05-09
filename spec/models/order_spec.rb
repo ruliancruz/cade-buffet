@@ -59,6 +59,26 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  describe '#expired?' do
+    it 'false when expiration date is later than current date' do
+      order = Order.new expiration_date: Date.current + 1.day
+
+      expect(order.expired?).to be false
+    end
+
+    it 'true when expiration date is equal than current date' do
+      order = Order.new expiration_date: Date.current
+
+      expect(order.expired?).to be true
+    end
+
+    it 'false when expiration date is null' do
+      order = Order.new expiration_date: nil
+
+      expect(order.expired?).to be false
+    end
+  end
+
   describe '#generate_code' do
     it 'generate an alphanumeric code with 8 characters' do
       order = Order.new

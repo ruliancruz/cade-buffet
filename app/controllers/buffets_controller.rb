@@ -23,8 +23,8 @@ class BuffetsController < ApplicationController
     @buffet = Buffet.new buffet_params
     @buffet.buffet_owner = current_buffet_owner
 
-    return redirect_to @buffet,
-      notice: 'Buffet cadastrado com sucesso!' if @buffet.save
+    return redirect_to @buffet, notice: 'Buffet cadastrado com sucesso!' if
+      @buffet.save
 
     flash.now[:notice] =
       'Preencha todos os campos corretamente para cadastrar o buffet.'

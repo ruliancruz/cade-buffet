@@ -14,7 +14,7 @@ class PaymentOptionsController < ApplicationController
 
   def create
     @payment_option = PaymentOption.new payment_option_params
-    @payment_option.buffet_id = current_buffet_owner.buffet.id
+    @payment_option.buffet = current_buffet_owner.buffet
 
     return redirect_to current_buffet_owner.buffet,
       notice: 'Meio de pagamento cadastrado com sucesso!' if

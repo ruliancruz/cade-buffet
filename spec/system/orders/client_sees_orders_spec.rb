@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'client sees orders' do
+describe 'Client sees orders' do
   it 'from the home page, ordered by date' do
     buffet_owner = BuffetOwner
       .create! email: 'buffet_owner@example.com', password: 'password'

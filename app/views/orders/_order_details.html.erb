@@ -4,12 +4,8 @@
     <li>Status: <%= I18n.translate order.status %></li>
     <li>Cliente: <%= link_to order.client.name %> (<%= order.client.email %>)</li>
     <li>Buffet: <%= link_to order.event_type.buffet.brand_name %></li>
-    <li>Data do Evento: <%= I18n.localize order.date %></li>
-    <li>Quantidade Estimada de Convidados: <%= order.attendees %></li>
-    <li>Endereço: <%= order.address %></li>
-    <li>Meio de Pagamento: <%= order.payment_option ? order.payment_option.name : 'A combinar' %></li>
     <li>Tipo de Evento: <%= link_to order.event_type.name %></li>
-    <li>Detalhes Adicionais: <%= order.details %></li>
+    <li>Data do Evento: <%= I18n.localize order.date %></li>
     <% unless order.waiting_for_evaluation? %>
       <li>Preço Final: <%= (number_to_currency order.final_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
       <% if order.price_adjustment && order.price_adjustment != 0 %>
@@ -23,6 +19,10 @@
       <% end %>
       <li>Data de Validade do Preço: <%= I18n.localize order.expiration_date %></li>
     <% end %>
+    <li>Meio de Pagamento: <%= order.payment_option.name %></li>
+    <li>Quantidade Estimada de Convidados: <%= order.attendees %></li>
+    <li>Endereço: <%= order.address %></li>
+    <li>Detalhes Adicionais: <%= order.details %></li>
   </ul>
 </section>
 <% if order.base_price %>

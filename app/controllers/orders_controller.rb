@@ -21,6 +21,8 @@ class OrdersController < ApplicationController
 
   def show
     if client_signed_in?
+      flash[:notice] = 'O pedido expirou!' if @order.expired?
+
       return render :client_show if current_client == @order.client
 
       return redirect_to root_path,
@@ -28,6 +30,8 @@ class OrdersController < ApplicationController
     end
 
     if buffet_owner_signed_in?
+      flash[:notice] = 'O pedido expirou!' if @order.expired?
+
       return render :buffet_owner_show if
         current_buffet_owner == @order.event_type.buffet.buffet_owner
 
@@ -99,28 +103,33 @@ class OrdersController < ApplicationController
   end
 
   def update
-    order_params = params.require(:order)
-      .permit :date,
-              :attendees,
-              :details,
-              :address,
-              :price_adjustment,
-              :price_adjustment_description,
-              :expiration_date,
-              :event_type_id,
-              :payment_option_id,
-              :base_price_id
+    return redirect_to @order, notice: 'Pedido confirmado com sucesso!' if
+      client_signed_in? && @order.client == current_client && @order.confirmed!
 
-    if @order.update order_params
-      @order.approved_by_buffet!
+    if buffet_owner_signed_in? &&
+      @order.event_type.buffet == current_buffet_owner.buffet
+      order_params = params.require(:order)
+        .permit :date,
+                :attendees,
+                :details,
+                :address,
+                :price_adjustment,
+                :price_adjustment_description,
+                :expiration_date,
+                :event_type_id,
+                :payment_option_id,
+                :base_price_id
 
-      return redirect_to @order, notice: 'Pedido aprovado com sucesso!'
+      return redirect_to @order, notice: 'Pedido aprovado com sucesso!' if
+        @order.update(order_params) && @order.approved_by_buffet!
+
+      flash.now[:notice] =
+        'Preencha todos os campos corretamente para aprovar o pedido.'
+
+      return render :approve
     end
 
-    flash.now[:notice] =
-      'Preencha todos os campos corretamente para aprovar o pedido.'
-
-    render :approve
+    redirect_to root_path
   end
 
   private

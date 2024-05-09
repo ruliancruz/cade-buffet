@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'buffet owner sees their orders' do
+describe 'Buffet owner sees their orders' do
   it 'from the home page, ordered by date and grouped by status' do
     first_buffet_owner = BuffetOwner
       .create! email: 'buffet_owner@example.com', password: 'password'

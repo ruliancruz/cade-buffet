@@ -18,8 +18,8 @@ class BasePricesController < ApplicationController
     return redirect_to @base_price.event_type, notice: 'Preço-base ' \
       'cadastrado com sucesso!' if @base_price.save
 
-    flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
-      'cadastrar o preço-base.'
+    flash.now[:notice] =
+      'Preencha todos os campos corretamente para cadastrar o preço-base.'
 
     render :new
   end
@@ -31,8 +31,8 @@ class BasePricesController < ApplicationController
       notice: 'Preço-base atualizado com sucesso!' if
       @base_price.update base_price_params
 
-    flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
-      'atualizar o preço-base.'
+    flash.now[:notice] =
+      'Preencha todos os campos corretamente para atualizar o preço-base.'
 
     render :edit
   end

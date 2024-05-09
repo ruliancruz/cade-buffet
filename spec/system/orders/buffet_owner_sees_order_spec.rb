@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'buffet owner sees an order' do
+describe 'Buffet owner sees an order' do
   it 'from the orders page' do
     buffet_owner = BuffetOwner
       .create! email: 'buffet_owner@example.com', password: 'password'

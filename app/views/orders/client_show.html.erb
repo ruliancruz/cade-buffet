@@ -1,1 +1,2 @@
 <%= render partial: 'order_details', locals: { order: @order } %>
+<%= button_to 'Confirmar Pedido', order_path, method: :patch if @order.approved_by_buffet? && !@order.expired? %>
