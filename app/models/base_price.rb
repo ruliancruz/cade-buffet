@@ -12,5 +12,7 @@ class BasePrice < ApplicationRecord
             presence: true
 
   validates :minimum, numericality: { greater_than_or_equal_to: 0 }
-  validates :additional_per_person, numericality: { greater_than_or_equal_to: 0 }
+
+  validates :additional_per_person,
+    numericality: { greater_than_or_equal_to: 0 }
 end

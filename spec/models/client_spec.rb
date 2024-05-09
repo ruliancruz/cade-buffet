@@ -35,7 +35,8 @@ RSpec.describe Client, type: :model do
       client.valid?
 
       expect(client.errors.full_messages
-        .include? 'CPF não possui o tamanho esperado (11 caracteres)').to be true
+        .include? 'CPF não possui o tamanho esperado (11 caracteres)')
+        .to be true
     end
 
     it "false when cpf have more than 11 digits" do
@@ -44,7 +45,8 @@ RSpec.describe Client, type: :model do
       client.valid?
 
       expect(client.errors.full_messages
-        .include? 'CPF não possui o tamanho esperado (11 caracteres)').to be true
+        .include? 'CPF não possui o tamanho esperado (11 caracteres)')
+        .to be true
     end
 
     it "false when cpf isn't unique" do
@@ -57,7 +59,8 @@ RSpec.describe Client, type: :model do
 
       client.valid?
 
-      expect(client.errors.full_messages.include? 'CPF já está em uso').to be true
+      expect(client.errors.full_messages.include? 'CPF já está em uso')
+        .to be true
     end
 
     it "false when cpf isn't valid" do
@@ -65,7 +68,8 @@ RSpec.describe Client, type: :model do
 
       client.valid?
 
-      expect(client.errors.full_messages.include? 'CPF precisa ser válido').to be true
+      expect(client.errors.full_messages.include? 'CPF precisa ser válido')
+        .to be true
     end
   end
 end

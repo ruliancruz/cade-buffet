@@ -30,7 +30,8 @@ class Buffet < ApplicationRecord
   end
 
   def formatted_phone
-    return "(#{phone[0..1]}) #{phone[2..6]}-#{phone[7..10]}" if phone.length == 11
+    return "(#{phone[0..1]}) #{phone[2..6]}-#{phone[7..10]}" if
+      phone.length == 11
 
     "(#{phone[0..1]}) #{phone[2..5]}-#{phone[6..9]}"
   end

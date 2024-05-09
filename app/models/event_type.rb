@@ -20,9 +20,14 @@ class EventType < ApplicationRecord
             :status,
             presence: true
 
-  validates :minimum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :maximum_attendees, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :duration, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :minimum_attendees, numericality: { only_integer: true,
+                                                greater_than_or_equal_to: 0 }
+
+  validates :maximum_attendees, numericality: { only_integer: true,
+                                                greater_than_or_equal_to: 0 }
+
+  validates :duration, numericality: { only_integer: true,
+                                       greater_than_or_equal_to: 0 }
 
   def resized_photo
     self.photo.variant(resize_to_limit: [800, 800])

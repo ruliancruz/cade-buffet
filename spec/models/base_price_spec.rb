@@ -80,7 +80,8 @@ RSpec.describe BasePrice, type: :model do
       base_price.valid?
 
       expect(base_price.errors.full_messages
-        .include? 'Adicional por Pessoa deve ser maior ou igual a 0').to be true
+        .include? 'Adicional por Pessoa deve ser maior ou igual a 0')
+        .to be true
     end
 
     it 'true when additional per person is a positive number' do
@@ -89,7 +90,8 @@ RSpec.describe BasePrice, type: :model do
       base_price.valid?
 
       expect(base_price.errors.full_messages
-        .include? 'Adicional por Pessoa deve ser maior ou igual a 0').to be false
+        .include? 'Adicional por Pessoa deve ser maior ou igual a 0')
+        .to be false
     end
   end
 end

@@ -118,7 +118,8 @@ RSpec.describe EventType, type: :model do
       event_type.valid?
 
       expect(event_type.errors.full_messages
-        .include? 'Fornece Bebidas Alcoólicas não pode ficar em branco').to be true
+        .include? 'Fornece Bebidas Alcoólicas não pode ficar em branco')
+        .to be true
     end
 
     it 'false when provides decoration is missing' do
@@ -146,8 +147,8 @@ RSpec.describe EventType, type: :model do
       event_type.valid?
 
       expect(event_type.errors.full_messages
-        .include? 'Atende a Endereço Indicado por Cliente não pode ficar em branco')
-        .to be true
+        .include? 'Atende a Endereço Indicado por Cliente não pode ficar em ' \
+                  'branco').to be true
     end
 
     it 'false when buffet is missing' do

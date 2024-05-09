@@ -1,12 +1,20 @@
 class EventTypesController < ApplicationController
-  before_action :validate_buffet_creation, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :validate_buffet_creation,
+    only: [:show, :new, :create, :edit, :update, :destroy]
+
+  before_action :authenticate_buffet_owner!,
+    only: [:new, :create, :edit, :update, :destroy]
+
   before_action :select_event_type, only: [:show, :edit, :update, :destroy]
   before_action :validate_buffet_ownership, only: [:edit, :update, :destroy]
 
   def show
     return render :client_show if client_signed_in?
-    render :visitor_show unless buffet_owner_signed_in?
+
+    return render :buffet_owner_show if buffet_owner_signed_in? &&
+      current_buffet_owner == @event_type.buffet.buffet_owner
+
+    render :visitor_show
   end
 
   def new
@@ -17,11 +25,11 @@ class EventTypesController < ApplicationController
     @event_type = EventType.new event_type_params
     @event_type.buffet = current_buffet_owner.buffet
 
-    return redirect_to current_buffet_owner.buffet, notice: 'Tipo de Evento ' \
-      'cadastrado com sucesso!' if @event_type.save
+    return redirect_to current_buffet_owner.buffet,
+      notice: 'Tipo de Evento cadastrado com sucesso!' if @event_type.save
 
-    flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
-      'adicionar o tipo de evento.'
+    flash.now[:notice] =
+      'Preencha todos os campos corretamente para adicionar o tipo de evento.'
 
     render :new
   end
@@ -29,11 +37,12 @@ class EventTypesController < ApplicationController
   def edit; end
 
   def update
-    return redirect_to @event_type, notice: 'Tipo de evento atualizado com sucesso!' if
+    return redirect_to @event_type,
+      notice: 'Tipo de evento atualizado com sucesso!' if
       @event_type.update event_type_params
 
-    flash.now[:notice] = 'Preencha todos os campos corretamente para ' \
-      'atualizar o tipo de evento.'
+    flash.now[:notice] =
+      'Preencha todos os campos corretamente para atualizar o tipo de evento.'
 
     render :edit
   end
@@ -46,17 +55,18 @@ class EventTypesController < ApplicationController
   private
 
   def event_type_params
-    params.require(:event_type).permit :name,
-                                       :description,
-                                       :minimum_attendees,
-                                       :maximum_attendees,
-                                       :duration,
-                                       :menu,
-                                       :photo,
-                                       :provides_alcohol_drinks,
-                                       :provides_decoration,
-                                       :provides_parking_service,
-                                       :serves_external_address
+    params.require(:event_type)
+      .permit :name,
+              :description,
+              :minimum_attendees,
+              :maximum_attendees,
+              :duration,
+              :menu,
+              :photo,
+              :provides_alcohol_drinks,
+              :provides_decoration,
+              :provides_parking_service,
+              :serves_external_address
   end
 
   def select_event_type

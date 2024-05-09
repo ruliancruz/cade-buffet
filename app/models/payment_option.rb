@@ -8,7 +8,8 @@ class PaymentOption < ApplicationRecord
             :status,
             presence: true
 
-  validates :installment_limit, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+  validates :installment_limit, numericality: { only_integer: true,
+                                                greater_than_or_equal_to: 1 }
 
   def long_installment_limit
     return "Parcela em até #{installment_limit}x" if installment_limit > 1

@@ -133,7 +133,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'CNPJ não possui o tamanho esperado (14 caracteres)').to be true
+        .include? 'CNPJ não possui o tamanho esperado (14 caracteres)')
+        .to be true
     end
 
     it 'false when cnpj have more than 14 characters' do
@@ -142,7 +143,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'CNPJ não possui o tamanho esperado (14 caracteres)').to be true
+        .include? 'CNPJ não possui o tamanho esperado (14 caracteres)')
+        .to be true
     end
 
     it 'false when phone has less than 10 characters' do
@@ -151,7 +153,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'Telefone é muito curto (mínimo: 10 caracteres)').to be true
+        .include? 'Telefone é muito curto (mínimo: 10 caracteres)')
+        .to be true
     end
 
     it 'false when phone has more than 11 characters' do
@@ -160,7 +163,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'Telefone é muito longo (máximo: 11 caracteres)').to be true
+        .include? 'Telefone é muito longo (máximo: 11 caracteres)')
+        .to be true
     end
 
     it 'false when state has less than 2 characters' do
@@ -169,7 +173,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'Estado não possui o tamanho esperado (2 caracteres)').to be true
+        .include? 'Estado não possui o tamanho esperado (2 caracteres)')
+        .to be true
     end
 
     it 'false when state has more than 2 characters' do
@@ -178,7 +183,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'Estado não possui o tamanho esperado (2 caracteres)').to be true
+        .include? 'Estado não possui o tamanho esperado (2 caracteres)')
+        .to be true
     end
 
     it 'false when cep has less than 8 characters' do
@@ -187,7 +193,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'CEP não possui o tamanho esperado (8 caracteres)').to be true
+        .include? 'CEP não possui o tamanho esperado (8 caracteres)')
+        .to be true
     end
 
     it 'false when cep has more than 8 characters' do
@@ -196,7 +203,8 @@ RSpec.describe Buffet, type: :model do
       buffet.valid?
 
       expect(buffet.errors.full_messages
-        .include? 'CEP não possui o tamanho esperado (8 caracteres)').to be true
+        .include? 'CEP não possui o tamanho esperado (8 caracteres)')
+        .to be true
     end
 
     it "false when cnpj isn't a number" do
@@ -204,7 +212,8 @@ RSpec.describe Buffet, type: :model do
 
       buffet.valid?
 
-      expect(buffet.errors.full_messages.include? 'CNPJ não é um número').to be true
+      expect(buffet.errors.full_messages
+        .include? 'CNPJ não é um número').to be true
     end
 
     it "false when phone isn't a number" do
@@ -212,49 +221,56 @@ RSpec.describe Buffet, type: :model do
 
       buffet.valid?
 
-      expect(buffet.errors.full_messages.include? 'Telefone não é um número').to be true
+      expect(buffet.errors.full_messages
+        .include? 'Telefone não é um número').to be true
     end
 
     it "false when cnpj isn't unique" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      buffet_owner = BuffetOwner
+        .create! email: 'user@example.com', password: 'password'
 
-      Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                     brand_name: 'Sabor & Arte Buffet',
-                     cnpj: '34340299000145',
-                     phone: '7531274464',
-                     address: 'Rua dos Sabores, 123',
-                     district: 'Centro',
-                     city: 'Culinária City',
-                     state: 'BA',
-                     cep: '12345678',
-                     buffet_owner: user
+      Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 buffet_owner: buffet_owner
 
       buffet = Buffet.new cnpj: '34340299000145'
 
       buffet.valid?
 
-      expect(buffet.errors.full_messages.include? 'CNPJ já está em uso').to be true
+      expect(buffet.errors.full_messages
+        .include? 'CNPJ já está em uso').to be true
     end
 
     it "false when buffet owner isn't unique" do
-      user = BuffetOwner.create! email: 'user@example.com', password: 'password'
+      buffet_owner = BuffetOwner
+        .create! email: 'user@example.com', password: 'password'
 
-      Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                     brand_name: 'Sabor & Arte Buffet',
-                     cnpj: '34340299000145',
-                     phone: '7531274464',
-                     address: 'Rua dos Sabores, 123',
-                     district: 'Centro',
-                     city: 'Culinária City',
-                     state: 'BA',
-                     cep: '12345678',
-                     buffet_owner: user
+      Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 buffet_owner: buffet_owner
 
-      buffet = Buffet.new buffet_owner: user
+      buffet = Buffet.new buffet_owner: buffet_owner
 
       buffet.valid?
 
-      expect(buffet.errors.full_messages.include? 'Usuário já está em uso').to be true
+      expect(buffet.errors.full_messages
+        .include? 'Usuário já está em uso').to be true
     end
 
     it "false when cnpj isn't valid" do
@@ -262,7 +278,8 @@ RSpec.describe Buffet, type: :model do
 
       buffet.valid?
 
-      expect(buffet.errors.full_messages.include? 'CNPJ precisa ser válido').to be true
+      expect(buffet.errors.full_messages
+        .include? 'CNPJ precisa ser válido').to be true
     end
   end
 end

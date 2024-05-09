@@ -5,14 +5,14 @@ RSpec.describe Order, type: :model do
     it 'calculate and returns final price' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000,
-                                 additional_per_person: 250
+      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
 
-      order = Order.new price_adjustment: -500,
-                        attendees: 40,
-                        status: :approved_by_buffet,
-                        event_type: event_type,
-                        base_price: base_price
+      order = Order
+        .new price_adjustment: -500,
+             attendees: 40,
+             status: :approved_by_buffet,
+             event_type: event_type,
+             base_price: base_price
 
       expect(order.final_price).to eq 14_500
     end
@@ -22,14 +22,14 @@ RSpec.describe Order, type: :model do
        'minimum attendees' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000,
-                                 additional_per_person: 250
+      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
 
-      order = Order.new price_adjustment: -500,
-                        attendees: 20,
-                        status: :approved_by_buffet,
-                        event_type: event_type,
-                        base_price: base_price
+      order = Order
+        .new price_adjustment: -500,
+             attendees: 20,
+             status: :approved_by_buffet,
+             event_type: event_type,
+             base_price: base_price
 
       expect(order.final_price).to eq 9_500
     end
@@ -39,14 +39,14 @@ RSpec.describe Order, type: :model do
        'minimum attendees' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000,
-                                 additional_per_person: 250
+      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
 
-      order = Order.new price_adjustment: -500,
-                        attendees: 19,
-                        status: :approved_by_buffet,
-                        event_type: event_type,
-                        base_price: base_price
+      order = Order
+        .new price_adjustment: -500,
+             attendees: 19,
+             status: :approved_by_buffet,
+             event_type: event_type,
+             base_price: base_price
 
       expect(order.final_price).to eq 9_500
     end
@@ -175,8 +175,8 @@ RSpec.describe Order, type: :model do
     end
 
     it "false when expiration date is earlier than current date" do
-      order = Order.new date: Date.current + 1.week,
-                        expiration_date: Date.current - 1.day
+      order = Order
+        .new date: Date.current + 1.week, expiration_date: Date.current - 1.day
 
       order.valid?
 
@@ -187,8 +187,8 @@ RSpec.describe Order, type: :model do
     end
 
     it "true when expiration date is equal to current date" do
-      order = Order.new date: Date.current + 1.week,
-                        expiration_date: Date.current
+      order = Order
+        .new date: Date.current + 1.week, expiration_date: Date.current
 
       order.valid?
 
@@ -199,8 +199,9 @@ RSpec.describe Order, type: :model do
     end
 
     it "false when expiration date is later than date" do
-      order = Order.new date: Date.current + 1.week,
-                        expiration_date: Date.current + 8.days
+      order = Order
+        .new date: Date.current + 1.week,
+             expiration_date: Date.current + 8.days
 
       order.valid?
 
@@ -211,8 +212,9 @@ RSpec.describe Order, type: :model do
     end
 
     it "false when expiration date is equal than date" do
-      order = Order.new date: Date.current + 1.week,
-                        expiration_date: Date.current + 1.week
+      order = Order
+        .new date: Date.current + 1.week,
+             expiration_date: Date.current + 1.week
 
       order.valid?
 
@@ -230,7 +232,8 @@ RSpec.describe Order, type: :model do
 
       expect(order.errors.full_messages
         .include? 'Ajuste de Preço Ajuste de Preço não pode ficar em branco ' \
-        'quando a Justificativa do Ajuste de Preço estiver preenchida').to be true
+        'quando a Justificativa do Ajuste de Preço estiver preenchida')
+        .to be true
     end
   end
 end

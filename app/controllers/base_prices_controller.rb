@@ -1,6 +1,10 @@
 class BasePricesController < ApplicationController
-  before_action :validate_buffet_creation, only: [:new, :create, :edit, :update, :destroy]
-  before_action :authenticate_buffet_owner!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :validate_buffet_creation,
+    only: [:new, :create, :edit, :update, :destroy]
+
+  before_action :authenticate_buffet_owner!,
+    only: [:new, :create, :edit, :update, :destroy]
+
   before_action :select_base_price, only: [:edit, :update, :destroy]
   before_action :validate_buffet_ownership, only: [:edit, :update, :destroy]
 
@@ -34,17 +38,15 @@ class BasePricesController < ApplicationController
   end
 
   def destroy
-    redirect_to @base_price.event_type, notice: 'Preço-base removido com sucesso!' if
-      @base_price.inactive!
+    redirect_to @base_price.event_type,
+      notice: 'Preço-base removido com sucesso!' if @base_price.inactive!
   end
 
   private
 
   def base_price_params
-    params.require(:base_price).permit :description,
-                                       :minimum,
-                                       :additional_per_person,
-                                       :extra_hour_value
+    params.require(:base_price)
+      .permit :description, :minimum, :additional_per_person, :extra_hour_value
   end
 
   def full_base_price_params
@@ -56,7 +58,7 @@ class BasePricesController < ApplicationController
   end
 
   def validate_buffet_ownership
-    redirect_to current_buffet_owner.buffet if
-      @base_price.nil? || @base_price.event_type.buffet != current_buffet_owner.buffet
+    redirect_to current_buffet_owner.buffet if @base_price.nil? ||
+      @base_price.event_type.buffet != current_buffet_owner.buffet
   end
 end

@@ -11,7 +11,10 @@ class Client < ApplicationRecord
             presence: true
 
   validates :cpf, length: { is: 11 }
-  validates :cpf, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  validates :cpf, numericality: { only_integer: true,
+                                  greater_than_or_equal_to: 0 }
+
   validates :cpf, uniqueness: true
   validates :cpf, cpf: { message: 'precisa ser válido' }
 end
