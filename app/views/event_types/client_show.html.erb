@@ -20,11 +20,10 @@
     <li>Fornece Serviço de Estacionamento: <%= @event_type.provides_parking_service_text %></li>
     <li>Atende a Endereço Indicado por Cliente: <%= @event_type.serves_external_address_text %></li>
   </ul>
-  <%= link_to 'Fazer Pedido', new_event_type_order_path(@event_type) if @event_type.base_prices.any? %>
 </section>
 <section>
-  <h2>Preços-base</h2>
   <% if @event_type.base_prices.any? %>
+    <h2>Preços-base</h2>
     <dl>
       <% @event_type.base_prices.each do |base_price| %>
         <dt>
@@ -37,7 +36,12 @@
         <% end %>
       <% end %>
     </dl>
+    <% if @event_type.buffet.payment_options.active.any? %>
+        <%= link_to 'Fazer Pedido', new_event_type_order_path(@event_type) %>
+    <% else %>
+      <p>Este tipo de evento não pode ser contratado pois o buffet não possui meios de pagamento cadastrados.</p>
+    <% end %>
   <% else %>
-    <p>Este tipo de evento não possui preços-base cadastrados.</p>
+    <p>Este tipo de evento não pode ser contratado pois não possui preços-base cadastrados.</p>
   <% end %>
 </section>

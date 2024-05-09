@@ -31,6 +31,10 @@ class OrdersController < ApplicationController
       'pode ser contratado pois não possui preços-base cadastrados' if
       event_type.base_prices.empty?
 
+    return redirect_to event_type.buffet, notice: 'Este tipo de evento não pode ' \
+      'ser contratado pois o buffet não possui meios de pagamento cadastrados' if
+      event_type.buffet.payment_options.empty?
+
     @order = Order.new event_type_id: event_type.id,
                        address: event_type.buffet.full_address if
                                 event_type.serves_external_address

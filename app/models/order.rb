@@ -14,6 +14,7 @@ class Order < ApplicationRecord
             :details,
             :code,
             :status,
+            :payment_option,
             :event_type,
             :client,
             presence: true

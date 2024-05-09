@@ -91,9 +91,16 @@ describe 'Client register order' do
                                    serves_external_address: true,
                                    buffet: buffet
 
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
+
     login_as client, scope: :client
     visit event_type_path event_type
+
     expect(page).not_to have_link 'Fazer Pedido'
+    expect(page).to have_content 'Este tipo de evento não pode ser ' \
+                                 'contratado pois não possui preços-base cadastrados.'
   end
 
   it "and return to home page if the event type doesn't have base prices registered" do
@@ -127,14 +134,20 @@ describe 'Client register order' do
                                    serves_external_address: true,
                                    buffet: buffet
 
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
+
     login_as client, scope: :client
     visit new_event_type_order_path event_type
+
     expect(current_path).to eq buffet_path buffet
     expect(page).to have_content 'Este tipo de evento não pode ser ' \
-                                 'contratado pois não possui preços-base cadastrados'
+      'contratado pois não possui preços-base cadastrados'
   end
 
-  it "and don't see payment option select if the buffet doesn't have payment options" do
+  it "and doesn't find Fazer Pedido link if the event type doesn't have " \
+     "payment options registered" do
     buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
     client = Client.create! name: 'Client',
@@ -173,11 +186,56 @@ describe 'Client register order' do
 
     login_as client, scope: :client
     visit event_type_path event_type
-    click_on 'Fazer Pedido'
 
-    within 'main form' do
-      expect(page).not_to have_select 'Meio de Pagamento'
-    end
+    expect(page).not_to have_link 'Fazer Pedido'
+    expect(page).to have_content 'Este tipo de evento não pode ser ' \
+      'contratado pois o buffet não possui meios de pagamento cadastrados.'
+  end
+
+  it "and return to home page if the event type' buffet doesn't have " \
+     "payment options registered" do
+    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
+
+    client = Client.create! name: 'Client',
+                            cpf: '11480076015',
+                            email: 'client@example.com',
+                            password: 'client-password'
+
+    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                            brand_name: 'Sabor & Arte Buffet',
+                            cnpj: '34340299000145',
+                            phone: '7531274464',
+                            address: 'Rua dos Sabores, 123',
+                            district: 'Centro',
+                            city: 'Culinária City',
+                            state: 'BA',
+                            cep: '12345678',
+                            buffet_owner: buffet_owner
+
+    event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
+                                   description: 'Um evento descontraído.',
+                                   minimum_attendees: 20,
+                                   maximum_attendees: 50,
+                                   duration: 120,
+                                   menu: 'Seleção de queijos, frutas e vinhos',
+                                   provides_alcohol_drinks: true,
+                                   provides_decoration: false,
+                                   provides_parking_service: false,
+                                   serves_external_address: true,
+                                   buffet: buffet
+
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: event_type
+
+    login_as client, scope: :client
+    visit new_event_type_order_path event_type
+
+    expect(current_path).to eq buffet_path buffet
+    expect(page).to have_content 'Este tipo de evento não pode ser ' \
+      'contratado pois o buffet não possui meios de pagamento cadastrados'
   end
 
   it "and don't see address field if the event type doesn't serves external address" do
@@ -216,6 +274,10 @@ describe 'Client register order' do
                       additional_per_person: 250,
                       extra_hour_value: 1_000,
                       event_type: event_type
+
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
 
     login_as client, scope: :client
     visit event_type_path event_type
@@ -305,75 +367,6 @@ describe 'Client register order' do
     expect(page).not_to have_content 'Preço Base Utilizado'
   end
 
-  it "with success when the buffet doesn't have payment options registered" do
-    buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
-
-    client = Client.create! name: 'Client',
-                            cpf: '11480076015',
-                            email: 'client@example.com',
-                            password: 'client-password'
-
-    buffet = Buffet.create! corporate_name: 'Delícias Gastronômicas Ltda.',
-                            brand_name: 'Sabor & Arte Buffet',
-                            cnpj: '34340299000145',
-                            phone: '7531274464',
-                            address: 'Rua dos Sabores, 123',
-                            district: 'Centro',
-                            city: 'Culinária City',
-                            state: 'BA',
-                            cep: '12345678',
-                            buffet_owner: buffet_owner
-
-    event_type = EventType.create! name: 'Coquetel de Networking Empresarial',
-                                   description: 'Um evento descontraído.',
-                                   minimum_attendees: 20,
-                                   maximum_attendees: 50,
-                                   duration: 120,
-                                   menu: 'Seleção de queijos, frutas e vinhos',
-                                   provides_alcohol_drinks: true,
-                                   provides_decoration: false,
-                                   provides_parking_service: false,
-                                   serves_external_address: true,
-                                   buffet: buffet
-
-    BasePrice.create! description: 'Meio de Semana',
-                      minimum: 10_000,
-                      additional_per_person: 250,
-                      extra_hour_value: 1_000,
-                      event_type: event_type
-
-    allow(SecureRandom).to receive(:alphanumeric).and_return 'S8baxMJn'
-
-    login_as client, scope: :client
-    visit new_event_type_order_path event_type
-
-    within 'main form' do
-      fill_in 'Data do Evento', with: I18n.localize(Date.current + 1.week)
-      fill_in 'Quantidade Estimada de Convidados', with: '40'
-      fill_in 'Detalhes Adicionais', with: 'Quero que inclua queijo suíço e vinho tinto.'
-      fill_in 'Endereço Desejado', with: 'Caminho dos bolos, 42 - Centro, ' \
-        'Culinária City - BA'
-
-      click_on 'Fazer Pedido'
-    end
-
-    expect(current_path).to eq order_path 1
-    expect(page).to have_content 'Pedido enviado com sucesso! Aguarde a ' \
-                                 'avaliação do buffet!'
-
-    expect(Order.first.code).to eq 'S8baxMJn'
-    expect(page).to have_content 'Aguardando avaliação do buffet'
-    expect(page).to have_content I18n.l(Date.current + 1.week)
-    expect(page).to have_content '40'
-    expect(page).to have_content 'Caminho dos bolos, 42 - Centro, Culinária City - BA'
-    expect(page).to have_content 'A combinar'
-    expect(page).to have_link 'Coquetel de Networking Empresarial'
-    expect(page).to have_link 'Sabor & Arte Buffet'
-    expect(page).not_to have_content 'Justificativa da Taxa Extra'
-    expect(page).not_to have_content 'Justificativa do Desconto'
-    expect(page).not_to have_content 'Preço Base Utilizado'
-  end
-
   it "with success when the buffet doesn't serves external address" do
     buffet_owner = BuffetOwner.create! email: 'user@example.com', password: 'password'
 
@@ -405,6 +398,12 @@ describe 'Client register order' do
                                    serves_external_address: true,
                                    buffet: buffet
 
+    BasePrice.create! description: 'Meio de Semana',
+                      minimum: 10_000,
+                      additional_per_person: 250,
+                      extra_hour_value: 1_000,
+                      event_type: event_type
+
     PaymentOption.create! name: 'Cartão de Crédito',
                           installment_limit: 12,
                           buffet: buffet
@@ -412,12 +411,6 @@ describe 'Client register order' do
     PaymentOption.create! name: 'Pix',
                           installment_limit: 1,
                           buffet: buffet
-
-    BasePrice.create! description: 'Meio de Semana',
-                      minimum: 10_000,
-                      additional_per_person: 250,
-                      extra_hour_value: 1_000,
-                      event_type: event_type
 
     allow(SecureRandom).to receive(:alphanumeric).and_return 'S8baxMJn'
 
@@ -480,19 +473,15 @@ describe 'Client register order' do
                                    serves_external_address: true,
                                    buffet: buffet
 
-    PaymentOption.create! name: 'Cartão de Crédito',
-                          installment_limit: 12,
-                          buffet: buffet
-
-    PaymentOption.create! name: 'Pix',
-                          installment_limit: 1,
-                          buffet: buffet
-
     BasePrice.create! description: 'Meio de Semana',
                       minimum: 10_000,
                       additional_per_person: 250,
                       extra_hour_value: 1_000,
                       event_type: event_type
+
+    PaymentOption.create! name: 'Cartão de Crédito',
+                          installment_limit: 12,
+                          buffet: buffet
 
     login_as client, scope: :client
     visit new_event_type_order_path event_type

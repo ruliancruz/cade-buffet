@@ -56,12 +56,21 @@ describe 'client sees an order' do
                       extra_hour_value: 1_500,
                       event_type: second_event_type
 
+    first_payment_option = PaymentOption.create! name: 'Cartão de Crédito',
+                                                 installment_limit: 12,
+                                                 buffet: buffet
+
+    second_payment_option = PaymentOption.create! name: 'Pix',
+                                                  installment_limit: 1,
+                                                  buffet: buffet
+
     first_order = Order.new date: I18n.localize(Date.current + 2.week),
                             attendees: 40,
                             details: 'Quero que inclua queijo suíço e vinho tinto.',
                             address: buffet.full_address,
                             status: :waiting_for_evaluation,
                             event_type: first_event_type,
+                            payment_option: first_payment_option,
                             client: client
 
     first_order.generate_code
@@ -73,6 +82,7 @@ describe 'client sees an order' do
                              address: buffet.full_address,
                              status: :waiting_for_evaluation,
                              event_type: second_event_type,
+                             payment_option: second_payment_option,
                              client: client
 
     second_order.generate_code
@@ -93,7 +103,7 @@ describe 'client sees an order' do
       expect(page).to have_content I18n.l(Date.current + 2.week)
       expect(page).to have_content '40'
       expect(page).to have_content 'Rua dos Sabores, 123 - Centro, Culinária City - BA'
-      expect(page).to have_content 'A combinar'
+      expect(page).to have_content 'Cartão de Crédito'
       expect(page).to have_link 'Coquetel de Networking Empresarial'
       expect(page).not_to have_content second_order.code
       expect(page).not_to have_content I18n.l(Date.current + 3.week)
@@ -138,12 +148,17 @@ describe 'client sees an order' do
                       extra_hour_value: 1_000,
                       event_type: event_type
 
+    payment_option = PaymentOption.create! name: 'Cartão de Crédito',
+                                           installment_limit: 12,
+                                           buffet: buffet
+
     order = Order.new date: I18n.localize(Date.current + 2.week),
                       attendees: 40,
                       details: 'Quero que inclua queijo suíço e vinho tinto.',
                       address: buffet.full_address,
                       status: :waiting_for_evaluation,
                       event_type: event_type,
+                      payment_option: payment_option,
                       client: client
 
     order.generate_code
