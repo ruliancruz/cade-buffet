@@ -24,8 +24,15 @@ class Order < ApplicationRecord
             presence: true,
             on: :update
 
+  validates :price_adjustment,
+    presence: { is: true, message: 'Ajuste de Preço não pode ficar em ' \
+    'branco quando a Justificativa do Ajuste de Preço estiver preenchida' },
+    if: -> { self.price_adjustment_description.present? }
+
   validates :attendees, numericality: { only_integer: true, greater_than: 0 }
+
   validate :date_is_actual_or_future
+  validate :expiration_date_is_valid?
 
   def generate_code
     self.code = SecureRandom.alphanumeric 8
@@ -54,6 +61,16 @@ class Order < ApplicationRecord
 
   def date_is_actual_or_future
     return unless self.date
-    self.errors.add :date, 'precisa ser atual ou futura' if self.date < Date.current
+
+    self.errors.add :date, 'precisa ser atual ou futura' if
+      self.date < Date.current
+  end
+
+  def expiration_date_is_valid?
+    return unless self.expiration_date && self.date
+
+    self.errors.add :expiration_date, "precisa estar entre " \
+      "#{I18n.localize Date.current} e #{I18n.localize self.date}" if
+      self.expiration_date < Date.current || self.expiration_date > self.date
   end
 end

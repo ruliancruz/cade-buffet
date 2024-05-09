@@ -173,5 +173,64 @@ RSpec.describe Order, type: :model do
       expect(order.errors.full_messages
         .include? 'Data do Evento precisa ser atual ou futura').to be true
     end
+
+    it "false when expiration date is earlier than current date" do
+      order = Order.new date: Date.current + 1.week,
+                        expiration_date: Date.current - 1.day
+
+      order.valid?
+
+      expect(order.errors.full_messages
+       .include? "Data de Validade do Preço precisa estar entre " \
+       "#{I18n.localize Date.current} e #{I18n.localize order.date}")
+       .to be true
+    end
+
+    it "true when expiration date is equal to current date" do
+      order = Order.new date: Date.current + 1.week,
+                        expiration_date: Date.current
+
+      order.valid?
+
+      expect(order.errors.full_messages
+        .include? "Data de Validade do Preço precisa estar entre " \
+        "#{I18n.localize Date.current} e #{I18n.localize order.date}")
+        .to be false
+    end
+
+    it "false when expiration date is later than date" do
+      order = Order.new date: Date.current + 1.week,
+                        expiration_date: Date.current + 8.days
+
+      order.valid?
+
+      expect(order.errors.full_messages
+        .include? "Data de Validade do Preço precisa estar entre " \
+        "#{I18n.localize Date.current} e #{I18n.localize order.date}")
+        .to be true
+    end
+
+    it "false when expiration date is equal than date" do
+      order = Order.new date: Date.current + 1.week,
+                        expiration_date: Date.current + 1.week
+
+      order.valid?
+
+      expect(order.errors.full_messages
+        .include? "Data de Validade do Preço precisa estar entre " \
+        "#{I18n.localize Date.current} e #{I18n.localize order.date}")
+        .to be false
+    end
+
+    it 'false when price adjustment description is present and price ' \
+       'adjustment is blank' do
+      order = Order.new price_adjustment_description: 'Descrição'
+
+      order.valid?
+
+      expect(order.errors.full_messages
+        .include? 'Ajuste de Preço Ajuste de Preço não pode ficar em branco ' \
+        'quando a Justificativa do Ajuste de Preço estiver preenchida').to be true
+    end
   end
 end
