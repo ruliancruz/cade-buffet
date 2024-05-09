@@ -18,8 +18,19 @@ class OrdersController < ApplicationController
   end
 
   def show
-    return if client_signed_in?
-    return render :buffet_owner_show if buffet_owner_signed_in?
+    if client_signed_in?
+      return render :client_show if current_client == @order.client
+      return redirect_to root_path, notice: 'Você não pode acessar pedidos ' \
+                                            'de outros usuários'
+    end
+
+    if buffet_owner_signed_in?
+      return render :buffet_owner_show if
+        current_buffet_owner == @order.event_type.buffet.buffet_owner
+
+      return redirect_to root_path, notice: 'Você não pode acessar pedidos ' \
+                                            'de outros buffets'
+    end
 
     redirect_to new_client_session_path
   end
@@ -58,11 +69,21 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    return redirect_to @order if client_signed_in?
-    return redirect_to root_path unless buffet_owner_signed_in?
-    return redirect_to @order unless @order.waiting_for_evaluation?
+    if client_signed_in?
+      return redirect_to @order if current_client == @order.client
+      return redirect_to root_path, notice: 'Você não pode acessar pedidos ' \
+        'de outros usuários'
+    end
 
-    render :approve
+    if buffet_owner_signed_in?
+      return render :approve if
+        current_buffet_owner == @order.event_type.buffet.buffet_owner
+
+      return redirect_to root_path, notice: 'Você não pode aprovar pedidos ' \
+        'de outros buffets'
+    end
+
+    redirect_to new_client_session_path
   end
 
   def update
