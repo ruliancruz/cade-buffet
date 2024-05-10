@@ -37,3 +37,15 @@
     </ul>
   </section>
 <% end %>
+<section>
+  <h2>Mensagens</h2>
+  <% if order.messages.any? %>
+    <dl>
+      <% order.messages.order(datetime: :desc).each do |message| %>
+        <%= render message %>
+      <% end %>
+    </dl>
+  <% else %>
+    <p>Vocês ainda não enviaram mensagens</p>
+  <% end %>
+</section>

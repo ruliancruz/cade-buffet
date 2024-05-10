@@ -1,0 +1,12 @@
+pt-BR:
+  client: 'Cliente'
+  activerecord:
+    models:
+      message: 'Mensagem'
+    attributes:
+      message:
+        author: 'Autor'
+        text: 'Mensagem'
+        datetime: 'Data e Hora'
+        order: 'Pedido'
+        order_id: 'Pedido'

@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   belongs_to :payment_option, optional: true
   belongs_to :base_price, optional: true
 
+  has_many :messages
+
   enum status: { waiting_for_evaluation: 2,
                  approved_by_buffet: 5,
                  confirmed: 8,
