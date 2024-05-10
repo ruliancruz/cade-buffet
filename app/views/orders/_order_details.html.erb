@@ -50,7 +50,7 @@
   <% end %>
   <% if order.messages.any? %>
     <dl>
-      <% order.messages.order(datetime: :desc).each do |message| %>
+      <% order.messages.order(created_at: :desc).each do |message| %>
         <%= render message %>
       <% end %>
     </dl>

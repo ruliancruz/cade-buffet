@@ -1,3 +1,3 @@
 <dt><%= message.client? ? message.order.client.name : message.order.event_type.buffet.brand_name %></dt>
 <dd><%= message.text %></dd>
-<dd>Enviado em: <%= (I18n.localize message.datetime.localtime).slice(5..-1).slice 0..-7 %></dd>
+<dd>Enviado em: <%= (I18n.localize message.created_at.localtime).slice(5..-1).slice 0..-7 %></dd>
