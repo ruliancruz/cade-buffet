@@ -1,2 +1,3 @@
 <%= render partial: 'order_details', locals: { order: @order } %>
-<%= button_to 'Confirmar Pedido', order_path, method: :patch if @order.approved_by_buffet? && !@order.expired? %>
+<%= button_to 'Confirmar Pedido', order_path, method: :patch, params: { operation: 'confirm' } if @order.approved_by_buffet? && !@order.expired? %>
+<%= button_to 'Cancelar Pedido', order_path, method: :patch, params: { operation: 'cancel' } unless @order.canceled? || @order.confirmed? %>

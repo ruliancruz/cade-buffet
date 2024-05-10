@@ -103,19 +103,19 @@ class OrdersController < ApplicationController
   end
 
   def update
-    if buffet_owner_signed_in? &&
-      @order.event_type.buffet == current_buffet_owner.buffet &&
-      params[:operation] == 'cancel'
-
+    if client_signed_in? && @order.client == current_client
       return redirect_to @order, notice: 'Pedido cancelado com sucesso!' if
-        @order.canceled!
-    end
+        params[:operation] == 'cancel' && @order.canceled!
 
-    return redirect_to @order, notice: 'Pedido confirmado com sucesso!' if
-      client_signed_in? && @order.client == current_client && @order.confirmed!
+      return redirect_to @order, notice: 'Pedido confirmado com sucesso!' if
+        params[:operation] == 'confirm' && @order.confirmed!
+    end
 
     if buffet_owner_signed_in? &&
       @order.event_type.buffet == current_buffet_owner.buffet
+
+      return redirect_to @order, notice: 'Pedido cancelado com sucesso!' if
+        params[:operation] == 'cancel' && @order.canceled!
 
       order_params = params.require(:order)
         .permit :date,
