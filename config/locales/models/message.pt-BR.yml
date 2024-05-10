@@ -6,7 +6,7 @@ pt-BR:
     attributes:
       message:
         author: 'Autor'
-        text: 'Mensagem'
+        text: 'Deixe Sua Mensagem'
         datetime: 'Data e Hora'
         order: 'Pedido'
         order_id: 'Pedido'

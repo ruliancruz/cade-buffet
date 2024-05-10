@@ -39,6 +39,15 @@
 <% end %>
 <section>
   <h2>Mensagens</h2>
+  <%= form_with model: [order, Message.new] do |form| %>
+    <div>
+      <%= form.label :text %>
+      <%= form.text_area :text %>
+    </div>
+    <div>
+      <%= form.submit 'Enviar' %>
+    </div>
+  <% end %>
   <% if order.messages.any? %>
     <dl>
       <% order.messages.order(datetime: :desc).each do |message| %>
