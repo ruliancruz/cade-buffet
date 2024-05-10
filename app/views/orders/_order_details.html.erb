@@ -6,7 +6,7 @@
     <li>Buffet: <%= link_to order.event_type.buffet.brand_name %></li>
     <li>Tipo de Evento: <%= link_to order.event_type.name %></li>
     <li>Data do Evento: <%= I18n.localize order.date %></li>
-    <% unless order.waiting_for_evaluation? %>
+    <% unless order.waiting_for_evaluation? || order.canceled? %>
       <li>Preço Final: <%= (number_to_currency order.final_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
       <% if order.price_adjustment && order.price_adjustment != 0 %>
         <% if order.price_adjustment > 0 %>

@@ -1,3 +1,4 @@
 <%= 'Atenção! Existe outro pedido marcado para o mesmo dia que este.' if Order.find_by 'date = ? AND id != ?', @order.date, @order.id %>
 <%= render partial: 'order_details', locals: { order: @order } %>
 <%= link_to 'Aprovar Pedido', edit_order_path if @order.waiting_for_evaluation? %>
+<%= button_to 'Cancelar Pedido', order_path, method: :patch, params: { operation: 'cancel' } unless @order.canceled? || @order.confirmed? %>

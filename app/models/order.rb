@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   validates :base_price,
             :expiration_date,
             presence: true,
-            on: :update
+            on: :update, unless: -> { self.canceled? }
 
   validates :price_adjustment,
     presence: { is: true, message: 'Ajuste de Preço não pode ficar em ' \
