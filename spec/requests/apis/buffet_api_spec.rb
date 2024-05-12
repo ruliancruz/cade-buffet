@@ -113,5 +113,16 @@ describe 'Buffet API' do
       expect(json_response[1]['state']).to eq 'SP'
       expect(json_response[1]['cep']).to eq '87654321'
     end
+
+    it "returns empty if there isn't registered buffets" do
+      get "/api/v1/buffets"
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response).to eq []
+    end
   end
 end
