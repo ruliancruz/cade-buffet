@@ -1,6 +1,6 @@
-class Api::V1::BuffetsController < ActionController::API
+class Api::V1::BuffetsController < Api::V1::ApiController
   def index
-    render status: 200, json: Buffet.all.as_json(only:
+    render status: 200, json: search.as_json(only:
        [:id,
        :brand_name,
        :phone,
@@ -11,20 +11,26 @@ class Api::V1::BuffetsController < ActionController::API
        :cep,
        :description])
   end
+
   def show
-    begin
-      render status: 200, json: Buffet.find(params[:id]).as_json(only:
-         [:id,
-         :brand_name,
-         :phone,
-         :address,
-         :district,
-         :city,
-         :state,
-         :cep,
-         :description])
-    rescue
-      render status: 404
-    end
+    render status: 200, json: Buffet.find(params[:id]).as_json(only:
+       [:id,
+       :brand_name,
+       :phone,
+       :address,
+       :district,
+       :city,
+       :state,
+       :cep,
+       :description])
+  end
+
+  private
+
+  def search
+    return Buffet.where('brand_name LIKE ?', "%#{params[:query]}%") if
+      params.has_key?(:query) && !params[:query].blank?
+
+    Buffet.all
   end
 end
