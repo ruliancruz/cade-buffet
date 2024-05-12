@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root to: "home#index"
+
   resources :payment_options, only: [:new, :create, :edit, :update, :destroy]
   resources :base_prices, only: [:edit, :update, :destroy]
 
@@ -26,4 +27,10 @@ Rails.application.routes.draw do
     path: 'clients',
     controllers: { registrations: 'clients/registrations',
                    sessions: 'clients/sessions' }
+
+  namespace :api do
+    namespace :v1 do
+      resources :buffets, only: [:show]
+    end
+  end
 end

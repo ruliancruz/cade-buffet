@@ -119,15 +119,6 @@ RSpec.describe Order, type: :model do
         .include? 'Detalhes Adicionais não pode ficar em branco').to be true
     end
 
-    it 'false when code is blank' do
-      order = Order.new code: ''
-
-      order.valid?
-
-      expect(order.errors.full_messages
-        .include? 'Código não pode ficar em branco').to be true
-    end
-
     it 'false when status is blank' do
       order = Order.new status: ''
 

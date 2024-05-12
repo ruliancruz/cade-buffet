@@ -65,13 +65,11 @@ class OrdersController < ApplicationController
       .permit(:date, :attendees, :details, :payment_option_id, :address)
       .merge! event_type_id: params.require(:event_type_id)
 
-    @order.client = current_client
-
     @order.address = @order.event_type.buffet.full_address if
       @order.address.nil?
 
+    @order.client = current_client
     @order.status = :waiting_for_evaluation
-    @order.generate_code
 
     return redirect_to @order,
       notice: 'Pedido enviado com sucesso! Aguarde a avaliação do buffet!' if

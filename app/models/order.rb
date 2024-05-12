@@ -11,6 +11,8 @@ class Order < ApplicationRecord
                  confirmed: 8,
                  canceled: 11 }
 
+  before_validation :generate_code, on: :create
+
   validates :date,
             :attendees,
             :details,
