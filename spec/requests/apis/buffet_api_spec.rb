@@ -44,7 +44,7 @@ describe 'Buffet API' do
     end
 
     it "fails if the buffet isn't found" do
-      get "/api/v1/buffets/9999999"
+      get '/api/v1/buffets/9999999'
 
       expect(response.status).to eq 404
     end
@@ -91,8 +91,6 @@ describe 'Buffet API' do
 
       json_response = JSON.parse response.body
 
-      puts json_response.inspect
-
       expect(json_response.length).to eq 2
       expect(json_response[0]['brand_name']).to eq 'Sabor & Arte Buffet'
       expect(json_response[0]['phone']).to eq '7531274464'
@@ -115,7 +113,7 @@ describe 'Buffet API' do
     end
 
     it "returns empty if there isn't registered buffets" do
-      get "/api/v1/buffets"
+      get '/api/v1/buffets'
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
