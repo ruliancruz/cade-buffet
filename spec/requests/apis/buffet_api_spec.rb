@@ -42,5 +42,11 @@ describe 'Buffet API' do
       expect(json_response.keys).not_to include 'created_at'
       expect(json_response.keys).not_to include 'updated_at'
     end
+
+    it "and fails with the buffet isn't found" do
+      get "/api/v1/buffets/9999999"
+
+      expect(response.status).to eq 404
+    end
   end
 end
