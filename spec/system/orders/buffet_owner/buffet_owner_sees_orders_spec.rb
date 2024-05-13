@@ -88,196 +88,160 @@ describe 'Buffet owner sees their orders' do
                event_type: second_event_type
 
     first_order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: second_buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: second_payment_option,
-           event_type: first_event_type,
-           client: client
-
-    first_order.generate_code
-    first_order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: second_buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: second_payment_option,
+               event_type: first_event_type,
+               client: client
 
     second_order = Order
-      .new date: I18n.localize(Date.current + 3.week),
-           attendees: 30,
-           details: 'Quero que inclua coxinhas e pasteis.',
-           address: first_buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: second_event_type,
-           client: client
-
-    second_order.generate_code
-    second_order.save!
+      .create! date: I18n.localize(Date.current + 3.week),
+               attendees: 30,
+               details: 'Quero que inclua coxinhas e pasteis.',
+               address: first_buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: second_event_type,
+               client: client
 
     third_order = Order
-      .new date: I18n.localize(Date.current + 1.week),
-           attendees: 28,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: second_event_type,
-           client: client
-
-    third_order.generate_code
-    third_order.save!
+      .create! date: I18n.localize(Date.current + 1.week),
+               attendees: 28,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: second_event_type,
+               client: client
 
     fourth_order = Order
-      .new date: I18n.localize(Date.current + 12.week),
-           attendees: 56,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :approved_by_buffet,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 11.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    fourth_order.generate_code
-    fourth_order.save!
+      .create! date: I18n.localize(Date.current + 12.week),
+               attendees: 56,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :approved_by_buffet,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 11.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     fifth_order = Order
-      .new date: I18n.localize(Date.current + 11.week),
-           attendees: 48,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :approved_by_buffet,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 10.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    fifth_order.generate_code
-    fifth_order.save!
+      .create! date: I18n.localize(Date.current + 11.week),
+               attendees: 48,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :approved_by_buffet,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 10.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     sixth_order = Order
-      .new date: I18n.localize(Date.current + 10.week),
-           attendees: 32,
-           details: 'Quero que inclua só coxinhas.',
-           address: second_buffet.full_address,
-           status: :approved_by_buffet,
-           event_type: first_event_type,
-           client: client,
-           payment_option: second_payment_option,
-           base_price: first_base_price,
-           expiration_date: I18n.localize(Date.current + 9.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    sixth_order.generate_code
-    sixth_order.save!
+      .create! date: I18n.localize(Date.current + 10.week),
+               attendees: 32,
+               details: 'Quero que inclua só coxinhas.',
+               address: second_buffet.full_address,
+               status: :approved_by_buffet,
+               event_type: first_event_type,
+               client: client,
+               payment_option: second_payment_option,
+               base_price: first_base_price,
+               expiration_date: I18n.localize(Date.current + 9.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     seventh_order = Order
-      .new date: I18n.localize(Date.current + 8.week),
-           attendees: 24,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :canceled,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 7.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    seventh_order.generate_code
-    seventh_order.save!
+      .create! date: I18n.localize(Date.current + 8.week),
+               attendees: 24,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :canceled,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 7.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     eighth_order = Order
-      .new date: I18n.localize(Date.current + 9.week),
-           attendees: 16,
-           details: 'Quero que inclua só coxinhas.',
-           address: second_buffet.full_address,
-           status: :canceled,
-           event_type: first_event_type,
-           client: client,
-           payment_option: second_payment_option,
-           base_price: first_base_price,
-           expiration_date: I18n.localize(Date.current + 8.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    eighth_order.generate_code
-    eighth_order.save!
+      .create! date: I18n.localize(Date.current + 9.week),
+               attendees: 16,
+               details: 'Quero que inclua só coxinhas.',
+               address: second_buffet.full_address,
+               status: :canceled,
+               event_type: first_event_type,
+               client: client,
+               payment_option: second_payment_option,
+               base_price: first_base_price,
+               expiration_date: I18n.localize(Date.current + 8.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     ninth_order = Order
-      .new date: I18n.localize(Date.current + 7.week),
-           attendees: 23,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :canceled,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 6.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    ninth_order.generate_code
-    ninth_order.save!
+      .create! date: I18n.localize(Date.current + 7.week),
+               attendees: 23,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :canceled,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 6.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     tenth_order = Order
-      .new date: I18n.localize(Date.current + 6.week),
-           attendees: 35,
-           details: 'Quero que inclua só coxinhas.',
-           address: second_buffet.full_address,
-           status: :confirmed,
-           event_type: first_event_type,
-           client: client,
-           payment_option: second_payment_option,
-           base_price: first_base_price,
-           expiration_date: I18n.localize(Date.current + 5.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    tenth_order.generate_code
-    tenth_order.save!
+      .create! date: I18n.localize(Date.current + 6.week),
+               attendees: 35,
+               details: 'Quero que inclua só coxinhas.',
+               address: second_buffet.full_address,
+               status: :confirmed,
+               event_type: first_event_type,
+               client: client,
+               payment_option: second_payment_option,
+               base_price: first_base_price,
+               expiration_date: I18n.localize(Date.current + 5.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     eleventh_order = Order
-      .new date: I18n.localize(Date.current + 5.week),
-           attendees: 30,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :confirmed,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 4.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    eleventh_order.generate_code
-    eleventh_order.save!
+      .create! date: I18n.localize(Date.current + 5.week),
+               attendees: 30,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :confirmed,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 4.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     twelfth_order = Order
-      .new date: I18n.localize(Date.current + 4.week),
-           attendees: 25,
-           details: 'Quero que inclua só coxinhas.',
-           address: first_buffet.full_address,
-           status: :confirmed,
-           event_type: second_event_type,
-           client: client,
-           payment_option: payment_option,
-           base_price: second_base_price,
-           expiration_date: I18n.localize(Date.current + 3.week),
-           price_adjustment: -500,
-           price_adjustment_description: 'Promoção'
-
-    twelfth_order.generate_code
-    twelfth_order.save!
+      .create! date: I18n.localize(Date.current + 4.week),
+               attendees: 25,
+               details: 'Quero que inclua só coxinhas.',
+               address: first_buffet.full_address,
+               status: :confirmed,
+               event_type: second_event_type,
+               client: client,
+               payment_option: payment_option,
+               base_price: second_base_price,
+               expiration_date: I18n.localize(Date.current + 3.week),
+               price_adjustment: -500,
+               price_adjustment_description: 'Promoção'
 
     login_as first_buffet_owner, scope: :buffet_owner
     visit root_path
@@ -436,18 +400,15 @@ describe 'Buffet owner sees their orders' do
                extra_hour_value: 1_000,
                event_type: event_type
 
-    first_order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    first_order.generate_code
-    first_order.save!
+    Order
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     Buffet
       .create! corporate_name: 'Delícias Gastronômicas Ltda.',

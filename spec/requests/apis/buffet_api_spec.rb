@@ -92,6 +92,8 @@ describe 'Buffet API' do
       json_response = JSON.parse response.body
 
       expect(json_response.length).to eq 2
+
+      expect(json_response[0]['id'].nil?).to eq false
       expect(json_response[0]['brand_name']).to eq 'Sabor & Arte Buffet'
       expect(json_response[0]['phone']).to eq '7531274464'
       expect(json_response[0]['address']).to eq 'Rua dos Sabores, 123'
@@ -103,6 +105,7 @@ describe 'Buffet API' do
       expect(json_response[0]['description'])
         .to eq 'Oferecemos uma experiência gastronômica única.'
 
+      expect(json_response[1]['id'].nil?).to eq false
       expect(json_response[1]['brand_name']).to eq 'Chef & Cia Buffet'
       expect(json_response[1]['phone']).to eq '9887654321'
       expect(json_response[1]['address']).to eq 'Avenida das Delícias, 456'
@@ -182,6 +185,7 @@ describe 'Buffet API' do
 
         expect(json_response.length).to eq 2
 
+        expect(json_response[0]['id'].nil?).to eq false
         expect(json_response[0]['brand_name']).to eq 'Chef & Cia Buffet'
         expect(json_response[0]['phone']).to eq '9887654321'
         expect(json_response[0]['address']).to eq 'Avenida das Delícias, 456'
@@ -190,6 +194,7 @@ describe 'Buffet API' do
         expect(json_response[0]['state']).to eq 'SP'
         expect(json_response[0]['cep']).to eq '87654321'
 
+        expect(json_response[1]['id'].nil?).to eq false
         expect(json_response[1]['brand_name']).to eq 'Doce & Cia Buffet'
         expect(json_response[1]['phone']).to eq '9877654123'
         expect(json_response[1]['address']).to eq 'Caminho dos Doces, 456'
@@ -203,7 +208,9 @@ describe 'Buffet API' do
         expect(json_response.include? 'Rua dos Sabores, 123').to be false
       end
 
-      it "returns empty if there isn't registered buffets" do
+      it "returns empty if there isn't registered buffets that matches the " \
+         "query" do
+
         get '/api/v1/buffets?query=Cia Buffet'
 
         expect(response.status).to eq 200
@@ -265,7 +272,7 @@ describe 'Buffet API' do
                    cep: '87654300',
                    buffet_owner: third_buffet_owner
 
-        get "/api/v1/buffets?query=  "
+        get '/api/v1/buffets?query=  '
 
         expect(response.status).to eq 200
         expect(response.content_type).to include 'application/json'

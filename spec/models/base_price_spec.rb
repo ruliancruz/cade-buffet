@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe BasePrice, type: :model do
+  it 'calculate and returns default price' do
+    event_type = EventType.new minimum_attendees: 20
+
+    base_price =
+      BasePrice.new minimum: 10_000,
+                    additional_per_person: 250,
+                    event_type: event_type
+
+    expect(base_price.default_price(40)).to eq 15_000
+  end
+
   describe '#valid?' do
     it 'false when description is blank' do
       base_price = BasePrice.new description: ''

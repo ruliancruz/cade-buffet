@@ -6,7 +6,7 @@
     <dl>
       <% @order.event_type.base_prices.order(:description).each do |base_price| %>
         <dt><%= base_price.description %></dt>
-        <dd><%= (number_to_currency @order.default_price(base_price), unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
+        <dd><%= (number_to_currency base_price.default_price(@order.attendees), unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
       <% end %>
     </dl>
   </div>

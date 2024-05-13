@@ -1,6 +1,414 @@
 require 'rails_helper'
 
 RSpec.describe Buffet, type: :model do
+  describe '#availability_query' do
+    it 'returns true and preview prices when buffet is available' do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      BasePrice
+        .create! description: 'Meio de Semana',
+                 minimum: 10_000,
+                 additional_per_person: 250,
+                 extra_hour_value: 1_000,
+                 event_type: event_type
+
+      BasePrice
+        .create! description: 'Final de Semana',
+                 minimum: 14_000,
+                 additional_per_person: 300,
+                 extra_hour_value: 1_500,
+                 event_type: event_type
+
+      result = buffet.availability_query(event_type, Date.current, 40)
+
+      expect(result[:available]).to eq true
+      expect(result[:preview_prices][0][:description]).to eq 'Meio de Semana'
+      expect(result[:preview_prices][0][:value]).to eq 15_000
+      expect(result[:preview_prices][1][:description]).to eq 'Final de Semana'
+      expect(result[:preview_prices][1][:value]).to eq 20_000
+    end
+
+    it "returns true and a empty preview prices array if there isn't any " \
+       "base price in this buffet" do
+
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      result = buffet.availability_query(event_type, Date.current, 40)
+
+      expect(result[:available]).to eq true
+      expect(result[:preview_prices]).to eq []
+    end
+
+    it "returns false when buffet isn't available" do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      client = Client
+        .create! name: 'Client',
+                 cpf: '11480076015',
+                 email: 'client@example.com',
+                 password: 'client-password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      payment_option = PaymentOption
+        .create! name: 'Cartão de Crédito',
+                 installment_limit: 12,
+                 buffet: buffet
+
+      base_price = BasePrice
+        .create! description: 'Meio de Semana',
+                 minimum: 10_000,
+                 additional_per_person: 250,
+                 extra_hour_value: 1_000,
+                 event_type: event_type
+
+      Order
+        .create! date: I18n.localize(Date.current + 1.week),
+                 attendees: 40,
+                 details: 'Quero que inclua queijo suíço e vinho tinto.',
+                 address: buffet.full_address,
+                 expiration_date: I18n.localize(Date.current + 2.days),
+                 status: :approved_by_buffet,
+                 base_price: base_price,
+                 payment_option: payment_option,
+                 event_type: event_type,
+                 client: client
+
+      result = buffet.availability_query(event_type, Date.current + 1.week, 40)
+
+      expect(result[:available]).to eq false
+      expect(result[:preview_prices]).to eq nil
+    end
+  end
+
+  describe '#available_at_date?' do
+    it "true when there isn't any approved by buffet or confirmed order on " \
+       "this buffet scheduled for the informed date" do
+
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      client = Client
+       .create! name: 'Client',
+                 cpf: '11480076015',
+                 email: 'client@example.com',
+                 password: 'client-password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      first_event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      second_event_type = EventType
+        .create! name: 'Festa de Aniversário infantil',
+                 description: 'Um evento muito legal.',
+                 minimum_attendees: 10,
+                 maximum_attendees: 40,
+                 duration: 80,
+                 menu: 'Bolos, salgados, sucos e refrigerantes.',
+                 provides_alcohol_drinks: false,
+                 provides_decoration: true,
+                 provides_parking_service: false,
+                 serves_external_address: true,
+                 buffet: buffet
+
+      first_base_price = BasePrice
+        .create! description: 'Meio de Semana',
+                 minimum: 10_000,
+                 additional_per_person: 250,
+                 extra_hour_value: 1_000,
+                 event_type: first_event_type
+
+      second_base_price = BasePrice
+        .create! description: 'Final de Semana',
+                 minimum: 14_000,
+                 additional_per_person: 300,
+                 extra_hour_value: 1_500,
+                 event_type: second_event_type
+
+      payment_option = PaymentOption
+        .create! name: 'Cartão de Crédito',
+                 installment_limit: 12,
+                 buffet: buffet
+
+      Order
+        .create! date: I18n.localize(Date.current + 6.days),
+                 attendees: 40,
+                 details: 'Quero que inclua queijo suíço e vinho tinto.',
+                 address: buffet.full_address,
+                 expiration_date: I18n.localize(Date.current + 2.day),
+                 status: :approved_by_buffet,
+                 base_price: first_base_price,
+                 payment_option: payment_option,
+                 event_type: first_event_type,
+                 client: client
+
+      Order
+        .create! date: I18n.localize(Date.current + 8.days),
+                 attendees: 30,
+                 details: 'Quero que inclua coxinhas e pasteis.',
+                 address: buffet.full_address,
+                 expiration_date: I18n.localize(Date.current + 4.day),
+                 status: :confirmed,
+                 base_price: second_base_price,
+                 payment_option: payment_option,
+                 event_type: second_event_type,
+                 client: client
+
+      Order
+        .create! date: I18n.localize(Date.current + 1.week),
+             attendees: 28,
+             details: 'Quero que inclua só coxinhas.',
+             address: buffet.full_address,
+             status: :waiting_for_evaluation,
+             payment_option: payment_option,
+             event_type: first_event_type,
+             client: client
+
+      Order
+        .create! date: I18n.localize(Date.current + 1.week),
+                 attendees: 28,
+                 details: 'Quero que inclua só coxinhas.',
+                 address: buffet.full_address,
+                 status: :canceled,
+                 payment_option: payment_option,
+                 event_type: first_event_type,
+                 client: client
+
+      expect(buffet.available_at_date? Date.current + 1.week).to be true
+    end
+
+    it "false when there is any approved by buffet order on this buffet " \
+       "scheduled for the informed date" do
+
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      client = Client
+        .create! name: 'Client',
+                 cpf: '11480076015',
+                 email: 'client@example.com',
+                 password: 'client-password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      base_price = BasePrice
+        .create! description: 'Meio de Semana',
+                 minimum: 10_000,
+                 additional_per_person: 250,
+                 extra_hour_value: 1_000,
+                 event_type: event_type
+
+      payment_option = PaymentOption
+        .create! name: 'Cartão de Crédito',
+                 installment_limit: 12,
+                 buffet: buffet
+
+      Order
+        .create! date: I18n.localize(Date.current + 1.week),
+                 attendees: 40,
+                 details: 'Quero que inclua queijo suíço e vinho tinto.',
+                 address: buffet.full_address,
+                 expiration_date: I18n.localize(Date.current + 2.day),
+                 status: :approved_by_buffet,
+                 base_price: base_price,
+                 payment_option: payment_option,
+                 event_type: event_type,
+                 client: client
+
+      expect(buffet.available_at_date? Date.current + 1.week).to be false
+    end
+
+    it "false when there is any confirmed order on this buffet scheduled " \
+       "for the informed date" do
+
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      client = Client
+        .create! name: 'Client',
+                 cpf: '11480076015',
+                 email: 'client@example.com',
+                 password: 'client-password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 description: 'Oferecemos uma experiência gastronômica única.',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      base_price = BasePrice
+        .create! description: 'Meio de Semana',
+                 minimum: 10_000,
+                 additional_per_person: 250,
+                 extra_hour_value: 1_000,
+                 event_type: event_type
+
+      payment_option = PaymentOption
+        .create! name: 'Cartão de Crédito',
+                 installment_limit: 12,
+                 buffet: buffet
+
+      Order
+        .create! date: I18n.localize(Date.current + 1.week),
+                 attendees: 40,
+                 details: 'Quero que inclua queijo suíço e vinho tinto.',
+                 address: buffet.full_address,
+                 expiration_date: I18n.localize(Date.current + 2.day),
+                 status: :confirmed,
+                 base_price: base_price,
+                 payment_option: payment_option,
+                 event_type: event_type,
+                 client: client
+
+      expect(buffet.available_at_date? Date.current + 1.week).to be false
+    end
+  end
+
   describe '#full_address' do
     it 'returns full address' do
       buffet = Buffet.new address: 'Rua dos Sabores, 123',

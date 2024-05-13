@@ -5,7 +5,10 @@ RSpec.describe Order, type: :model do
     it 'calculate and returns final price' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
+      base_price =
+        BasePrice.new minimum: 10_000,
+                      additional_per_person: 250,
+                      event_type: event_type
 
       order = Order
         .new price_adjustment: -500,
@@ -22,7 +25,10 @@ RSpec.describe Order, type: :model do
        'minimum attendees' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
+      base_price =
+        BasePrice.new minimum: 10_000,
+                      additional_per_person: 250,
+                      event_type: event_type
 
       order = Order
         .new price_adjustment: -500,
@@ -39,7 +45,10 @@ RSpec.describe Order, type: :model do
        'minimum attendees' do
       event_type = EventType.new minimum_attendees: 20
 
-      base_price = BasePrice.new minimum: 10_000, additional_per_person: 250
+      base_price =
+        BasePrice.new minimum: 10_000,
+                      additional_per_person: 250,
+                      event_type: event_type
 
       order = Order
         .new price_adjustment: -500,

@@ -39,4 +39,37 @@ class Buffet < ApplicationRecord
   def formatted_cnpj
     "#{cnpj[0..1]}.#{cnpj[2..4]}.#{cnpj[5..7]}/#{cnpj[8..11]}-#{cnpj[12..13]}"
   end
+
+  def availability_query(event_type, date, attendees_quantity)
+    return {
+      available: available_at_date?(date),
+      message: 'Erro! O Buffet não está disponível para esta data.' } unless
+      available_at_date? date
+
+    response = { available: available_at_date?(date), preview_prices: [] }
+
+    event_type.base_prices.each do |base_price|
+      response[:preview_prices] << {
+        description: base_price.description,
+        value: base_price.default_price(attendees_quantity) }
+    end
+
+    response
+  end
+
+  def available_at_date?(date_to_check)
+    self.event_types.each do |event_type|
+      event_type.orders.each do |order|
+        return false if order[:date] == date_to_check &&
+          !order.expired? &&
+          (order.confirmed? || order.approved_by_buffet?)
+      end
+    end
+
+    true
+  end
+
+  def get_prior_value(event_type)
+
+  end
 end

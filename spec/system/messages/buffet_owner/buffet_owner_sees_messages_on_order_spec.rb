@@ -47,17 +47,14 @@ describe 'Buffet owner sees messages on order page' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     first_message = Message
       .create! text: 'Nunc ut consectetur arcu.',
@@ -182,17 +179,14 @@ describe 'Buffet owner sees messages on order page' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     login_as buffet_owner, scope: :buffet_owner
     visit order_path order

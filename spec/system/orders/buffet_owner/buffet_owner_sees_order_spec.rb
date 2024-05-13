@@ -70,30 +70,24 @@ describe 'Buffet owner sees an order' do
       .create! name: 'Pix', installment_limit: 1, buffet: buffet
 
     first_order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: first_payment_option,
-           event_type: first_event_type,
-           client: client
-
-    first_order.generate_code
-    first_order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: first_payment_option,
+               event_type: first_event_type,
+               client: client
 
     second_order = Order
-      .new date: I18n.localize(Date.current + 3.week),
-           attendees: 30,
-           details: 'Quero que inclua coxinhas e pasteis.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: second_payment_option,
-           event_type: second_event_type,
-           client: client
-
-    second_order.generate_code
-    second_order.save!
+      .create! date: I18n.localize(Date.current + 3.week),
+               attendees: 30,
+               details: 'Quero que inclua coxinhas e pasteis.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: second_payment_option,
+               event_type: second_event_type,
+               client: client
 
     login_as buffet_owner, scope: :buffet_owner
     visit orders_path
@@ -191,30 +185,24 @@ describe 'Buffet owner sees an order' do
       .create! name: 'Pix', installment_limit: 1, buffet: buffet
 
     first_order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: first_payment_option,
-           event_type: first_event_type,
-           client: client
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: first_payment_option,
+               event_type: first_event_type,
+               client: client
 
-    first_order.generate_code
-    first_order.save!
-
-    second_order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 30,
-           details: 'Quero que inclua coxinhas e pasteis.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: second_payment_option,
-           event_type: second_event_type,
-           client: client
-
-    second_order.generate_code
-    second_order.save!
+    Order
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 30,
+               details: 'Quero que inclua coxinhas e pasteis.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: second_payment_option,
+               event_type: second_event_type,
+               client: client
 
     login_as buffet_owner, scope: :buffet_owner
     visit order_path first_order
@@ -290,17 +278,14 @@ describe 'Buffet owner sees an order' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: second_buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: second_buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     login_as first_buffet_owner, scope: :buffet_owner
     visit order_path order

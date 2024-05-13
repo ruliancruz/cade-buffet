@@ -47,17 +47,14 @@ describe 'Client sends message to buffet owner' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     login_as client, scope: :client
     visit order_path order
@@ -114,17 +111,14 @@ describe 'Client sends message to buffet owner' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     login_as client, scope: :client
     visit order_path order
@@ -195,17 +189,14 @@ describe 'Client sends message to buffet owner' do
                event_type: event_type
 
     order = Order
-      .new date: I18n.localize(Date.current + 2.week),
-           attendees: 40,
-           details: 'Quero que inclua queijo suíço e vinho tinto.',
-           address: buffet.full_address,
-           status: :waiting_for_evaluation,
-           payment_option: payment_option,
-           event_type: event_type,
-           client: client
-
-    order.generate_code
-    order.save!
+      .create! date: I18n.localize(Date.current + 2.week),
+               attendees: 40,
+               details: 'Quero que inclua queijo suíço e vinho tinto.',
+               address: buffet.full_address,
+               status: :waiting_for_evaluation,
+               payment_option: payment_option,
+               event_type: event_type,
+               client: client
 
     login_as client, scope: :client
     visit order_path order

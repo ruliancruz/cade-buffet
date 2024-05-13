@@ -43,14 +43,10 @@ class Order < ApplicationRecord
   end
 
   def final_price
-    return default_price(self.base_price) + (self.price_adjustment || 0) unless
-      self.waiting_for_evaluation?
+    return self.base_price.default_price(self.attendees) +
+      (self.price_adjustment || 0) unless self.waiting_for_evaluation?
 
     I18n.translate self.status
-  end
-
-  def default_price(base_price)
-    base_price.minimum + total_additional_per_person(base_price)
   end
 
   def expired?
@@ -59,14 +55,6 @@ class Order < ApplicationRecord
   end
 
   private
-
-  def total_additional_per_person(base_price)
-    return base_price.additional_per_person *
-      (self.attendees - self.event_type.minimum_attendees) if
-      self.attendees > self.event_type.minimum_attendees
-
-    0
-  end
 
   def date_is_actual_or_future
     return unless self.date
