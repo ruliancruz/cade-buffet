@@ -1,7 +1,7 @@
 class PaymentOption < ApplicationRecord
   belongs_to :buffet
 
-  enum status: { active: 0, inactive: 1 }
+  enum status: { active: 1, inactive: 0 }
 
   validates :name,
             :installment_limit,

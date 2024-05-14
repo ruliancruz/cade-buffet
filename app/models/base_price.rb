@@ -2,7 +2,7 @@ class BasePrice < ApplicationRecord
   belongs_to :event_type
   has_many :orders
 
-  enum status: { active: 0, inactive: 1 }
+  enum status: { active: 1, inactive: 0 }
 
   validates :description,
             :minimum,

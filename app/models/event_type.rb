@@ -4,7 +4,7 @@ class EventType < ApplicationRecord
   has_many :orders
   has_one_attached :photo
 
-  enum status: { active: 0, inactive: 1 }
+  enum status: { active: 1, inactive: 0 }
 
   validates :name,
             :description,
