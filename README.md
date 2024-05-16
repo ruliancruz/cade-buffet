@@ -44,15 +44,23 @@
 
 :heavy_check_mark: Register event types for buffet
 
+:heavy_check_mark: Register payment options for buffet
+
 :heavy_check_mark: Register prices for event types
+
+:heavy_check_mark: Register, evaluate, confirm and cancel orders
 
 :heavy_check_mark: List buffets
 
 :heavy_check_mark: Search for buffets
 
-:heavy_check_mark: List event types
+:heavy_check_mark: List buffet event types
 
-:heavy_check_mark: Create, evaluate, confirm and cancel orders
+:heavy_check_mark: List buffet payment options
+
+:heavy_check_mark: List event type base prices
+
+:heavy_check_mark: List orders
 
 :heavy_check_mark: Exchange messages on orders
 
