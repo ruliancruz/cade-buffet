@@ -1,16 +1,18 @@
-<h1 align="center">Cadê Buffet</h1>
-
 <div align="center">
-  <img src="http://img.shields.io/static/v1?label=Ruby&message=3.3.0&color=red&style=for-the-badge&logo=ruby"/>
-  <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails%20&message=7.1.3.2&color=red&style=for-the-badge&logo=ruby"/>
-  <img src="https://img.shields.io/static/v1?label=SQLite&message=3&color=blue&style=for-the-badge&logo=sqlite"/>
-  <img src="http://img.shields.io/static/v1?label=Tests&message=266&color=GREEN&style=for-the-badge"/>
-  <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=4.2&color=GREEN&style=for-the-badge"/>
-  <img src="http://img.shields.io/static/v1?label=Status&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
-  <img src="http://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge"/>
+  <h1 align="center">Cadê Buffet</h1>
+  <div>
+    <img src="http://img.shields.io/static/v1?label=Ruby&message=3.3.0&color=red&style=for-the-badge&logo=ruby"/>
+    <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails%20&message=7.1.3.2&color=red&style=for-the-badge&logo=ruby"/>
+    <img src="https://img.shields.io/static/v1?label=SQLite&message=3&color=blue&style=for-the-badge&logo=sqlite"/>
+    <img src="http://img.shields.io/static/v1?label=Tests&message=266&color=GREEN&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=4.2&color=GREEN&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Status&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge"/>
+  </div><br>
+
+  Buffet finder platform to intermediate orders between clients and buffets.
 </div>
 
-Buffet finder platform to intermediate orders between clients and buffets.
 
 ## Table of Contents
 
