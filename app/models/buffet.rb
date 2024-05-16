@@ -68,8 +68,4 @@ class Buffet < ApplicationRecord
 
     true
   end
-
-  def get_prior_value(event_type)
-
-  end
 end

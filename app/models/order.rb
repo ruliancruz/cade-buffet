@@ -35,7 +35,7 @@ class Order < ApplicationRecord
 
   validates :attendees, numericality: { only_integer: true, greater_than: 0 }
 
-  validate :date_is_actual_or_future
+  validate :date_is_actual_or_future, on: :create
   validate :expiration_date_is_valid?
 
   def generate_code

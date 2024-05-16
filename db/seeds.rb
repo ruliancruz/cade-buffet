@@ -545,3 +545,5 @@ buffets.each { |buffet| Buffet.find_or_create_by! buffet }
 event_types.each { |event_type| EventType.find_or_create_by! event_type }
 payment_options.each { |payment_option| PaymentOption.find_or_create_by! payment_option }
 base_prices.each { |base_price| BasePrice.find_or_create_by! base_price }
+
+puts 'Seeding completed'

@@ -412,7 +412,7 @@ describe 'Buffet API' do
                  buffet: buffet
 
       get "/api/v1/event_types/#{event_type.id}" \
-          "?date=9712hd129&attendee_quantity=forty"
+          "?date=9712hd129&attendee_quantity=40.2"
 
       expect(response.status).to eq 422
       expect(response.content_type).to include 'application/json'
@@ -420,10 +420,54 @@ describe 'Buffet API' do
       json_response = JSON.parse response.body
 
       expect(json_response['errors']
-        .include? 'Quantidade de Convidados precisa ser um número').to be true
+        .include? 'Quantidade de Convidados precisa ser um número inteiro').to be true
 
       expect(json_response['errors']
         .include? 'Data precisa estar no formato yyyy-mm-dd').to be true
+
+      expect(json_response['errors']
+        .include? 'Data precisa estar no formato yyyy-mm-dd').to be true
+    end
+
+    it "error message when query parameters is invalid" do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+                 brand_name: 'Sabor & Arte Buffet',
+                 cnpj: '34340299000145',
+                 phone: '7531274464',
+                 address: 'Rua dos Sabores, 123',
+                 district: 'Centro',
+                 city: 'Culinária City',
+                 state: 'BA',
+                 cep: '12345678',
+                 buffet_owner: buffet_owner
+
+      event_type = EventType
+        .create! name: 'Coquetel de Networking Empresarial',
+                 description: 'Um evento descontraído.',
+                 minimum_attendees: 20,
+                 maximum_attendees: 50,
+                 duration: 120,
+                 menu: 'Seleção de queijos, frutas e vinhos.',
+                 provides_alcohol_drinks: true,
+                 provides_decoration: false,
+                 provides_parking_service: false,
+                 serves_external_address: false,
+                 buffet: buffet
+
+      get "/api/v1/event_types/#{event_type.id}" \
+          "?date=20/05/2000&attendee_quantity=40"
+
+      expect(response.status).to eq 422
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response['errors']
+        .include? 'Data precisa ser atual ou futura').to be true
     end
 
     it "fails if the event type isn't found" do
