@@ -52,8 +52,6 @@
 
 :heavy_check_mark: List buffets
 
-:heavy_check_mark: Search for buffets
-
 :heavy_check_mark: List buffet event types
 
 :heavy_check_mark: List buffet payment options
@@ -61,6 +59,8 @@
 :heavy_check_mark: List event type base prices
 
 :heavy_check_mark: List orders
+
+:heavy_check_mark: Search for buffets
 
 :heavy_check_mark: Exchange messages on orders
 
