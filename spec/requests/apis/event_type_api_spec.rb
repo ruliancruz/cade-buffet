@@ -149,7 +149,7 @@ describe 'Buffet API' do
     end
   end
 
-  context 'GET /api/v1/event_types/1?date=dd/mm/yyyy&attendee_quantity=40' do
+  context 'GET /api/v1/event_types/1?date=yyyy-mm-dd&attendee_quantity=40' do
     it 'success' do
       buffet_owner = BuffetOwner
         .create! email: 'buffet_owner@example.com', password: 'password'
@@ -252,7 +252,7 @@ describe 'Buffet API' do
                  client: client
 
       get "/api/v1/event_types/#{first_event_type.id}" \
-          "?date=#{Date.current + 1.week}&attendee_quantity=40"
+          "?date=2024-05-16&attendee_quantity=40"
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
@@ -456,7 +456,7 @@ describe 'Buffet API' do
                  buffet: buffet
 
       get "/api/v1/event_types/#{event_type.id}" \
-          "?date=20/05/2000&attendee_quantity=40"
+          "?date=2000-05-20&attendee_quantity=40"
 
       expect(response.status).to eq 422
       expect(response.content_type).to include 'application/json'

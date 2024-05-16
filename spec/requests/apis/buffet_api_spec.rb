@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Buffet API' do
-  context 'GET /api/v1/buffet/1' do
+  context 'GET /api/v1/buffets/1' do
     it 'success' do
       buffet_owner = BuffetOwner
         .create! email: 'buffet_owner@example.com', password: 'password'

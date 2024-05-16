@@ -46,12 +46,10 @@ class Api::V1::EventTypesController < Api::V1::ApiController
 
     if params[:date].blank? || params[:date] == 'null'
       response[:errors] << 'Data precisa ser informada.'
-    else
-      response[:errors] << 'Data precisa estar no formato yyyy-mm-dd.' unless
-        params[:date] =~ DATE_REGEX
-
-      response[:errors] << 'Data precisa ser atual ou futura.' if
-        params[:date].to_date < Date.current
+    elsif !(params[:date] =~ DATE_REGEX)
+      response[:errors] << 'Data precisa estar no formato yyyy-mm-dd.'
+    elsif params[:date].to_date < Date.current
+      response[:errors] << 'Data precisa ser atual ou futura.'
     end
 
     response
