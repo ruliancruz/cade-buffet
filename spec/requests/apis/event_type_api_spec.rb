@@ -376,10 +376,10 @@ describe 'Buffet API' do
       json_response = JSON.parse response.body
 
       expect(json_response['errors']
-        .include? 'Data precisa ser informada').to be true
+        .include? 'Data precisa ser informada.').to be true
 
       expect(json_response['errors']
-        .include? 'Quantidade de Convidados precisa ser informada').to be true
+        .include? 'Quantidade de Convidados precisa ser informada.').to be true
     end
 
     it "error message when query parameters is invalid" do
@@ -420,13 +420,10 @@ describe 'Buffet API' do
       json_response = JSON.parse response.body
 
       expect(json_response['errors']
-        .include? 'Quantidade de Convidados precisa ser um número inteiro').to be true
+        .include? 'Quantidade de Convidados precisa ser um número inteiro.').to be true
 
       expect(json_response['errors']
-        .include? 'Data precisa estar no formato yyyy-mm-dd').to be true
-
-      expect(json_response['errors']
-        .include? 'Data precisa estar no formato yyyy-mm-dd').to be true
+        .include? 'Data precisa estar no formato yyyy-mm-dd.').to be true
     end
 
     it "error message when query parameters is invalid" do
@@ -467,7 +464,7 @@ describe 'Buffet API' do
       json_response = JSON.parse response.body
 
       expect(json_response['errors']
-        .include? 'Data precisa ser atual ou futura').to be true
+        .include? 'Data precisa ser atual ou futura.').to be true
     end
 
     it "fails if the event type isn't found" do

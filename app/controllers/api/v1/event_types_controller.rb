@@ -33,18 +33,18 @@ class Api::V1::EventTypesController < Api::V1::ApiController
     response = { errors: [] }
 
     if params[:attendee_quantity].blank? || params[:attendee_quantity] == 'null'
-      response[:errors] << 'Quantidade de Convidados precisa ser informada'
+      response[:errors] << 'Quantidade de Convidados precisa ser informada.'
     elsif (!Integer(params[:attendee_quantity]) rescue true)
-      response[:errors] << 'Quantidade de Convidados precisa ser um número inteiro'
+      response[:errors] << 'Quantidade de Convidados precisa ser um número inteiro.'
     end
 
     if params[:date].blank? || params[:date] == 'null'
-      response[:errors] << 'Data precisa ser informada'
+      response[:errors] << 'Data precisa ser informada.'
     else
-      response[:errors] << 'Data precisa estar no formato yyyy-mm-dd' unless
+      response[:errors] << 'Data precisa estar no formato yyyy-mm-dd.' unless
         params[:date] =~ DATE_REGEX
 
-      response[:errors] << 'Data precisa ser atual ou futura' if
+      response[:errors] << 'Data precisa ser atual ou futura.' if
         params[:date].to_date < Date.current
     end
 
