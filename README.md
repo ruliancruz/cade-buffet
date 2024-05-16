@@ -340,7 +340,7 @@ Response example:
 
 ## How to Run the Application
 
-To run this application I suggest you to use aa Unix-based system, my personal recommendation is to use the latest version of Ubuntu. If you have get errors while trying to set up the application to run, check if the dependencies are present and in the correct versions.
+To run this application I suggest you to use aa Unix-based system, my personal recommendation is to use the latest version of **[Ubuntu](https://ubuntu.com/)**. If you have get errors while trying to set up the application to run, check if the dependencies are present and in the correct versions.
 
 First you need to install **Ruby** with at least **3.3.0** version, I recommend you to use a version manager, like [**RVM**](https://rvm.io/).
 
