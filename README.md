@@ -372,7 +372,9 @@ Now, set up the database with:
 rails db:setup
 ```
 
-With that, you'll have the application ready to use, to start the server type:
+With that, you'll have the application ready to use.
+
+To start the server type:
 
 ```
 rails s
