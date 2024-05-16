@@ -68,15 +68,15 @@ Response Example:
 
 ```
 {
-	"id": 1,
-	"brand_name": "Buffet da Maria",
-	"phone": "11987654321",
-	"address": "Rua das Flores",
-	"district": "Centro",
-	"city": "São Paulo",
-	"state": "SP",
-	"cep": "02478150",
-	"description": "Buffet especializado em festas infantis."
+  "id": 1,
+  "brand_name": "Buffet da Maria",
+  "phone": "11987654321",
+  "address": "Rua das Flores",
+  "district": "Centro",
+  "city": "São Paulo",
+  "state": "SP",
+  "cep": "02478150",
+  "description": "Buffet especializado em festas infantis."
 }
 ```
 
@@ -90,61 +90,61 @@ Response Example:
 
 ```
 [
-	{
-		"id": 1,
-		"brand_name": "Buffet da Maria",
-		"phone": "11987654321",
-		"address": "Rua das Flores",
-		"district": "Centro",
-		"city": "São Paulo",
-		"state": "SP",
-		"cep": "02478150",
-		"description": "Buffet especializado em festas infantis."
-	},
-	{
-		"id": 2,
-		"brand_name": "Buffet do João",
-		"phone": "11976543210",
-		"address": "Avenida Principal",
-		"district": "Bairro Novo",
-		"city": "Rio de Janeiro",
-		"state": "RJ",
-		"cep": "77829146",
-		"description": "Buffet completo para casamentos e eventos corporativos."
-	},
-	{
-		"id": 3,
-		"brand_name": "Buffet Encantado",
-		"phone": "1133333333",
-		"address": "Rua das Estrelas",
-		"district": "Jardim Primavera",
-		"city": "Curitiba",
-		"state": "PR",
-		"cep": "69306398",
-		"description": "O lugar perfeito para festas temáticas e eventos sociais."
-	},
-	{
-		"id": 4,
-		"brand_name": "Buffet Sabores do Brasil",
-		"phone": "1144444444",
-		"address": "Avenida Central",
-		"district": "Centro",
-		"city": "Brasília",
-		"state": "DF",
-		"cep": "69314142",
-		"description": "Buffet especializado em culinária brasileira para eventos corporativos."
-	},
-	{
-		"id": 5,
-		"brand_name": "Buffet do Carlos",
-		"phone": "1132323232",
-		"address": "Praça das Árvores",
-		"district": "Vila Verde",
-		"city": "Porto Alegre",
-		"state": "RS",
-		"cep": "41253244",
-		"description": "Buffet com cardápio variado para todos os tipos de eventos."
-	}
+  {
+    "id": 1,
+    "brand_name": "Buffet da Maria",
+    "phone": "11987654321",
+    "address": "Rua das Flores",
+    "district": "Centro",
+    "city": "São Paulo",
+    "state": "SP",
+    "cep": "02478150",
+    "description": "Buffet especializado em festas infantis."
+  },
+  {
+    "id": 2,
+    "brand_name": "Buffet do João",
+    "phone": "11976543210",
+    "address": "Avenida Principal",
+    "district": "Bairro Novo",
+    "city": "Rio de Janeiro",
+    "state": "RJ",
+    "cep": "77829146",
+    "description": "Buffet completo para casamentos e eventos corporativos."
+  },
+  {
+    "id": 3,
+    "brand_name": "Buffet Encantado",
+    "phone": "1133333333",
+    "address": "Rua das Estrelas",
+    "district": "Jardim Primavera",
+    "city": "Curitiba",
+    "state": "PR",
+    "cep": "69306398",
+    "description": "O lugar perfeito para festas temáticas e eventos sociais."
+  },
+  {
+    "id": 4,
+    "brand_name": "Buffet Sabores do Brasil",
+    "phone": "1144444444",
+    "address": "Avenida Central",
+    "district": "Centro",
+    "city": "Brasília",
+    "state": "DF",
+    "cep": "69314142",
+    "description": "Buffet especializado em culinária brasileira para eventos corporativos."
+  },
+  {
+    "id": 5,
+    "brand_name": "Buffet do Carlos",
+    "phone": "1132323232",
+    "address": "Praça das Árvores",
+    "district": "Vila Verde",
+    "city": "Porto Alegre",
+    "state": "RS",
+    "cep": "41253244",
+    "description": "Buffet com cardápio variado para todos os tipos de eventos."
+  }
 ]
 ```
 
@@ -164,28 +164,28 @@ Response Example:
 
 ```
 [
-	{
-		"id": 1,
-		"brand_name": "Buffet da Maria",
-		"phone": "11987654321",
-		"address": "Rua das Flores",
-		"district": "Centro",
-		"city": "São Paulo",
-		"state": "SP",
-		"cep": "02478150",
-		"description": "Buffet especializado em festas infantis."
-	},
-	{
-		"id": 5,
-		"brand_name": "Buffet do Carlos",
-		"phone": "1132323232",
-		"address": "Praça das Árvores",
-		"district": "Vila Verde",
-		"city": "Porto Alegre",
-		"state": "RS",
-		"cep": "41253244",
-		"description": "Buffet com cardápio variado para todos os tipos de eventos."
-	}
+  {
+    "id": 1,
+    "brand_name": "Buffet da Maria",
+    "phone": "11987654321",
+    "address": "Rua das Flores",
+    "district": "Centro",
+    "city": "São Paulo",
+    "state": "SP",
+    "cep": "02478150",
+    "description": "Buffet especializado em festas infantis."
+  },
+  {
+    "id": 5,
+    "brand_name": "Buffet do Carlos",
+    "phone": "1132323232",
+    "address": "Praça das Árvores",
+    "district": "Vila Verde",
+    "city": "Porto Alegre",
+    "state": "RS",
+    "cep": "41253244",
+    "description": "Buffet com cardápio variado para todos os tipos de eventos."
+  }
 ]
 ```
 
@@ -199,58 +199,58 @@ Response Example:
 
 ```
 [
-	{
-		"id": 1,
-		"name": "Casamento",
-		"description": "Celebração do amor entre duas pessoas.",
-		"minimum_attendees": 50,
-		"maximum_attendees": 200,
-		"duration": 120,
-		"menu": "Buffet completo com opções de carne, peixe e vegetariano.",
-		"provides_alcohol_drinks": 1,
-		"provides_decoration": 1,
-		"provides_parking_service": 1,
-		"serves_external_address": 0
-	},
-	{
-		"id": 6,
-		"name": "Festa de Noivado",
-		"description": "Celebração do compromisso de casamento.",
-		"minimum_attendees": 30,
-		"maximum_attendees": 100,
-		"duration": 80,
-		"menu": "Canapés, bebidas e bolo comemorativo.",
-		"provides_alcohol_drinks": 1,
-		"provides_decoration": 1,
-		"provides_parking_service": 1,
-		"serves_external_address": 0
-	},
-	{
-		"id": 11,
-		"name": "Conferência",
-		"description": "Evento de grande porte com palestras e workshops.",
-		"minimum_attendees": 100,
-		"maximum_attendees": 1000,
-		"duration": 240,
-		"menu": "Coffee breaks, almoços e jantares.",
-		"provides_alcohol_drinks": 0,
-		"provides_decoration": 0,
-		"provides_parking_service": 1,
-		"serves_external_address": 1
-	},
-	{
-		"id": 16,
-		"name": "Encontro Familiar",
-		"description": "Reunião de familiares para confraternização.",
-		"minimum_attendees": 10,
-		"maximum_attendees": 100,
-		"duration": 60,
-		"menu": "Churrasco, saladas e sobremesas.",
-		"provides_alcohol_drinks": 1,
-		"provides_decoration": 0,
-		"provides_parking_service": 1,
-		"serves_external_address": 0
-	}
+  {
+    "id": 1,
+    "name": "Casamento",
+    "description": "Celebração do amor entre duas pessoas.",
+    "minimum_attendees": 50,
+    "maximum_attendees": 200,
+    "duration": 120,
+    "menu": "Buffet completo com opções de carne, peixe e vegetariano.",
+    "provides_alcohol_drinks": 1,
+    "provides_decoration": 1,
+    "provides_parking_service": 1,
+    "serves_external_address": 0
+  },
+  {
+    "id": 6,
+    "name": "Festa de Noivado",
+    "description": "Celebração do compromisso de casamento.",
+    "minimum_attendees": 30,
+    "maximum_attendees": 100,
+    "duration": 80,
+    "menu": "Canapés, bebidas e bolo comemorativo.",
+    "provides_alcohol_drinks": 1,
+    "provides_decoration": 1,
+    "provides_parking_service": 1,
+    "serves_external_address": 0
+  },
+  {
+    "id": 11,
+    "name": "Conferência",
+    "description": "Evento de grande porte com palestras e workshops.",
+    "minimum_attendees": 100,
+    "maximum_attendees": 1000,
+    "duration": 240,
+    "menu": "Coffee breaks, almoços e jantares.",
+    "provides_alcohol_drinks": 0,
+    "provides_decoration": 0,
+    "provides_parking_service": 1,
+    "serves_external_address": 1
+  },
+  {
+    "id": 16,
+    "name": "Encontro Familiar",
+    "description": "Reunião de familiares para confraternização.",
+    "minimum_attendees": 10,
+    "maximum_attendees": 100,
+    "duration": 60,
+    "menu": "Churrasco, saladas e sobremesas.",
+    "provides_alcohol_drinks": 1,
+    "provides_decoration": 0,
+    "provides_parking_service": 1,
+    "serves_external_address": 0
+  }
 ]
 ```
 
@@ -268,17 +268,17 @@ Response Example:
 
 ```
 {
-	"available": true,
-	"preview_prices": [
-		{
-			"description": "Meio de semana",
-			"value": 1000.0
-		},
-		{
-			"description": "Fim de semana",
-			"value": 1500.0
-		}
-	]
+  "available": true,
+  "preview_prices": [
+  {
+    "description": "Meio de semana",
+    "value": 1000.0
+  },
+  {
+    "description": "Fim de semana",
+    "value": 1500.0
+  }
+  ]
 }
 ```
 
@@ -290,8 +290,8 @@ Response Example:
 
 ```
 {
-	"available": false,
-	"message": "Erro! O Buffet não está disponível para esta data."
+  "available": false,
+  "message": "Erro! O Buffet não está disponível para esta data."
 }
 ```
 
@@ -305,10 +305,10 @@ Response example:
 
 ```
 {
-	"errors": [
-		"Quantidade de Convidados precisa ser um número inteiro.",
-		"Data precisa estar no formato yyyy-mm-dd."
-	]
+  "errors": [
+    "Quantidade de Convidados precisa ser um número inteiro.",
+    "Data precisa estar no formato yyyy-mm-dd."
+  ]
 }
 ```
 
