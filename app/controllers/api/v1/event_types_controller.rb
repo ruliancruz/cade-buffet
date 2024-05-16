@@ -3,8 +3,8 @@ class Api::V1::EventTypesController < Api::V1::ApiController
 
   def index
     render status: 200, json: Buffet.find(params[:buffet_id])
-      .event_types.as_json(only:
-       [:id,
+      .event_types.as_json(only: [
+        :id,
         :name,
         :description,
         :minimum_attendees,
@@ -23,8 +23,11 @@ class Api::V1::EventTypesController < Api::V1::ApiController
 
     return render status: 422, json: response if response[:errors].any?
 
-    render status: 200, json: event_type.buffet.availability_query(
-      event_type, params[:date].to_date, params[:attendee_quantity].to_i)
+    render status: 200, json: event_type.buffet
+      .availability_query(
+        event_type,
+        params[:date].to_date,
+        params[:attendee_quantity].to_i)
   end
 
   private
@@ -32,10 +35,13 @@ class Api::V1::EventTypesController < Api::V1::ApiController
   def validate_parameters
     response = { errors: [] }
 
-    if params[:attendee_quantity].blank? || params[:attendee_quantity] == 'null'
+    if params[:attendee_quantity].blank? ||
+      params[:attendee_quantity] == 'null'
+
       response[:errors] << 'Quantidade de Convidados precisa ser informada.'
     elsif (!Integer(params[:attendee_quantity]) rescue true)
-      response[:errors] << 'Quantidade de Convidados precisa ser um número inteiro.'
+      response[:errors] <<
+        'Quantidade de Convidados precisa ser um número inteiro.'
     end
 
     if params[:date].blank? || params[:date] == 'null'
