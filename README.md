@@ -320,7 +320,7 @@ Response example:
 }
 ```
 
-**Also check my Vue.js app that consumes this API! [cade-buffet-vue](https://github.com/ruliancruz/cade-buffet-vue)**
+**Also check my Vue.js app ([cade-buffet-vue](https://github.com/ruliancruz/cade-buffet-vue)) that consumes this API!**
 
 ## Dependencies
 
