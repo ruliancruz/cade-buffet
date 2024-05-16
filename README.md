@@ -261,5 +261,6 @@ Deploy: `Coming soon`
 
 ## License
 
-The MIT License (MIT)
+The [MIT License](https://github.com/ruliancruz/cade-buffet/blob/main/LICENSE) (MIT)
+
 Copyright ©️ 2024 - Cadê Buffet
