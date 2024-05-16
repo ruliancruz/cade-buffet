@@ -9,7 +9,7 @@
     <img src="http://img.shields.io/static/v1?label=Status&message=Under%20Development&color=RED&style=for-the-badge"/>
   </div><br>
 
-  Buffet finder platform to intermediate orders between clients and buffets.
+  Buffet finder platform to intermediate orders between clients and buffets. It also has an API.
 </div>
 
 
