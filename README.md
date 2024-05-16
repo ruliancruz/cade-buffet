@@ -16,25 +16,25 @@
 
 ## Table of Contents
 
-:diamonds: [What The Application Can Do](#what-the-application-can-do)
+:small_blue_diamond: [What The Application Can Do](#what-the-application-can-do)
 
-:diamonds: [API Endpoints](#api-endpoints)
+:small_blue_diamond: [API Endpoints](#api-endpoints)
 
-:diamonds: [Dependencies](#dependencies)
+:small_blue_diamond: [Dependencies](#dependencies)
 
-:diamonds: [How to Run the Application](#how-to-run-the-application)
+:small_blue_diamond: [How to Run the Application](#how-to-run-the-application)
 
-:diamonds: [Extra Gems Used](#extra-gems-used)
+:small_blue_diamond: [Extra Gems Used](#extra-gems-used)
 
-:diamonds: [Entity-Relationship Diagram](#entity-relationship-diagram)
+:small_blue_diamond: [Entity-Relationship Diagram](#entity-relationship-diagram)
 
-:diamonds: [Seeds](#seeds)
+:small_blue_diamond: [Seeds](#seeds)
 
-:diamonds: [Tests](#tests)
+:small_blue_diamond: [Tests](#tests)
 
-:diamonds: [Development Progress](#development-progress)
+:small_blue_diamond: [Development Progress](#development-progress)
 
-:diamonds: [License](#license)
+:small_blue_diamond: [License](#license)
 
 
 ## What The Application Can Do
