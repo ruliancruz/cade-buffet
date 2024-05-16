@@ -160,7 +160,7 @@ Response Example:
 
 `GET /api/v1/buffets?query={brand_name}`
 
-Returns a list of all buffets that have the informed query in his id, brand name, with its brand name, phone, full address and description. If none match the query, it returns an empty array.
+Returns a list of all buffets that have the informed query with his id, brand name, with its brand name, phone, full address and description. If none match the query, it returns an empty array.
 
 Request Example:
 
