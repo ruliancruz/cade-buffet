@@ -45,6 +45,8 @@ class BuffetsController < ApplicationController
   end
 
   def search
+    return @buffets = Buffet.all if params[:query].blank?
+
     @query = params.require(:query)
 
     @buffets = Buffet
