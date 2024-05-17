@@ -1,42 +1,82 @@
-<h1><%= @event_type.name %></h1>
-<section>
+<% if @event_type.base_prices.empty? %>
+  <p class="alert alert-warning">Você precisa cadastrar um preço base para receber pedidos de clientes</p>
+<% end %>
+
+<h1 class="text-center p-3"><%= @event_type.name %></h1>
+
+<section class="text-center m-5">
+  <p class="m-5"><%= @event_type.description %></p>
+
   <% if @event_type.resized_photo %>
-    <%= image_tag @event_type.resized_photo %>
+    <%= image_tag @event_type.resized_photo, class: "rounded" %>
   <% end %>
-  <p><%= @event_type.description %></p>
-  <ul>
-    <li>Mínimo de Pessoas: <%= @event_type.minimum_attendees %></li>
-    <li>Máximo de Pessoas: <%= @event_type.maximum_attendees %></li>
-    <li>Duração: <%= @event_type.duration %> minutos</li>
-  </ul>
 </section>
-<section>
-  <h2>Cardápio</h2>
+
+<section class="m-5">
+  <table class="table table-striped table-light table-hover">
+    <tbody>
+    <tr>
+      <th>Mínimo de Pessoas</th>
+      <td><%= @event_type.minimum_attendees %></td>
+    </tr>
+    <tr>
+      <th>Máximo de Pessoas</th>
+      <td><%= @event_type.maximum_attendees %></td>
+    </tr>
+    <tr>
+      <th>Duração</th>
+      <td><%= @event_type.duration %> minutos</td>
+    </tr>
+    <tr>
+      <th>Fornece Bebidas Alcoólicas</th>
+      <td><%= @event_type.provides_alcohol_drinks_text %></td>
+    </tr>
+    <tr>
+      <th>Fornece Decoração</th>
+      <td><%= @event_type.provides_decoration_text %></td>
+    </tr>
+    <tr>
+      <th>Fornece Serviço de Estacionamento</th>
+      <td><%= @event_type.provides_parking_service_text %></td>
+    </tr>
+    <tr>
+      <th>Atende a Endereço Indicado por Cliente</th>
+      <td><%= @event_type.serves_external_address_text %></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr>
+<section class="m-5 text-center">
+  <h2 class="my-4">Cardápio</h2>
   <p><%= @event_type.menu %></p>
-  <h2>Opções Adicionais</h2>
-  <ul>
-    <li>Fornece Bebidas Alcoólicas: <%= @event_type.provides_alcohol_drinks_text %></li>
-    <li>Fornece Decoração: <%= @event_type.provides_decoration_text %></li>
-    <li>Fornece Serviço de Estacionamento: <%= @event_type.provides_parking_service_text %></li>
-    <li>Atende a Endereço Indicado por Cliente: <%= @event_type.serves_external_address_text %></li>
-  </ul>
 </section>
+
+<hr>
 <section>
-  <h2>Preços-base</h2>
+  <h2 class="text-center m-5">Preços-base</h2>
+
   <% if @event_type.base_prices.active.any? %>
-    <dl>
+    <div class="row">
       <% @event_type.base_prices.active.each do |base_price| %>
-        <dt>
-          <%= base_price.description %>
-        </dt>
-        <dd>Valor Mínimo: <%= (number_to_currency base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
-        <dd>Adicional por Pessoa: <%= (number_to_currency base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
-        <% unless base_price.extra_hour_value.blank? %>
-          <dd>Valor por Hora Extra: <%= (number_to_currency base_price.extra_hour_value, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></dd>
-        <% end %>
+        <div class="card p-3 m-2 col-1 text-center" style="width: 24rem">
+          <h3 class="card-title p-3 fs-4"><%= base_price.description %></h3>
+
+          <p>Valor Mínimo: <%= (number_to_currency base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+          <p>Adicional por Pessoa: <%= (number_to_currency base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+
+          <% unless base_price.extra_hour_value.blank? %>
+            <p>Valor por Hora Extra: <%= (number_to_currency base_price.extra_hour_value, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+          <% end %>
+        </div>
       <% end %>
-    </dl>
+    </div>
   <% else %>
     <p>Este tipo de evento não possui preços-base cadastrados.</p>
   <% end %>
 </section>
+
+<nav class="d-flex justify-content-center gap-2 m-5 fs-5">
+  <div class="text-center my-3"><%= link_to 'Voltar para o buffet', @event_type.buffet, class: "btn btn-primary" %></div>
+</nav>

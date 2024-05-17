@@ -98,7 +98,7 @@ describe 'Buffet owner sees an order' do
     within 'main' do
       expect(page).to have_content first_order.code
       expect(page).to have_content 'Aguardando avaliação do buffet'
-      expect(page).to have_link 'João da Silva'
+      expect(page).to have_content 'João da Silva'
       expect(page).to have_content 'client@example.com'
       expect(page).to have_link 'Sabor & Arte Buffet'
       expect(page).to have_content I18n.l(Date.current + 2.week)

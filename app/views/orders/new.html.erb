@@ -1,32 +1,46 @@
 <%= render partial: 'layouts/error_messages', locals: { model: @order } %>
-<h1>Fazer Pedido</h1>
-<%= form_with model: [@order.event_type, @order] do |form| %>
+
+<h1 class="mx-5 mb-4 mt-4">Fazer Pedido</h1>
+
+<%= form_with model: [@order.event_type, @order], class: "mx-5 fs-5" do |form| %>
   <div>
     <%= form.label :date %>
-    <%= form.date_field :date, min: Date.current %>
+    <div>
+      <%= form.date_field :date, min: Date.current %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :attendees %>
-    <%= form.number_field :attendees, min: 0, step: 1 %>
+    <div>
+      <%= form.number_field :attendees, min: 0, step: 1 %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :details %>
-    <%= form.text_area :details %>
+    <div>
+      <%= form.text_area :details, class: "large-input-width" %>
+    </div>
   </div>
-  <% if @order.event_type.buffet.payment_options.active.any? %>
+
+  <div class="my-3">
+    <%= form.label :payment_option_id %>
     <div>
-      <%= form.label :payment_option_id %>
-      <%= form.collection_select :payment_option_id, @order.event_type.buffet
-        .payment_options.active.order(:name), :id, :name %>
+      <%= form.collection_select :payment_option_id, @order.event_type.buffet.payment_options.active.order(:name), :id, :name %>
     </div>
-  <% end %>
+  </div>
+
   <% if @order.event_type.serves_external_address? %>
-    <div>
-      <%= form.label :address %>
-      <%= form.text_area :address %> Altere se desejar que o evento ocorra em outro local
+    <div class="my-3">
+      <%= form.label :address %> (Altere se desejar que o evento ocorra em outro local)
+      <div>
+        <%= form.text_area :address, class: "large-input-width" %>
+      </div>
     </div>
   <% end %>
+
   <div>
-    <%= form.submit 'Fazer Pedido' %>
+    <%= form.submit 'Fazer Pedido', class: "btn btn-primary my-3" %>
   </div>
 <% end %>

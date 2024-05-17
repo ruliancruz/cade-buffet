@@ -1,13 +1,19 @@
-<%= form_with model: @payment_option do |form| %>
-  <div>
+<%= form_with model: @payment_option, class: "mx-5 fs-5" do |form| %>
+  <div class="my-3">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <div>
+      <%= form.text_field :name %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :installment_limit %>
-    <%= form.number_field :installment_limit, min: 0, step: 1 %>
+    <div>
+      <%= form.number_field :installment_limit, min: 0, step: 1 %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.submit %>
   </div>
 <% end %>

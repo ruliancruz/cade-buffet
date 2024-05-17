@@ -1,53 +1,66 @@
+
 <h1>Pedido <%= order.code %></h1>
-<section>
-  <ul>
-    <li>Status: <%= I18n.translate order.status %></li>
-    <li>Cliente: <%= link_to order.client.name %> (<%= order.client.email %>)</li>
-    <li>Buffet: <%= link_to order.event_type.buffet.brand_name %></li>
-    <li>Tipo de Evento: <%= link_to order.event_type.name %></li>
-    <li>Data do Evento: <%= I18n.localize order.date %></li>
+<section class="my-4">
+  <div>
+    <p>Status: <%= I18n.translate order.status %></p>
+    <p>Cliente: <%= order.client.name %> (<%= order.client.email %>)</p>
+    <p>Buffet: <%= link_to order.event_type.buffet.brand_name, buffet_path(order.event_type.buffet) %></p>
+    <p>Tipo de Evento: <%= link_to order.event_type.name, event_type_path(order.event_type) %></p>
+    <p>Data do Evento: <%= I18n.localize order.date %></p>
+
     <% unless order.waiting_for_evaluation? || order.canceled? %>
-      <li>Preço Final: <%= (number_to_currency order.final_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+      <p>Preço Final: <%= (number_to_currency order.final_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+
       <% if order.price_adjustment && order.price_adjustment != 0 %>
         <% if order.price_adjustment > 0 %>
-          <li>Taxa Extra: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
-          <li>Justificativa da Taxa Extra: <%= order.price_adjustment_description %></li>
+          <p>Taxa Extra: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+          <p>Justificativa da Taxa Extra: <%= order.price_adjustment_description %></p>
         <% else %>
-          <li>Desconto: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
-          <li>Justificativa do Desconto: <%= order.price_adjustment_description %></li>
+          <p>Desconto: <%= (number_to_currency order.price_adjustment, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></p>
+          <p>Justificativa do Desconto: <%= order.price_adjustment_description %></p>
         <% end %>
       <% end %>
-      <li>Data de Validade do Preço: <%= I18n.localize order.expiration_date %></li>
+
+      <p>Data de Validade do Preço: <%= I18n.localize order.expiration_date %></p>
     <% end %>
-    <li>Meio de Pagamento: <%= order.payment_option.name %></li>
-    <li>Quantidade Estimada de Convidados: <%= order.attendees %></li>
-    <li>Endereço: <%= order.address %></li>
-    <li>Detalhes Adicionais: <%= order.details %></li>
-  </ul>
+
+    <p>Meio de Pagamento: <%= order.payment_option.name %></p>
+    <p>Quantidade Estimada de Convidados: <%= order.attendees %></p>
+    <p>Endereço: <%= order.address %></p>
+    <p>Detalhes Adicionais: <%= order.details %></p>
+  </div>
 </section>
+
 <% if order.base_price %>
-  <section>
+  <hr>
+  <section class="my-4">
     <h2>Preço Base Utilizado: <%= order.base_price.description %></h2>
+
     <ul>
       <li>Valor Mínimo: <%= (number_to_currency order.base_price.minimum, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
       <li>Adicional por Pessoa: <%= (number_to_currency order.base_price.additional_per_person, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
+
       <% unless order.base_price.extra_hour_value.blank? %>
         <li>Valor por Hora Extra: <%= (number_to_currency  order.base_price.extra_hour_value, unit: 'R$', precision: 2, separator: ',', delimiter: '.').gsub ' ', '' %></li>
       <% end %>
     </ul>
   </section>
 <% end %>
-<section>
+
+<hr>
+<section class="my-4">
   <h2>Mensagens</h2>
-  <%= form_with model: [order, Message.new] do |form| %>
+
+  <%= form_with model: [order, Message.new], class: "my-4" do |form| %>
     <div>
       <%= form.label :text %>
-      <%= form.text_area :text %>
-    </div>
-    <div>
-      <%= form.submit 'Enviar' %>
+      <div class="d-flex justify-content-start gap-2 fs-5">
+        <%= form.text_area :text, class: "large-input-width" %>
+        <%= form.submit 'Enviar', class: "btn btn-primary mt-0 mb-0" %>
+      </div>
     </div>
   <% end %>
+
   <% if order.messages.any? %>
     <dl>
       <% order.messages.order(created_at: :desc).each do |message| %>

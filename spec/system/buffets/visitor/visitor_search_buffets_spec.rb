@@ -5,7 +5,7 @@ describe 'Visitor search for buffets' do
     visit root_path
 
     within "header nav" do
-      expect(page).to have_field 'Buscar Buffet'
+      expect(page).to have_field 'query'
       expect(page).to have_button 'Buscar'
     end
   end
@@ -59,7 +59,7 @@ describe 'Visitor search for buffets' do
     visit root_path
 
     within "header nav" do
-      fill_in 'Buscar Buffet', with: 'Sabor &'
+      fill_in 'query', with: 'Sabor &'
       click_on 'Buscar'
     end
 
@@ -122,7 +122,7 @@ describe 'Visitor search for buffets' do
     visit root_path
 
     within "header nav" do
-      fill_in 'Buscar Buffet', with: 'Saborville'
+      fill_in 'query', with: 'Saborville'
       click_on 'Buscar'
     end
 
@@ -265,7 +265,7 @@ describe 'Visitor search for buffets' do
     visit root_path
 
     within "header nav" do
-      fill_in 'Buscar Buffet', with: 'Aniversário'
+      fill_in 'query', with: 'Aniversário'
       click_on 'Buscar'
     end
 
@@ -330,15 +330,15 @@ describe 'Visitor search for buffets' do
 
     visit search_buffets_path query: '&'
 
-    within 'main dl dt:nth(1)' do
+    within '.card:nth-child(1)' do
       expect(page).to have_content 'Doce & Cia Buffet'
     end
 
-    within 'main dl dt:nth(2)' do
+    within '.card:nth-child(2)' do
       expect(page).to have_content 'Sabor & Arte Buffet'
     end
 
-    within 'main dl dt:nth(3)' do
+    within '.card:nth-child(3)' do
       expect(page).to have_content 'Sabor & Cia Buffet'
     end
   end
@@ -454,7 +454,7 @@ describe 'Visitor search for buffets' do
     visit root_path
 
     within "header nav" do
-      fill_in 'Buscar Buffet', with: 'Buffet Ruby on Rails'
+      fill_in 'query', with: 'Buffet Ruby on Rails'
       click_on 'Buscar'
     end
 

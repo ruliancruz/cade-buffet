@@ -1,13 +1,19 @@
-<h1>Cadê Buffet</h1>
-<section>
-  <h2>Catálogo de Buffets</h2>
-  <% if @buffets.any? %>
-    <dl>
-      <% @buffets.each do |buffet| %>
-        <%= render buffet %>
-      <% end %>
-    </dl>
-  <% else %>
-    <p>Ainda não existem buffets cadastrados.</p>
-  <% end %>
-</section>
+<h1 class="pb-5 text-center">Catálogo de Buffets</h1>
+
+<% if @buffets.any? %>
+    <table class="table table-striped table-light table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Localização</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @buffets.each do |buffet| %>
+          <%= render buffet %>
+        <% end %>
+      </tbody>
+    </table>
+<% else %>
+  <p>Ainda não existem buffets cadastrados.</p>
+<% end %>

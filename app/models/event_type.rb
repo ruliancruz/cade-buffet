@@ -33,6 +33,10 @@ class EventType < ApplicationRecord
     self.photo.variant(resize_to_limit: [800, 800])
   end
 
+  def resized_small_photo
+    self.photo.variant(resize_to_limit: [300, 300])
+  end
+
   def provides_alcohol_drinks_text
     provides_alcohol_drinks? ? 'Sim' : 'Não'
   end

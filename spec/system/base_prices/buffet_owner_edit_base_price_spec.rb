@@ -39,7 +39,7 @@ describe 'Buffet owner edits a base-price' do
 
     login_as buffet_owner, scope: :buffet_owner
     visit event_type_path event_type
-    click_on 'Meio de Semana'
+    first(:link, 'Editar').click
 
     expect(current_path).to eq edit_base_price_path base_price
 

@@ -1,20 +1,27 @@
-<h1>Resultados da busca por: <%= @query %></h1>
+<h1 class="text-center">Resultados da busca por: <%= @query %></h1>
+
 <% if @buffets.any? %>
-  <p><%= @buffets.count %> <%= @buffets.count > 1 ? "buffets encontrados" : "buffet encontrado" %></p>
-  <dl>
+  <p class="fs-5 p-3 text-center"><%= @buffets.count %> <%= @buffets.count > 1 ? "buffets encontrados" : "buffet encontrado" %></p>
+
+  <ul class="row text-center">
     <% @buffets.each do |buffet| %>
-      <%= render buffet %>
-      <% if buffet.event_types.any? %>
-        <dd>Tipos de Evento Oferecidos
-          <ul>
-            <% buffet.event_types.each do |event_type| %>
-              <li><%= event_type.name %></li>
-            <% end %>
-          </ul>
-        </dd>
-      <% end %>
+      <div class="card p-3 m-2 col-1" style="width: 24rem">
+        <h2 class="card-title fs-4"><%= link_to buffet.brand_name, buffet %></h2>
+        <p class="card-subtitle fs-5"><%= buffet.city %> - <%= buffet.state %></p>
+
+        <div class="card-body mt-3">
+          <% if buffet.event_types.any? %>
+            <h3 class="card-header fs-5 bg-secondary text-white">Tipos de Evento Oferecidos</h3>
+            <ul class="list-group">
+              <% buffet.event_types.each do |event_type| %>
+                <li class="list-group-item"><%= event_type.name %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </dl>
+  </ul>
 <% else %>
-  Nenhum buffet encontrado.
+  <p class="fs-5 p-3 text-center">Nenhum buffet encontrado.</p>
 <% end %>

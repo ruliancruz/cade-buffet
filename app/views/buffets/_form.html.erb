@@ -1,45 +1,75 @@
-<%= form_with model: @buffet do |form| %>
-  <div>
+<%= form_with model: @buffet, class: "mx-5 fs-5" do |form| %>
+  <div class="my-3">
     <%= form.label :corporate_name %>
-    <%= form.text_field :corporate_name %>
+    <div>
+      <%= form.text_field :corporate_name, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :brand_name %>
-    <%= form.text_field :brand_name %>
+    <div>
+      <%= form.text_field :brand_name, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :cnpj %>
-    <%= form.number_field :cnpj, size: 14 %>
+    <div>
+      <%= form.number_field :cnpj, size: 14, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :phone %>
-    <%= form.telephone_field :phone, size: 11 %>
+    <div>
+      <%= form.telephone_field :phone, size: 11, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :cep %>
-    <%= form.number_field :cep, size: 8 %>
+    <div>
+      <%= form.number_field :cep, size: 8, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :city %>
-    <%= form.text_field :city %>
+    <div>
+      <%= form.text_field :city, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :state %>
-    <%= form.text_field :state, size: 2 %>
+    <div>
+      <%= form.text_field :state, size: 2 %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :district %>
-    <%= form.text_field :district %>
+    <div>
+      <%= form.text_field :district, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :address %>
-    <%= form.text_field :address %>
+    <div>
+      <%= form.text_field :address, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <div>
+      <%= form.text_area :description, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
-    <%= form.submit %>
+
+  <div class="my-3">
+    <%= form.submit class: "btn btn-primary my-3" %>
   </div>
 <% end %>

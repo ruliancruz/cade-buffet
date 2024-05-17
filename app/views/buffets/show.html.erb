@@ -1,40 +1,66 @@
-<h1><%= @buffet.brand_name %></h1>
+<h1 class="text-center"><%= @buffet.brand_name %></h1>
+
 <% unless @buffet.description.blank? %>
-  <p><%= @buffet.description %></p>
+  <p class="text-center"><%= @buffet.description %></p>
 <% end %>
-<ul>
-  <li>CNPJ: <%= @buffet.formatted_cnpj %></li>
-  <li>Telefone: <%= @buffet.formatted_phone %></li>
-  <li>Endereço: <%= @buffet.full_address %></li>
-</ul>
-<section>
-  <h2>Meios de Pagamento Aceitos</h2>
-  <% if @buffet.payment_options.active.any? %>
-    <dl>
-      <% @buffet.payment_options.active.each do |payment_option| %>
-        <dt>
-          <%= payment_option.name %>
-        </dt>
-        <dd><%= payment_option.long_installment_limit %></dd>
-      <% end %>
-    </dl>
-  <% else %>
-    <p>Este buffet não possui meios de pagamento cadastrados.</p>
-  <% end %>
+
+<section class="my-5">
+  <table class="table table-striped table-light table-hover">
+    <tbody>
+      <tr>
+        <th>CNPJ</th>
+        <td><%= @buffet.formatted_cnpj %></td>
+      </tr>
+      <tr>
+        <th>Telefone</th>
+        <td><%= @buffet.formatted_phone %></td>
+      </tr>
+      <tr>
+        <th>Endereço</th>
+        <td><%= @buffet.full_address %></td>
+      </tr>
+    </tbody>
+  </table>
 </section>
-<section>
-  <h2>Tipos de Evento Oferecidos</h2>
-  <% if @buffet.event_types.any? %>
-    <dl>
-      <% @buffet.event_types.each do |event_type| %>
-        <dt><%= link_to event_type.name, event_type %></dt>
-        <% if event_type.resized_photo %>
-          <dd><%= image_tag event_type.resized_photo %></dd>
+
+<hr>
+<section class="text-center my-5">
+  <div class="card">
+    <% if @buffet.payment_options.active.any? %>
+      <h2 class="card-header fs-5 bg-secondary text-white p-3">Meios de Pagamento Aceitos</h2>
+
+      <ul class="list-group">
+        <% @buffet.payment_options.active.each do |payment_option| %>
+          <li class="list-group-item list-group-item-action fw-bold"><%= "#{payment_option.name}: #{payment_option.long_installment_limit}" %></li>
         <% end %>
-        <dd><%= event_type.description %></dd>
-      <% end %>
-    </dl>
-  <% else %>
-    <p>Este buffet não possui tipos de evento cadastrados.</p>
-  <% end %>
+      </ul>
+    <% else %>
+      <p>Este buffet não possui meios de pagamento cadastrados.</p>
+    <% end %>
+  </div>
+</section>
+
+<hr>
+<section>
+  <div>
+    <% if @buffet.event_types.active.any? %>
+      <h2 class="text-center m-5">Tipos de Evento Oferecidos</h2>
+
+      <ul class="row">
+        <% @buffet.event_types.active.each do |event_type| %>
+          <div class="card p-3 m-2 col-1 text-center" style="width: 24rem">
+            <h2 class="card-title fs-4 p-3"><%= link_to event_type.name, event_type %></h2>
+
+            <% if event_type.resized_photo %>
+              <%= image_tag event_type.resized_small_photo, class: "card-body mt-3" %>
+            <% end %>
+
+            <p class="card-subtitle fs-5"><%= event_type.description %></p>
+          </div>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Este buffet não possui tipos de evento cadastrados.</p>
+    <% end %>
+  </div>
 </section>

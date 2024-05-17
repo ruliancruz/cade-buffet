@@ -49,17 +49,15 @@ describe 'Buffet owner sees event type details' do
     expect(page).to have_content 'Coquetel de Networking Empresarial'
     expect(page).to have_css 'img[src*="table.jpg"]'
     expect(page).to have_content 'Um evento descontraído'
-    expect(page).to have_content 'Mínimo de Pessoas: 20'
-    expect(page).to have_content 'Máximo de Pessoas: 50'
-    expect(page).to have_content 'Duração: 120 minutos'
+    expect(page).to have_content 'Mínimo de Pessoas 20'
+    expect(page).to have_content 'Máximo de Pessoas 50'
+    expect(page).to have_content 'Duração 120 minutos'
     expect(page).to have_content 'Cardápio'
     expect(page).to have_content 'Seleção de queijos, frutas e vinhos'
-
-    expect(page).to have_content 'Opções Adicionais'
-    expect(page).to have_content 'Fornece Bebidas Alcoólicas: Sim'
-    expect(page).to have_content 'Fornece Decoração: Sim'
-    expect(page).to have_content 'Fornece Serviço de Estacionamento: Não'
-    expect(page).to have_content 'Atende a Endereço Indicado por Cliente: Não'
+    expect(page).to have_content 'Fornece Bebidas Alcoólicas Sim'
+    expect(page).to have_content 'Fornece Decoração Sim'
+    expect(page).to have_content 'Fornece Serviço de Estacionamento Não'
+    expect(page).to have_content 'Atende a Endereço Indicado por Cliente Não'
   end
 
   it "and doesn't see add, edit and delete buttons if he access an event " \

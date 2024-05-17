@@ -1,8 +1,10 @@
 <%= render partial: 'layouts/error_messages', locals: { model: @order } %>
-<h1>Aprovar Pedido <%= @order.code %></h1>
-<%= form_with model: @order do |form| %>
+
+<h1 class="mx-5 mt-3 mb-5">Aprovar Pedido <%= @order.code %></h1>
+
+<%= form_with model: @order, class: "mx-5 fs-5" do |form| %>
   <div>
-    <h2>Valor-padrão</h2>
+    <h2 class="mt-3 mb-3">Valores-padrão</h2>
     <dl>
       <% @order.event_type.base_prices.order(:description).each do |base_price| %>
         <dt><%= base_price.description %></dt>
@@ -10,29 +12,45 @@
       <% end %>
     </dl>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :base_price_id %>
-    <%= form.collection_select :base_price_id, @order.event_type.base_prices.order(:description), :id, :description %>
-  </div>
-  <div>
-    <%= form.label :price_adjustment %>
-    <%= form.number_field :price_adjustment, step: 0.01 %> insira um número negativo para conceder desconto
-  </div>
-  <div>
-    <%= form.label :price_adjustment_description %>
-    <%= form.text_area :price_adjustment_description %>
-  </div>
-  <div>
-    <%= form.label :expiration_date %>
-    <%= form.date_field :expiration_date, in: Date.today..@order.date, value: I18n.localize(@order.date) %>
-  </div>
-  <% if @order.event_type.buffet.payment_options.any? %>
     <div>
+      <%= form.collection_select :base_price_id, @order.event_type.base_prices.order(:description), :id, :description %>
+    </div>
+  </div>
+
+  <div class="my-3">
+    <%= form.label :price_adjustment %> (Insira um número negativo para conceder desconto)
+    <div>
+      <%= form.number_field :price_adjustment, step: 0.01 %>
+    </div>
+  </div>
+
+  <div  class="my-3">
+    <%= form.label :price_adjustment_description %>
+    <div>
+      <%= form.text_area :price_adjustment_description, class: "large-input-width" %>
+    </div>
+  </div>
+
+  <div  class="my-3">
+    <%= form.label :expiration_date %>
+    <div>
+      <%= form.date_field :expiration_date, in: Date.today..@order.date, value: I18n.localize(@order.date) %>
+    </div>
+  </div>
+
+  <% if @order.event_type.buffet.payment_options.any? %>
+    <div  class="my-3">
       <%= form.label :payment_option_id %>
-      <%= form.collection_select :payment_option_id, @order.event_type.buffet.payment_options.order(:name), :id, :name %>
+      <div>
+        <%= form.collection_select :payment_option_id, @order.event_type.buffet.payment_options.order(:name), :id, :name %>
+      </div>
     </div>
   <% end %>
+
   <div>
-    <%= form.submit 'Aprovar Pedido' %>
+    <%= form.submit 'Aprovar Pedido', class: "btn btn-primary" %>
   </div>
 <% end %>

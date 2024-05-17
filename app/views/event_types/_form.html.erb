@@ -1,50 +1,76 @@
-<%= form_with model: @event_type do |form| %>
-  <div>
+<%= form_with model: @event_type, class: "mx-5 fs-5" do |form| %>
+  <div class="my-3">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <div>
+      <%= form.text_field :name, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <div>
+      <%= form.text_area :description, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :minimum_attendees %>
-    <%= form.number_field :minimum_attendees, min: 0, step: 1 %>
+    <div>
+      <%= form.number_field :minimum_attendees, min: 0, step: 1, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :maximum_attendees %>
-    <%= form.number_field :maximum_attendees, min: 0, step: 1 %>
+    <div>
+      <%= form.number_field :maximum_attendees, min: 0, step: 1, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :duration %>
-    <%= form.number_field :duration, min: 0, step: 1 %> minutos
+    <div>
+      <%= form.number_field :duration, min: 0, step: 1, class: "large-input-width" %> minutos
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :menu %>
-    <%= form.text_area :menu %>
+    <div>
+      <%= form.text_area :menu, class: "large-input-width" %>
+    </div>
   </div>
-  <div>
+
+  <div class="my-3">
     <%= form.label :photo %>
-    <%= form.file_field :photo %>
+    <div>
+      <%= form.file_field :photo %>
+    </div>
   </div>
-  <h2>Opções Adicionais</h2>
-  <div>
-    <%= form.label :provides_alcohol_drinks %>
+
+  <h2 class="mt-5 mb-4 fs-4">Opções Adicionais</h2>
+
+  <div class="my-3">
     <%= form.check_box :provides_alcohol_drinks %>
+    <%= form.label :provides_alcohol_drinks %>
   </div>
-  <div>
-    <%= form.label :provides_decoration %>
+
+  <div class="my-3">
     <%= form.check_box :provides_decoration %>
+    <%= form.label :provides_decoration %>
   </div>
-  <div>
-    <%= form.label :provides_parking_service %>
+
+  <div class="my-3">
     <%= form.check_box :provides_parking_service %>
+    <%= form.label :provides_parking_service %>
   </div>
-  <div>
-    <%= form.label :serves_external_address %>
+
+  <div class="my-3">
     <%= form.check_box :serves_external_address %>
+    <%= form.label :serves_external_address %>
   </div>
-  <div>
-    <%= form.submit %>
+
+  <div class="my-3">
+    <%= form.submit class: "btn btn-primary my-3" %>
   </div>
 <% end %>

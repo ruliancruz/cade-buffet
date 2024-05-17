@@ -252,7 +252,7 @@ describe 'Buffet API' do
                  client: client
 
       get "/api/v1/event_types/#{first_event_type.id}" \
-          "?date=2024-05-16&attendee_quantity=40"
+          "?date=#{Date.current + 1.week}&attendee_quantity=40"
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'

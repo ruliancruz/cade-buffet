@@ -80,7 +80,7 @@ describe 'Buffet owner approves order' do
       expect(page).to have_field 'Ajuste de Preço'
 
       expect(page)
-        .to have_content 'insira um número negativo para conceder desconto'
+        .to have_content 'Insira um número negativo para conceder desconto'
 
       expect(page).to have_field 'Justificativa do Ajuste de Preço'
 

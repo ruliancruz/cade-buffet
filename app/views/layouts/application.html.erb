@@ -6,37 +6,72 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application" %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
-  <body>
+
+  <body class="mb-5">
     <header>
-      <nav>
-        <menu>
-          <li><%= link_to 'Página Inicial', root_path %></li>
-          <li>
-            <%= form_with url: search_buffets_path, method: :get do |form| %>
-              <%= form.label :query, 'Buscar Buffet' %>
-              <%= form.text_field :query %>
-              <%= form.submit 'Buscar' %>
-            <% end %>
-          </li>
-          <% if client_signed_in? %>
-            <li><%= link_to 'Meus Pedidos', orders_path %></li>
-            <li><%= current_client.email %></li>
-            <li><%= button_to 'Sair', destroy_client_session_path, method: :delete %></li>
-          <% elsif buffet_owner_signed_in? %>
-            <li><%= link_to 'Pedidos', orders_path %></li>
-            <li><%= current_buffet_owner.email %></li>
-            <li><%= button_to 'Sair', destroy_buffet_owner_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to 'Entrar', new_client_session_path %></li>
-          <% end %>
-        </menu>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <div class="container">
+          <%= link_to 'Cadê Buffet', root_path, class: "nav-link navbar-brand fs-4" %>
+
+          <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px)">
+            <div class="offcanvas-header text-white border-bottom">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Cadê Buffet</h5>
+              <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <div class="offcanvas-body p-3">
+              <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 fs-5 align-items-center">
+                <%= form_with url: search_buffets_path, method: :get, class: "d-flex pe-3 fs-5 align-items-center justify-content-center", role: "search" do |form| %>
+                  <%= form.text_field :query, class: "form-control me-2 fs-6 w-75", type: "search", placeholder: "Digite para buscar", 'aria-label': "Search" %>
+                  <%= form.submit 'Buscar Buffet', class: "btn btn-primary" %>
+                <% end %>
+
+                <li class="nav-item mx-2">
+                  <%= link_to 'Página Inicial', root_path, class: "nav-link active", 'aria-current': "page" %>
+                </li>
+
+                <% if client_signed_in? %>
+                  <li class="nav-item mx-2"><%= link_to 'Meus Pedidos', orders_path, class: "nav-link text-white" %></li>
+                <% elsif buffet_owner_signed_in? %>
+                  <li class="nav-item mx-2"><%= link_to 'Pedidos', orders_path, class: "nav-link text-white" %></li>
+                <% end %>
+              </ul>
+
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-5 align-items-center">
+                <% if client_signed_in? %>
+                  <li class="nav-item mx-2"><%= button_to 'Sair', destroy_client_session_path, method: :delete, class: "nav-link text-white" %></li>
+                  <li class="nav-item mx-2 nav-link text-white"><%= current_client.email %></li>
+                <% elsif buffet_owner_signed_in? %>
+                  <li class="nav-item mx-2"><%= button_to 'Sair', destroy_buffet_owner_session_path, method: :delete, class: "nav-link text-white" %></li>
+                  <li class="nav-item mx-2 text-white"><%= current_buffet_owner.email %></li>
+                <% else %>
+                  <li class="nav-item mx-2"><%= link_to 'Entrar', new_client_session_path, class: "nav-link text-white" %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <main>
+
+    <main class="container-xxl bg-light rounded p-5">
+      <% unless notice.nil? %>
+        <p class="alert alert-warning"><%= notice %></p>
+      <% end %>
+
+      <% unless alert.nil? %>
+        <p class="alert alert-warning"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

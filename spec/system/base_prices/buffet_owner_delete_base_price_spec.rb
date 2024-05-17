@@ -47,9 +47,7 @@ describe 'Buffet owner deletes a base-price' do
     login_as buffet_owner, scope: :buffet_owner
     visit event_type_path event_type
 
-    within 'main dl dt:nth(1)' do
-      click_on 'Remover'
-    end
+    first(:button, 'Remover').click
 
     expect(current_path).to eq event_type_path event_type
 

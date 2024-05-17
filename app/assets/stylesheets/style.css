@@ -1,0 +1,16 @@
+ul, li {
+  list-style-type: none;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/background.jpg');
+  background-blend-mode: multiply;
+  background-postion: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.large-input-width {
+  width: 400px;
+}

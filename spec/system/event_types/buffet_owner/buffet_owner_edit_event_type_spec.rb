@@ -121,17 +121,17 @@ describe 'Buffet owner edits a event type' do
     expect(page).to have_css 'img[src*="anniversary.jpg"]'
     expect(page).not_to have_css 'img[src*="table.jpg"]'
     expect(page).to have_content 'Um evento descontraído e casual.'
-    expect(page).to have_content 'Mínimo de Pessoas: 30'
-    expect(page).to have_content 'Máximo de Pessoas: 100'
-    expect(page).to have_content 'Duração: 180'
+    expect(page).to have_content 'Mínimo de Pessoas 30'
+    expect(page).to have_content 'Máximo de Pessoas 100'
+    expect(page).to have_content 'Duração 180'
 
     expect(page)
       .to have_content 'Seleção de queijos, frutas, sucos e refrigerantes'
 
-    expect(page).to have_content 'Fornece Bebidas Alcoólicas: Não'
-    expect(page).to have_content 'Fornece Decoração: Não'
-    expect(page).to have_content 'Fornece Serviço de Estacionamento: Sim'
-    expect(page).to have_content 'Atende a Endereço Indicado por Cliente: Sim'
+    expect(page).to have_content 'Fornece Bebidas Alcoólicas Não'
+    expect(page).to have_content 'Fornece Decoração Não'
+    expect(page).to have_content 'Fornece Serviço de Estacionamento Sim'
+    expect(page).to have_content 'Atende a Endereço Indicado por Cliente Sim'
   end
 
   it 'and see error messages when a field fails its validation' do
