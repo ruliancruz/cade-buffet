@@ -172,7 +172,7 @@ Returns a list of all buffets that have the informed query with his id, brand na
 Request Example:
 
 ```
-`GET /api/v1/buffets?query=ar`
+GET /api/v1/buffets?query=ar
 ```
 
 Response Example:
