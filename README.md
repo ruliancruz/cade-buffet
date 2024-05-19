@@ -3,8 +3,8 @@
   <div>
     <img src="http://img.shields.io/static/v1?label=Ruby&message=3.3.0&color=red&style=for-the-badge&logo=ruby"/>
     <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails&message=7.1.3.2&color=red&style=for-the-badge&logo=rubyonrails"/>
-<img src="http://img.shields.io/static/v1?label=Bootstrap&message=5.3&color=purple&style=for-the-badge&logo=bootstrap"/>
     <img src="https://img.shields.io/static/v1?label=SQLite3&message=1.4&color=blue&style=for-the-badge&logo=sqlite"/>
+    <img src="http://img.shields.io/static/v1?label=Bootstrap&message=5.3&color=purple&style=for-the-badge&logo=bootstrap"/>
     <img src="http://img.shields.io/static/v1?label=Tests&message=266&color=GREEN&style=for-the-badge"/>
     <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=3.7&color=GREEN&style=for-the-badge"/>
     <img src="http://img.shields.io/static/v1?label=Status&message=Under%20Development&color=RED&style=for-the-badge"/>
@@ -271,7 +271,7 @@ Response Example:
 
 ### Event Type Availability Endpoint
 
-`GET /api/v1/event_type/{id}?date={yyyy-mm-dd}&attendee_quantity={integer}`
+`GET /api/v1/event_types/{id}?date={yyyy-mm-dd}&attendee_quantity={integer}`
 
 Returns the event type is availability for the date informed. If yes, it also returns the preview prices based on its base-prices. If the event type doesn't exist, it returns `status 404` instead.
 
