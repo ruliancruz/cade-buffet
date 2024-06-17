@@ -408,7 +408,7 @@ Response Example:
 
 To run this application I suggest you to use an Unix-based system, my personal recommendation is the latest version of **[Ubuntu](https://ubuntu.com/)**. If you get errors while trying to set up the application to run, check if the dependencies are present and in the correct versions.
 
-First you need to install **Ruby** with at least **3.3.0** version, I recommend you to use a version manager, like [**RVM**](https://rvm.io/).
+First you need to install **Ruby** at **3.3.0** version. To do it, I recommend you to use a version manager, like [**RVM**](https://rvm.io/).
 
 Next you need to install **Rails**, to do it, open your terminal and type:
 
