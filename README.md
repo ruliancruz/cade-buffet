@@ -286,14 +286,14 @@ Response Example:
 {
   "available": true,
   "preview_prices": [
-  {
-    "description": "Meio de semana",
-    "value": 1000.0
-  },
-  {
-    "description": "Fim de semana",
-    "value": 1500.0
-  }
+    {
+      "description": "Meio de semana",
+      "value": 1000.0
+    },
+    {
+      "description": "Fim de semana",
+      "value": 1500.0
+    }
   ]
 }
 ```
