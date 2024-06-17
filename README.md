@@ -456,15 +456,15 @@ This is automatically installed when you run Bundler, so you don't need to worry
 
 :gem: [Devise](https://github.com/heartcombo/devise)
 
+:gem: [CPF/CNPJ](https://github.com/fnando/cpf_cnpj)
+
 :gem: [Rack CORS](https://github.com/cyu/rack-cors)
 
 :gem: [RSpec](https://github.com/rspec/rspec-rails)
 
-:gem: [SimpleCov](https://github.com/simplecov-ruby/simplecov)
-
 :gem: [Capybara](https://github.com/teamcapybara/capybara)
 
-:gem: [CPF/CNPJ](https://github.com/fnando/cpf_cnpj)
+:gem: [SimpleCov](https://github.com/simplecov-ruby/simplecov)
 
 ## Entity-Relationship Diagram
 
