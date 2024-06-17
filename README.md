@@ -5,10 +5,10 @@
     <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails&message=7.1.3.2&color=red&style=for-the-badge&logo=rubyonrails"/>
     <img src="https://img.shields.io/static/v1?label=SQLite3&message=1.4&color=blue&style=for-the-badge&logo=sqlite"/>
     <img src="http://img.shields.io/static/v1?label=Bootstrap&message=5.3&color=purple&style=for-the-badge&logo=bootstrap"/>
-    <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=99.23%&color=GREEN&style=for-the-badge"/>
-    <img src="http://img.shields.io/static/v1?label=Tests&message=269&color=GREEN&style=for-the-badge"/>
-    <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=3.6&color=GREEN&style=for-the-badge"/>
-    <img src="http://img.shields.io/static/v1?label=Status&message=Finished&color=green&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=99.23%&color=green&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Tests&message=269&color=green&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=3.6&color=green&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Status&message=Finished&color=GREEN&style=for-the-badge"/>
   </div><br>
 
   Buffet finder platform to intermediate orders between clients and buffets. It also has an API.
