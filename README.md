@@ -364,7 +364,7 @@ Request Example:
   provides_decoration: false,
   provides_parking_service: false,
   serves_external_address: false
-  }
+}
 ```
 
 Response Example:
