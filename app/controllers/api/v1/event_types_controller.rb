@@ -14,7 +14,8 @@ class Api::V1::EventTypesController < Api::V1::ApiController
         :provides_alcohol_drinks,
         :provides_decoration,
         :provides_parking_service,
-        :serves_external_address])
+        :serves_external_address
+    ])
   end
 
   def show
@@ -28,6 +29,61 @@ class Api::V1::EventTypesController < Api::V1::ApiController
         event_type,
         params[:date].to_date,
         params[:attendee_quantity].to_i)
+  end
+
+  def create
+    params[:provides_alcohol_drinks] =
+      params[:provides_alcohol_drinks] == "true" ||
+      params[:provides_alcohol_drinks] == true ? 1 : 0 if
+      params[:provides_alcohol_drinks].present?
+
+    params[:provides_decoration] =
+      params[:provides_decoration] == "true" ||
+      params[:provides_decoration] == true ? 1 : 0 if
+      params[:provides_decoration].present?
+
+    params[:provides_parking_service] =
+      params[:provides_parking_service] == "true" ||
+      params[:provides_decoration] == true ? 1 : 0 if
+      params[:provides_parking_service].present?
+
+    params[:serves_external_address] =
+      params[:serves_external_address] == "true" ||
+      params[:provides_decoration] == true ? 1 : 0 if
+      params[:serves_external_address].present?
+
+    event_type = EventType.new params.permit(
+      :name,
+      :description,
+      :minimum_attendees,
+      :maximum_attendees,
+      :duration,
+      :menu,
+      :provides_alcohol_drinks,
+      :provides_decoration,
+      :provides_parking_service,
+      :serves_external_address)
+        .merge(buffet_id: params.require(:buffet_id))
+
+    if event_type.save
+      return render status: 201, json: event_type.as_json(only: [
+        :id,
+        :name,
+        :description,
+        :minimum_attendees,
+        :maximum_attendees,
+        :duration,
+        :menu,
+        :provides_alcohol_drinks,
+        :provides_decoration,
+        :provides_parking_service,
+        :serves_external_address,
+        :status,
+        :created_at
+      ])
+    end
+
+    render status: 422, json: { errors: event_type.errors.full_messages }
   end
 
   private

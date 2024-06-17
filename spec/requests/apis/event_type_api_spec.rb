@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Buffet API' do
+describe 'Event Type API' do
   context 'GET /api/v1/buffets/1/event_types' do
     it 'success' do
       first_buffet_owner = BuffetOwner
@@ -471,6 +471,127 @@ describe 'Buffet API' do
       get '/api/v1/event_types/9999999?date=dd/mm/yyyy&attendee_quantity=40'
 
       expect(response.status).to eq 404
+    end
+  end
+
+  context 'POST /api/v1/buffets/1/event_types' do
+    it 'successfully' do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+          brand_name: 'Sabor & Arte Buffet',
+          cnpj: '34340299000145',
+          phone: '7531274464',
+          address: 'Rua dos Sabores, 123',
+          district: 'Centro',
+          city: 'Culinária City',
+          state: 'BA',
+          cep: '12345678',
+          buffet_owner: buffet_owner
+
+      post "/api/v1/buffets/#{buffet.id}/event_types", params: {
+          name: 'Coquetel de Networking Empresarial',
+          description: 'Um evento descontraído.',
+          minimum_attendees: 20,
+          maximum_attendees: 50,
+          duration: 120,
+          menu: 'Seleção de queijos, frutas e vinhos.',
+          provides_alcohol_drinks: true,
+          provides_decoration: false,
+          provides_parking_service: false,
+          serves_external_address: false
+      }
+
+      expect(response.status).to eq 201
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response['name']).to eq 'Coquetel de Networking Empresarial'
+      expect(json_response['description']).to eq 'Um evento descontraído.'
+      expect(json_response['minimum_attendees']).to eq 20
+      expect(json_response['maximum_attendees']).to eq 50
+      expect(json_response['duration']).to eq 120
+      expect(json_response['menu']).to eq 'Seleção de queijos, frutas e vinhos.'
+      expect(json_response['provides_alcohol_drinks']).to eq 1
+      expect(json_response['provides_decoration']).to eq 0
+      expect(json_response['provides_parking_service']).to eq 0
+      expect(json_response['serves_external_address']).to eq 0
+      expect(json_response['status']).to eq 'active'
+      expect(json_response['updated_at']).to be nil
+      expect(json_response).to include 'created_at'
+    end
+
+    it "fails if parameters aren't complete" do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+          brand_name: 'Sabor & Arte Buffet',
+          cnpj: '34340299000145',
+          phone: '7531274464',
+          address: 'Rua dos Sabores, 123',
+          district: 'Centro',
+          city: 'Culinária City',
+          state: 'BA',
+          cep: '12345678',
+          buffet_owner: buffet_owner
+
+      post "/api/v1/buffets/#{buffet.id}/event_types",
+        params: { event_type: { name: 'Coquetel de Networking Empresarial' } }
+
+      expect(response.status).to eq 422
+
+      expect(response.body).to include 'Descrição não pode ficar em branco'
+      expect(response.body).to include 'Mínimo de Pessoas não pode ficar em branco'
+      expect(response.body).to include 'Máximo de Pessoas não pode ficar em branco'
+      expect(response.body).to include 'Duração não pode ficar em branco'
+      expect(response.body).to include 'Cardápio não pode ficar em branco'
+      expect(response.body).to include 'Fornece Bebidas Alcoólicas não pode ficar em branco'
+      expect(response.body).to include 'Fornece Decoração não pode ficar em branco'
+      expect(response.body).to include 'Fornece Serviço de Estacionamento não pode ficar em branco'
+      expect(response.body).to include 'Atende a Endereço Indicado por Cliente não pode ficar em branco'
+      expect(response.body).to include 'Mínimo de Pessoas não é um número'
+      expect(response.body).to include 'Máximo de Pessoas não é um número'
+      expect(response.body).to include 'Duração não é um número'
+    end
+
+    it "fails if there's an internal error" do
+      buffet_owner = BuffetOwner
+        .create! email: 'buffet_owner@example.com', password: 'password'
+
+      buffet = Buffet
+        .create! corporate_name: 'Delícias Gastronômicas Ltda.',
+          brand_name: 'Sabor & Arte Buffet',
+          cnpj: '34340299000145',
+          phone: '7531274464',
+          address: 'Rua dos Sabores, 123',
+          district: 'Centro',
+          city: 'Culinária City',
+          state: 'BA',
+          cep: '12345678',
+          buffet_owner: buffet_owner
+
+      allow(EventType).to receive(:new).and_raise(ActiveRecord::ActiveRecordError)
+
+      post "/api/v1/buffets/#{buffet.id}/event_types", params: {
+        event_type: {
+          name: 'Coquetel de Networking Empresarial',
+          description: 'Um evento descontraído.',
+          minimum_attendees: 20,
+          maximum_attendees: 50,
+          duration: 120,
+          menu: 'Seleção de queijos, frutas e vinhos.',
+          provides_alcohol_drinks: true,
+          provides_decoration: false,
+          provides_parking_service: false,
+          serves_external_address: false }
+      }
+
+      expect(response.status).to eq 500
     end
   end
 end

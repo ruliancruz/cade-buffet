@@ -22,11 +22,14 @@ gem "image_processing", "~> 1.2"
 
 gem "cpf_cnpj"
 
+gem 'rack-cors'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
   gem "rspec-rails"
   gem "capybara"
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do

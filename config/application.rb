@@ -38,6 +38,7 @@ module CadeBuffet
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.active_storage.variant_processor = :mini_magick
 
     config.action_dispatch.default_headers =
       { 'Access-Control-Allow-Origin' => '*' }

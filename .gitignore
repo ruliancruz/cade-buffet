@@ -17,6 +17,7 @@ capybara-*.html
 *.orig
 rerun.txt
 pickle-email-*.html
+.tool-versions
 
 # Ignore all logfiles and tempfiles.
 /log/*

@@ -5,9 +5,10 @@
     <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails&message=7.1.3.2&color=red&style=for-the-badge&logo=rubyonrails"/>
     <img src="https://img.shields.io/static/v1?label=SQLite3&message=1.4&color=blue&style=for-the-badge&logo=sqlite"/>
     <img src="http://img.shields.io/static/v1?label=Bootstrap&message=5.3&color=purple&style=for-the-badge&logo=bootstrap"/>
-    <img src="http://img.shields.io/static/v1?label=Tests&message=266&color=GREEN&style=for-the-badge"/>
-    <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=3.7&color=GREEN&style=for-the-badge"/>
-    <img src="http://img.shields.io/static/v1?label=Status&message=Under%20Development&color=RED&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=99.23%&color=GREEN&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Tests&message=269&color=GREEN&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Code%20to%20Test%20Ratio&message=3.6&color=GREEN&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=Status&message=Finished&color=skyblue&style=for-the-badge"/>
   </div><br>
 
   Buffet finder platform to intermediate orders between clients and buffets. It also has an API.
@@ -327,6 +328,64 @@ Response example:
 }
 ```
 
+### Event Type Registration Endpoint
+
+`POST /api/v1/buffets/{id}/event_types`
+
+Register a new Event Type for the specified buffet id on url, with the informed data on json format in the request. Returns `201 status` with a json with the data of created object if the registration succeed, else, it returns `422 status`. 
+
+Data Required:
+```
+name: string
+description: string
+minimum_attendees: positive integer
+maximum_attendees: positive integer
+duration: positive integer
+menu: string
+provides_alcohol_drinks: boolean
+provides_decoration: boolean
+provides_parking_service: boolean
+serves_external_address: boolean
+```
+
+Request Example:
+
+`POST /api/v1/buffets/1/event_types`
+
+```
+{
+  name: 'Coquetel de Networking Empresarial',
+  description: 'Um evento descontraído.',
+  minimum_attendees: 20,
+  maximum_attendees: 50,
+  duration: 120,
+  menu: 'Seleção de queijos, frutas e vinhos.',
+  provides_alcohol_drinks: true,
+  provides_decoration: false,
+  provides_parking_service: false,
+  serves_external_address: false
+  }
+```
+
+Response Example:
+
+```
+{
+  name: 'Coquetel de Networking Empresarial',
+  description: 'Um evento descontraído.',
+  minimum_attendees: 20,
+  maximum_attendees: 50,
+  duration: 120,
+  menu: 'Seleção de queijos, frutas e vinhos.',
+  provides_alcohol_drinks: true,
+  provides_decoration: false,
+  provides_parking_service: false,
+  serves_external_address: false,
+  created_at: 2024-06-17T22:16:57.797Z,
+  status: active
+}
+```
+
 **Also check my Vue.js app ([cade-buffet-vue](https://github.com/ruliancruz/cade-buffet-vue)) that consumes this API!**
 
 ## Dependencies
@@ -389,11 +448,23 @@ rails s
 
 Now you can access the application through http://localhost:3000/ route.
 
+When running the application on production, doesn't forget to configure the **Rack CORS** with your desired settings.
+
 ## Extra Gems Used
 
 This is automatically installed when you run Bundler, so you don't need to worry,
 
-:gem: [cpf_cnpj](https://github.com/fnando/cpf_cnpj)
+:gem: [Devise](https://github.com/heartcombo/devise)
+
+:gem: [Rack CORS](https://github.com/cyu/rack-cors)
+
+:gem: [RSpec](https://github.com/rspec/rspec-rails)
+
+:gem: [SimpleCov](https://github.com/simplecov-ruby/simplecov)
+
+:gem: [Capybara](https://github.com/teamcapybara/capybara)
+
+:gem: [CPF/CNPJ](https://github.com/fnando/cpf_cnpj)
 
 ## Entity-Relationship Diagram
 
@@ -521,9 +592,9 @@ You can run all the tests running `rspec` in the project directory on terminal.
 
 ## Development Progress
 
-Main Application: `In progress`
+Main Application: `Finished`
 
-API: `In progress`
+API: `Finished`
 
 Swagger: `Coming soon`
 

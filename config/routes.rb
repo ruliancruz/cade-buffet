@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resources :event_types, only: [:show]
 
       resources :buffets, only: [:index, :show] do
-        resources :event_types, only: [:index]
+        resources :event_types, only: [:index, :create]
       end
     end
   end
